@@ -1,0 +1,10 @@
+#preview img {
+    max-height: 110px; 
+    margin: 5px;
+  }
+
+  .image_show{
+    object-fit: cover;
+    height:60px;
+    width: 50px;
+  }
