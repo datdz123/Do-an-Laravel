@@ -362,7 +362,7 @@
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-            <div style="height: 5px;"></div>
+            {{-- <div style="height: 5px;"></div> --}}
             {{-- thông báo --}}
             @php
                 if (session('error')) {
@@ -373,7 +373,7 @@
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             </div> ';
                 }
-                
+
                 if (session('success')) {
                     echo '
             <div style="margin: 0px 15px 0px 15px" class="alert alert-success alert-dismissible"><i class="icon fa fa-check"></i>' .
