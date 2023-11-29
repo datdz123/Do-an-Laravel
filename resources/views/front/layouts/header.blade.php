@@ -5,18 +5,9 @@
     <meta charset="utf-8">
     <title>@yield('title') | {{ $site->site_name }}</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta name="keywords" content="{{ $site->site_keywords }}">
-    <meta name="description" content="{{ $site->site_description }}">
-    @if (isset($product_detail))
-        <meta property="og:url" content="{{ route('detail', ['id' => $product_detail->id, 'slug' => $product_detail->slug]) }}">
-        <meta property="og:type" content="article">
-        <meta property="og:title" content="{{ $product_detail->title }}">
-        @php
-            $imagess = explode(',', $product_detail->images);
-        @endphp
-        <meta property="og:image" content="{{ $imagess[0] }}">
-        <meta property="og:description" content="{{ $product_detail->description }}">
-    @endif
+
+    @include('front.components.meta')
+
     <!-- Favicon -->
     <link href="{{ $site->site_icon }}" rel="icon">
 

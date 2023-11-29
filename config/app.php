@@ -201,6 +201,7 @@ return [
 
         Spatie\Permission\PermissionServiceProvider::class,
 
+        App\Providers\SiteSettingProvider::class,
     ],
 
     /*

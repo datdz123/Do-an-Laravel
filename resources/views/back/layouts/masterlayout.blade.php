@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Admin | @yield('title')</title>
+    <title>@yield('title') | Admin</title>
 
     <link href="{{ $site->site_icon }}" rel="icon">
     <!-- Tell the browser to be responsive to screen width -->
