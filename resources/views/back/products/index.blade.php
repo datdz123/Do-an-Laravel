@@ -10,8 +10,8 @@
             </h3>
         </div>
         <!-- /.box-header -->
-        <div class="box-body">
-            <table id="example1" class="table table-bordered table-striped">
+        <div class="box-body table-responsive">
+            <table id="dataTable" class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th>Ảnh </th>
@@ -43,7 +43,7 @@
                                 <div class="col-12">
                                     <b>Danh mục: {{ $item->productCategory->name }}</b>
                                 </div>
-                              
+
                             </td>
                             <td>
                                 <div class="col-12">
@@ -123,7 +123,9 @@
 
     <script>
         $(function() {
-            $('#example1').DataTable()
+            $('#dataTable').DataTable({
+                responsive: true
+            })
         })
     </script>
 

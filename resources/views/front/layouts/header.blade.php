@@ -9,7 +9,7 @@
     @include('front.components.meta')
 
     <!-- Favicon -->
-    <link href="{{ $site->site_icon }}" rel="icon">
+    <link href="{{ getImageUrl($siteSettings['site_icon']) ?? '' }}" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
