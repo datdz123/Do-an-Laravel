@@ -11,10 +11,10 @@ class VNPay
     {
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
         $vnp_Returnurl = "/checkout/vnPayCheck";
-        // $vnp_TmnCode = "FR2TCJ7U"; //Mã website tại VNPAY 
+        // $vnp_TmnCode = "FR2TCJ7U"; //Mã website tại VNPAY
         // $vnp_HashSecret = "JWDUEVASMLIDEOMSLZLNLQKPLJPDILNY"; //Chuỗi bí mật
-        $vnp_TmnCode = env('VNP_TMNCODE');
-        $vnp_HashSecret = env('VNP_HASHSECRET');
+        $vnp_TmnCode = env('VNP_TMNCODE','');
+        $vnp_HashSecret = env('VNP_HASHSECRET','');
 
         $vnp_TxnRef = $order_id; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
         $vnp_OrderInfo = 'Thanh toán đơn hàng';
@@ -62,7 +62,7 @@ class VNPay
 
         $vnp_Url = $vnp_Url . "?" . $query;
         if (isset($vnp_HashSecret)) {
-            $vnpSecureHash =   hash_hmac('sha512', $hashdata, $vnp_HashSecret); //  
+            $vnpSecureHash =   hash_hmac('sha512', $hashdata, $vnp_HashSecret); //
             $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
         }
         $returnData = array(

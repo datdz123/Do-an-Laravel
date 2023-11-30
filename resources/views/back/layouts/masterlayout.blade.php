@@ -77,9 +77,9 @@
             <!-- Logo -->
             <a href="{{ route('dashboard') }}" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini"><b>{{$siteSettings['site_name'] ?? config('app.name')}}/b></span>
+                <span class="logo-mini"><b>{{ $siteSettings['site_name'] ?? config('app.name') }}/b></span>
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>Admin</b> {{$siteSettings['site_name'] ?? config('app.name')}}/span>
+                <span class="logo-lg"><b>Admin</b> {{ $siteSettings['site_name'] ?? config('app.name') }}/span>
             </a>
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top">
@@ -305,17 +305,20 @@
                         <!-- User Account: style can be found in dropdown.less -->
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="{{ Auth::user()->avatar ? Auth::user()->avatar : asset('back/dist/img/adminDefault.jpg') }}" class="user-image" alt="User Image">
+                                <img src="{{ Auth::user()->avatar ? Auth::user()->avatar : asset('back/dist/img/adminDefault.jpg') }}"
+                                    class="user-image" alt="User Image">
                                 <span class="hidden-xs">{{ Auth::user()->name }}</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header">
-                                    <img src="{{ Auth::user()->avatar ? Auth::user()->avatar : asset('back/dist/img/adminDefault.jpg') }}" class="img-circle" alt="User Image">
+                                    <img src="{{ Auth::user()->avatar ? Auth::user()->avatar : asset('back/dist/img/adminDefault.jpg') }}"
+                                        class="img-circle" alt="User Image">
 
                                     <p>
                                         {{ Auth::user()->name }}
-                                        <small>Thành viên từ {{Auth::user()->created_at ? Auth::user()->created_at->format('d/m/Y') : ''}}</small>
+                                        <small>Thành viên từ
+                                            {{ Auth::user()->created_at ? Auth::user()->created_at->format('d/m/Y') : '' }}</small>
                                     </p>
                                 </li>
                                 <!-- Menu Body -->
@@ -362,45 +365,11 @@
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-            {{-- <div style="height: 5px;"></div> --}}
-            {{-- thông báo --}}
-            @php
-                if (session('error')) {
-                    echo '
-            <div style="margin: 0px 15px 0px 15px" class="alert alert-danger alert-dismissible"><i class="icon fa fa-ban"></i>' .
-                        session('error') .
-                        '
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            </div> ';
-                }
-
-                if (session('success')) {
-                    echo '
-            <div style="margin: 0px 15px 0px 15px" class="alert alert-success alert-dismissible"><i class="icon fa fa-check"></i>' .
-                        session('success') .
-                        '
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            </div> ';
-                }
-                if (session('info')) {
-                    echo '
-            <div style="margin: 0px 15px 0px 15px" class="alert alert-info alert-dismissible"><i class="icon fa fa-info"></i>' .
-                        session('info') .
-                        '
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <div>
+                {{-- thông báo --}}
+                @include('back.components.alert')
             </div>
-            ';
-                }
-                if (session('warning')) {
-                    echo '
-            <div style="margin: 0px 15px 0px 15px" class="alert alert-warning alert-dismissible"><i class="icon fa fa-warning"></i>' .
-                        session('warning') .
-                        '
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-        </div>
-            ';
-                }
-            @endphp
+
             {{-- thân trang --}}
             @yield('content')
         </div>
