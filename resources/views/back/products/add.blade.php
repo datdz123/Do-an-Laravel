@@ -26,30 +26,10 @@
                                 {{-- @foreach ($product_categories as $item)
                                     <option {{($item->parent_id == 0) ? 'disabled' : ""}} value="{{ $item->id }}">{{ $item->name }}</option>
                                 @endforeach --}}
-                                @php
-                                    showCategories($product_categories);
-                                @endphp
-                                @php
-                                    function showCategories($categories, $parent_id = 0, $char = '')
-                                    {
-                                        foreach ($categories as $key => $item) {
-                                            // Nếu là chuyên mục con thì hiển thị
-                                            if ($item['parent_id'] == $parent_id) {
-                                                // Xử lý hiển thị chuyên mục
-                                                if($item->parent_id == 0){
-                                                    echo ' <option disabled >' .$item->name . '</option>';
-                                                }else {
-                                                    # code...
-                                                    echo ' <option value=" ' . $item->id . '">' . $char . $item->name . '</option>';
-                                                }
-                                                // Xóa chuyên mục đã lặp
-                                                unset($categories[$key]);
-                                                // Tiếp tục đệ quy để tìm chuyên mục con của chuyên mục đang lặp
-                                                showCategories($categories, $item['id'], $char . '|--- ');
-                                            }
-                                        }
-                                    }
-                                @endphp
+
+                                    {{$showCategories::showCategoriesOptions($product_categories)}}
+
+
                             </select>
                         </div>
                         <div class="form-group @error('name') has-error @enderror">
@@ -340,7 +320,7 @@
                   <div class="col-md-5">
                       <input class="form-control" type="number" name="qty[]" value="" placeholder="Số lượng" />
                   </div>
-            <a href="javascript:void(0);" class="btn btn-danger remove_button">Xóa</a></div></div>`; //New input field html 
+            <a href="javascript:void(0);" class="btn btn-danger remove_button">Xóa</a></div></div>`; //New input field html
             var x = 1; //Initial field counter is 1
 
             //Once add button is clicked
@@ -366,7 +346,7 @@
         function ChangeToSlug() {
             var title, slug;
 
-            //Lấy text từ thẻ input title 
+            //Lấy text từ thẻ input title
             title = document.getElementById("name").value;
 
             //Đổi chữ hoa thành chữ thường
