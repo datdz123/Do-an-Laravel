@@ -26,7 +26,7 @@
         </form> --}}
         <!-- /.search form -->
         <!-- sidebar menu: : style can be found in sidebar.less -->
-        <ul class="sidebar-menu" data-widget="tree">
+        {{-- <ul class="sidebar-menu" data-widget="tree">
             <li class="header">MAIN NAVIGATION</li>
             <li class="">
                 <a class="{{ request()->is('admin') ? 'text-aqua' : '' }}" href="{{ route('dashboard') }}">
@@ -158,15 +158,37 @@
                     <li><a class="{{ request()->is('admin/site-setting') ? 'text-aqua' : '' }}"
                             href="{{ route('site-setting') }}"><i class="fa fa-info-circle"
                                 aria-hidden="true"></i>Thông tin trang web</a></li>
-                    {{-- <li><a class="{{ request()->is('admin/site-setting/email-config') ? 'text-aqua' : '' }}"
-                            href="{{ route('email-config') }}"><i class="fa fa-envelope-o" aria-hidden="true"></i>Cấu hình gửi
-                            email</a></li>
-                    <li><a class="{{ request()->is('admin/order') ? 'text-aqua' : '' }}"
-                            href="{{ route('order') }}"><i class="fa fa-credit-card-alt" aria-hidden="true"></i> Cấu hình
-                            VNP</a></li> --}}
                 </ul>
             </li>
 
+        </ul> --}}
+        <ul class="sidebar-menu" data-widget="tree">
+            <li class="header">MAIN NAVIGATION</li>
+
+            @foreach ($menuAdmin::menu() as $menuItem)
+                <li class="{{ $menuItem['subItems'] ? 'treeview' : ''}}  {{ $menuItem['isActive'] ? 'active menu-open' : '' }}">
+                    <a href="{{ $menuItem['link'] }}" class="{{ $menuItem['isActive'] ? 'text-aqua' : '' }}">
+                        <i class="{{ $menuItem['icon'] }}"></i> <span>{{ $menuItem['text'] }}</span>
+                        <span class="pull-right-container">
+                            @if (!empty($menuItem['subItems']))
+                                <i class="fa fa-angle-left pull-right"></i>
+                            @endif
+                        </span>
+                    </a>
+
+                    @if (!empty($menuItem['subItems']))
+                        <ul class="treeview-menu">
+                            @foreach ($menuItem['subItems'] as $subItem)
+                                <li>
+                                    <a class="{{ $subItem['isActive'] ? 'text-aqua' : '' }}" href="{{ $subItem['link'] }}">
+                                        <i class="{{ $subItem['icon'] }}"></i>{{ $subItem['text'] }}
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    @endif
+                </li>
+            @endforeach
         </ul>
     </section>
     <!-- /.sidebar -->

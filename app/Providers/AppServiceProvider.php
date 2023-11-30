@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Helpers\alertHelper;
 use App\Helpers\cartHelper;
+use App\Helpers\menuAdminHelper;
 use App\Helpers\websiteInformationHelper;
 use Illuminate\Support\ServiceProvider;
 
@@ -31,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
             $view->with([
                 'cart' => new cartHelper(),
                 'alert' => new alertHelper(),
+                'menuAdmin' => new menuAdminHelper(),
             ]);
         });
     }
