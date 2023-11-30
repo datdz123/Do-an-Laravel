@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>@yield('title') | {{ $site->site_name }}</title>
+    <title>@yield('title') | {{$siteSettings['site_name'] ?? config('app.name')}}</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     @include('front.components.meta')
@@ -43,13 +43,13 @@
             </div>
             <div class="col-lg-6 text-center text-lg-right">
                 <div class="d-inline-flex align-items-center">
-                    <a target="_blank" class="text-dark px-2" href="{{ $site->site_link_facebook }}">
+                    <a target="_blank" class="text-dark px-2" href="{{$siteSettings['site_link_facebook'] ?? '#'}}">
                         <i class="fab fa-facebook-f"></i>
                     </a>
-                    <a target="_blank" class="text-dark px-2" href="{{ $site->site_link_instagram }}">
+                    <a target="_blank" class="text-dark px-2" href="{{$siteSettings['site_link_instagram'] ?? '#'}}">
                         <i class="fab fa-instagram"></i>
                     </a>
-                    <a target="_blank" class="text-dark pl-2" href="{{ $site->site_link_youtube }}">
+                    <a target="_blank" class="text-dark pl-2" href="{{$siteSettings['site_link_youtube'] ?? '#'}}">
                         <i class="fab fa-youtube"></i>
                     </a>
                 </div>
@@ -59,7 +59,7 @@
             <div class="col-lg-3 d-none d-lg-block">
                 <a href="{{ route('home') }}" class="text-decoration-none">
                     <h1 class="m-0 display-5 font-weight-semi-bold">
-                        <span class="text-primary font-weight-bold border px-3 mr-1">{{ $site->site_name }}</span>
+                        <span class="text-primary font-weight-bold border px-3 mr-1">{{$siteSettings['site_name'] ?? config('app.name')}}</span>
                     </h1>
                 </a>
             </div>
@@ -128,7 +128,7 @@
                 <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
                     <a href="{{route('home')}}" class="text-decoration-none d-block d-lg-none">
                         <h1 class="m-0 display-5 font-weight-semi-bold"><span
-                                class="text-primary font-weight-bold border px-3 mr-1">{{ $site->site_name }}</span>
+                                class="text-primary font-weight-bold border px-3 mr-1">{{$siteSettings['site_name'] ?? config('app.name')}}</span>
                         </h1>
                     </a>
                     <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
@@ -137,7 +137,7 @@
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
                             <a href="{{ route('shop') }}"
-                                class="nav-item nav-link {{ request()->is('shop') ? 'active' : '' }}">Shop</a>
+                                class="nav-item nav-link {{ request()->is('shop') ? 'active' : '' }}">{{__('Shop')}}</a>
                             @php
                                 $categories = App\Models\ProductCategory::where('parent_id', 0)->get();
                             @endphp

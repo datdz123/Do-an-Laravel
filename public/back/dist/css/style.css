@@ -1,5 +1,5 @@
 #preview img {
-    max-height: 110px; 
+    max-height: 110px;
     margin: 5px;
   }
 
@@ -7,4 +7,12 @@
     object-fit: cover;
     height:60px;
     width: 50px;
+  }
+
+  .object-fit-cover {
+    object-fit: cover !important;
+  }
+
+  .aspect-ratio-16-9 {
+    aspect-ratio: 16/ 9;
   }

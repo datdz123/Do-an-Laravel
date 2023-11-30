@@ -16,7 +16,7 @@
             @csrf
             @method('PUT')
             <div class="box-body">
-                <div class="form-group @error('name') has-error @enderror">
+                {{-- <div class="form-group @error('name') has-error @enderror">
                     <label for="name">Tên (*)</label>
                     <input id="name" type="text" name="name" class="form-control" placeholder="Tên quyền ..."
                         value="{{ old('name') ? old('name') : $permission->name }}">
@@ -25,7 +25,7 @@
                             <p>{{ $message }}</p>
                         </div>
                     @enderror
-                </div>
+                </div> --}}
                 <div class="form-group">
                     @php
                         $arrRole = [];

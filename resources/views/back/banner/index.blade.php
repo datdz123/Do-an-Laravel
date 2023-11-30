@@ -28,7 +28,7 @@
                             $image = explode(',', $item->images);
                         @endphp
                         <tr>
-                            <td><img style=" width: 100%; height: 88px; object-fit: cover" src="{{ $image[0] }}">
+                            <td><img class="object-fit-cover aspect-ratio-16-9" width="200" src="{{ $image[0] }}">
                             </td>
                             <td>
                                 <div class="col-12">

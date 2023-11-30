@@ -5,9 +5,10 @@
     <div class="box box-primary">
         <div class="box-header">
             <h3 class="box-title">@yield('title')</h3>
-            <h3 class="box-title pull-right"> <a class="btn btn-primary" href="{{ route('member.permissions.create') }}">
+            {{-- <h3 class="box-title pull-right">
+                <a class="btn btn-primary" href="{{ route('member.permissions.create') }}">
                     <i class="fa fa-plus-square"></i> Thêm mới</a>
-            </h3>
+            </h3> --}}
         </div>
         <!-- /.box-header -->
         <div class="box-body">
@@ -39,14 +40,14 @@
                                     data-toggle="tooltip" data-placement="bottom"
                                     href="{{ route('member.permissions.edit', $item->id) }}"><i
                                         class="fa fa-pencil-square-o"></i></a>
-                                <form style="display: inline" method="POST"
+                                {{-- <form style="display: inline" method="POST"
                                     action=" {{ route('member.permissions.destroy', [$item->id]) }} ">
                                     @csrf
                                     @method('DELETE')
                                     <a class="btn btn-danger btnDelete" data-id={{ $item->id }} style="width:40px"
                                         data-toggle="tooltip" data-placement="bottom" title="Xóa">
                                         <i class="fa fa-trash-o"></i></a>
-                                </form>
+                                </form> --}}
                             </td>
                         </tr>
                     @endforeach

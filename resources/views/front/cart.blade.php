@@ -2,16 +2,7 @@
 @section('content')
 @section('title', 'Giỏ hàng')
 <!-- Page Header Start -->
-<div class="container-fluid bg-secondary mb-5">
-    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
-        <h1 class="font-weight-semi-bold text-uppercase mb-3">@yield('title')</h1>
-        <div class="d-inline-flex">
-            <p class="m-0"><a href="">Home</a></p>
-            <p class="m-0 px-2">-</p>
-            <p class="m-0">@yield('title')</p>
-        </div>
-    </div>
-</div>
+@include('front.components.top-bar')
 <!-- Page Header End -->
 
 
@@ -34,7 +25,7 @@
                         @foreach ($cart->items as $key => $item)
                             @php
                                 $product = \App\Models\Product::find($item['product_id']);
-                                
+
                                 $image = explode(',', $product->images);
                             @endphp
                             <tr>
@@ -93,7 +84,7 @@
         </div>
         <div class="col-lg-4">
 
-            <a href="{{ route('cart.clear') }}" 
+            <a href="{{ route('cart.clear') }}"
             class="btn btn-block btn-primary py-3 mb-3 clear {{ $cart->items == [] ? 'disabled' : '' }} ">Xóa hết giỏ hàng
             </a>
 
@@ -118,7 +109,7 @@
                         <h5 class="font-weight-bold">Tổng cộng</h5>
                         <h5 class="font-weight-bold">{{ number_format($cart->total_price, 0, '.', '.') }} VND</h5>
                     </div>
-                    <a href="{{ route('checkout') }}" 
+                    <a href="{{ route('checkout') }}"
                     class="btn btn-block btn-primary my-3 py-3 {{ $cart->items == [] ? 'disabled' : '' }} ">Thanh toán</a>
                 </div>
             </div>

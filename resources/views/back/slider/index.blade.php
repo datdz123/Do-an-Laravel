@@ -25,7 +25,7 @@
                             $image = explode(',', $item->images);
                         @endphp
                         <tr>
-                            <td><img style=" width: 234px; height: 123px;" src="{{ $image[0] }}"></td>
+                            <td><img class="object-fit-cover aspect-ratio-16-9" width="200" src="{{ $image[0] }}"></td>
                             <td>  <div class="col-12">
                                  <b>- Tiêu đề: {{ $item->title }}</b>
                                  </div>

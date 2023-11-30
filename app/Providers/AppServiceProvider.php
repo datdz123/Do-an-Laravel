@@ -30,7 +30,6 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('*', function($view){
             $view->with([
                 'cart' => new cartHelper(),
-                'site' => new websiteInformationHelper(),
                 'alert' => new alertHelper(),
             ]);
         });

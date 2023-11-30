@@ -31,16 +31,7 @@ class cartHelper
         ];
 
         $proQty = $product->qty;
-        // if($qty > $inventory){
-        //     alert('Thất bại', 'Số lượng trong giỏ hàng không thể lớn hơn số lượng trong kho!', 'warning');
-        //     return;
-        // }
-        //     $s = '';
-        // foreach (session('cart') as $i => $value) {
-        //     $s += ' '. $value;
-        // }
-        // $valueSize = explode(' ', $s);
-        // dd($valueSize);
+
 
         if ($this->items != []) {
             $i = count($this->items) - 1;
@@ -68,29 +59,9 @@ class cartHelper
         } else {
             $this->items[] = $items;
         }
-        // if (
-        //     isset($this->items[$product_id])
-        // ) {
-        // if ($this->items[$product_id]['size'] ==  $size_comparison) {
-        // $this->items[$product_id]['size'] = $items['size'];
-        // $this->items[$product_id]['qty'] += $qty;
-        // if ($this->items[$product_id]['qty'] > $inventory) {
-        //     alert('Thất bại', 'Số lượng trong giỏ hàng không thể lớn hơn số lượng trong kho!', 'warning');
-        //     return;
-        // }
-        // alert('Thành công', 'Sản phẩm đã được cập nhật!', 'success');
-        // } else {
-        //     alert('Thành công', 'Đã thêm vào giỏ!', 'success');
-        // $this->items[$product_id] = $items;
-        // }
-        // } else {
-        // $this->items[$product_id] = $items;
-        // alert('Thành công', 'Đã thêm vào giỏ!', 'success');
-        // }
 
 
         session(['cart' => $this->items]);
-        // dd(session('cart'));
     }
     public function remove($id)
     {
@@ -101,16 +72,11 @@ class cartHelper
     }
     public function update($id, $qty = 1)
     {
-        // $product = Product::findOrFail($id);
-        // $inventory = $product->qty;
+
         if (isset($this->items[$id])) {
 
             $this->items[$id]['qty'] = $qty;
 
-            // if ($this->items[$id]['qty'] > $inventory) {
-            //     alert('Thất bại', 'Số lượng trong giỏ hàng không thể lớn hơn số lượng trong kho!', 'warning');
-            //     return;
-            // }
             toast('Giỏ hàng đã được cập nhật!', 'success');
         }
         session(['cart' => $this->items]);

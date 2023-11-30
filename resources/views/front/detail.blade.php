@@ -1,18 +1,7 @@
 @extends('front/layouts/masterlayout')
 @section('content')
 @section('title', 'Chi tiết sản phẩm')
-<!-- Page Header Start -->
-<div class="container-fluid bg-secondary">
-    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
-        <h1 class="font-weight-semi-bold text-uppercase mb-3">@yield('title')</h1>
-        <div class="d-inline-flex">
-            <p class="m-0"><a href="">Home</a></p>
-            <p class="m-0 px-2">-</p>
-            <p class="m-0">@yield('title')</p>
-        </div>
-    </div>
-</div>
-<!-- Page Header End -->
+@include('front.components.top-bar')
 
 
 <!-- Shop Detail Start -->
@@ -21,10 +10,8 @@
         <div class="col-lg-5 pb-5">
             <div id="product-carousel" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner border">
-                    @php
-                        $images = explode(',', $product_detail->images);
-                    @endphp
-                    @foreach ($images as $key => $item)
+
+                    @foreach (getMultipleImages($product_detail->images) as $key => $item)
                         <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
                             <img class="w-100 h-100" src="{{ $item }}" alt="Image">
                         </div>
@@ -114,7 +101,7 @@
                     <input id="pay_now" type="hidden" name="pay_now" value="false">
                     <button onclick="payNow()" type="submit" class="btn btn-outline-primary px-3 ml-3">Mua
                         ngay</button>
-                    {{-- </div> --}}                    
+                    {{-- </div> --}}
                     @endif
                 </div>
 
@@ -244,13 +231,10 @@
     dd($relatedProducts->count());
 @endphp --}}
                 @foreach ($relatedProducts as $item)
-                    @php
-                        $image = explode(',', $item->images);
-                    @endphp
                     <div class="card product-item border-0">
                         <div
                             class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                            <img class="img-fluid w-100" src="{{ $image[0] }}" alt="">
+                            <img class="img-fluid w-100" src="{{getImageUrl($item->images) }}" alt="">
                         </div>
                         <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                             <h6 class="text-truncate mb-3">{{ $item->name }}</h6>
@@ -290,7 +274,7 @@
         }
     </script>
 
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {{-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
     <script>
         $('#send').click(function(e) {
             e.preventDefault()
