@@ -127,8 +127,8 @@ class CheckoutController extends Controller
     }
 
     public function sendEmail($order)
-    {
-        $name_shop = websiteInformationHelper::websiteInformation()['site_name'];
+    {   $siteSettings = app('view')->getShared()['siteSettings'];
+        $name_shop = $siteSettings['site_name'];
         $email_from = config('mail')['mailers']['smtp']['username'];
         $email_to   = $order->email;
         $email_name = $order->name;

@@ -113,7 +113,8 @@ class AuthController extends Controller
 
     public function sendEmail($user, $redirect_uri)
     {
-        $name_shop = websiteInformationHelper::websiteInformation()['site_name'];
+        $siteSettings = app('view')->getShared()['siteSettings'];
+        $name_shop = $siteSettings['site_name'];
         $email_from = config('mail')['mailers']['smtp']['username'];
         $email_to   = $user->email;
         $email_name = $user->name;

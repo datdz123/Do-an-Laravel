@@ -14,6 +14,7 @@ class SiteSettingController extends Controller
     public function index()
     {
         // $siteSettings = app('view')->getShared()['siteSettings'];
+        // dd($siteSettings['site_name']);
 
         return view('back.site_setting.index');
     }
