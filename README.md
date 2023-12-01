@@ -34,3 +34,16 @@
 - Đảm bảo rằng bạn đã cài đặt XAMPP hoặc một máy chủ web tương tự để chạy dự án.
 - Luôn kiểm tra và cập nhật các thông số cấu hình như tên database, người dùng và mật khẩu trong file `.env`.
 - Nếu gặp bất kỳ vấn đề gì trong quá trình cài đặt, hãy kiểm tra lại các bước và đảm bảo rằng môi trường đáp ứng yêu cầu cài đặt của dự án.
+
+
+fix lỗi không di chuyển được ảnh trong file manager
+
+cho đoạn code này vào hàm translateFromUtf8($input) 
+
+mb_detect_encoding($input)
+
+        if ($this->isRunningOnWindows() && is_string($input)) {
+            $input = iconv('UTF-8', 'UTF-8', $input);
+        }
+
+        return $input;
