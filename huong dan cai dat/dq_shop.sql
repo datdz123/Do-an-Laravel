@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 12, 2023 at 12:01 PM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 8.1.2
+-- Generation Time: Feb 20, 2024 at 02:30 AM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,17 +29,17 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `admin` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `phone` varchar(255) DEFAULT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `avatar` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `role` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `avatar` varchar(255) DEFAULT NULL,
+  `role` varchar(255) DEFAULT NULL,
+  `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `code` varchar(255) DEFAULT NULL,
   `time_code` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -48,7 +48,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id`, `name`, `email`, `phone`, `email_verified_at`, `password`, `avatar`, `role`, `remember_token`, `created_at`, `updated_at`, `code`, `time_code`) VALUES
-(1, 'Admin', 'admin@gmail.com', '0123456789', NULL, '$2y$10$OikT4U5V0K0uVqH83SkQdeSBU0rC3tVoySGHxrtQoIS6tzBcc9xAe', 'http://127.0.0.1:8000/storage/photos/avatar/user8-128x128.jpg', NULL, 'WdoVEErikOY2CNXm1KvO3YDEnUcBhxezLl6HqDU1PtLKNRTfu2wGc9z0wOAu', '2023-04-19 12:22:12', '2023-06-12 10:00:55', 'c91d0e5a93a4e162fa2da6207a4ba0ab', '2023-04-04 11:52:20'),
+(1, 'Admin', 'admin@gmail.com', '0123456789', NULL, '$2y$10$OikT4U5V0K0uVqH83SkQdeSBU0rC3tVoySGHxrtQoIS6tzBcc9xAe', 'http://127.0.0.1:8000/storage/photos/products_image/profile.jpeg', NULL, 'WdoVEErikOY2CNXm1KvO3YDEnUcBhxezLl6HqDU1PtLKNRTfu2wGc9z0wOAu', '2023-04-19 12:22:12', '2023-11-29 04:38:35', 'c91d0e5a93a4e162fa2da6207a4ba0ab', '2023-04-04 11:52:20'),
 (2, 'Đăng Quang', 'quanggaren11111@gmail.com', '0981607062', NULL, '$2y$10$Su6i9kOTzHuX3nDoxVE4We9N10aVPHzIptBvq9r4djvm7c0o/xUZG', 'http://127.0.0.1:8000/storage/photos/avatar/user2-160x160.jpg', NULL, 'z3oKPrRDYmoq0XXNKil0Hrgu461PzBy34eCLIz8129p2RVjwLt6UcyJSLgV6', NULL, '2023-04-14 10:02:53', 'c91d0e5a93a4e162fa2da6207a4ba0ab', '2023-04-04 11:52:20'),
 (3, 'Hell', 'hellquay@gmail.com', '0987654321', NULL, '$2y$10$Su6i9kOTzHuX3nDoxVE4We9N10aVPHzIptBvq9r4djvm7c0o/xUZG', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (5, 'Lê Đăng Quang', 'admin@botble.com', '0981607062', NULL, '$2y$10$2XWE/DNCptwhyBraQ91SLu2bywa2a3QDv3JtFiR0kWCOAR.r6gmta', 'http://127.0.0.1:8000/storage/photos/avatar/avatar3.png', NULL, 'G9w8XzRh99Fi6Zq3f7NY6u8z9SWsFu9kuOE4rfLsK5oFJInjOlkBl5o1DKo3', '2023-04-14 08:16:07', '2023-04-15 11:32:26', NULL, NULL),
@@ -62,12 +62,12 @@ INSERT INTO `admin` (`id`, `name`, `email`, `phone`, `email_verified_at`, `passw
 
 CREATE TABLE `banner` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `title` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `content` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `link` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `images` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `title` text NOT NULL,
+  `content` varchar(255) NOT NULL,
+  `link` varchar(255) DEFAULT NULL,
+  `images` text DEFAULT NULL,
   `size` int(11) NOT NULL,
-  `status` enum('active','inactive') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'inactive',
+  `status` enum('active','inactive') NOT NULL DEFAULT 'inactive',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -78,7 +78,7 @@ CREATE TABLE `banner` (
 
 INSERT INTO `banner` (`id`, `title`, `content`, `link`, `images`, `size`, `status`, `created_at`, `updated_at`) VALUES
 (4, 'Hello World', 'Spring Collection', 'https://translate.google.com/?sl=en&tl=vi&text=edit&op=translate', 'http://127.0.0.1:8000/storage/photos/Banner/offer-1.png', 12, 'inactive', '2023-04-17 07:54:10', '2023-04-20 02:15:56'),
-(5, 'Cristiano Ronaldo TOTY FIFA 21', 'Cristiano Ronaldo TOTY FIFA 21', 'https://www.pinterest.com/pin/868772584342173531/', 'http://127.0.0.1:8000/storage/photos/Banner/Cristiano Ronaldo TOTY FIFA 21 - 98  - Rating and Price.png', 6, 'active', '2023-04-17 09:02:07', '2023-04-20 02:10:13'),
+(5, 'Cristiano Ronaldo TOTY FIFA 21', 'Cristiano Ronaldo TOTY FIFA 21', 'https://www.pinterest.com/pin/868772584342173531/', 'http://127.0.0.1:8000/storage/photos/Slider_images/c04e9fd4-49d1-43e8-bf23-f01e121b37d2.jpeg', 6, 'active', '2023-04-17 09:02:07', '2023-11-30 02:14:11'),
 (6, 'FIFA 23 FUT Card Creator', 'Lorem Ipsum is simply', 'https://www.pinterest.com/pin/858498747732721600/', 'http://127.0.0.1:8000/storage/photos/Banner/FIFA 23 FUT Card Creator.png', 6, 'active', '2023-04-17 09:55:08', '2023-04-20 02:09:58');
 
 -- --------------------------------------------------------
@@ -89,11 +89,11 @@ INSERT INTO `banner` (`id`, `title`, `content`, `link`, `images`, `size`, `statu
 
 CREATE TABLE `failed_jobs` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `uuid` varchar(255) NOT NULL,
+  `connection` text NOT NULL,
+  `queue` text NOT NULL,
+  `payload` longtext NOT NULL,
+  `exception` longtext NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -105,7 +105,7 @@ CREATE TABLE `failed_jobs` (
 
 CREATE TABLE `migrations` (
   `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `migration` varchar(255) NOT NULL,
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -127,11 +127,11 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (11, '2022_11_19_091144_create_blogs_comments_table', 1),
 (12, '2022_11_19_092257_create_admin_table', 1),
 (13, '2023_02_05_193249_create_slider_table', 1),
-(15, '2023_03_25_151523_create_site_setting_table', 1),
 (16, '2023_04_04_163925_alter_column_code_and_time_code_in_table_users', 2),
 (17, '2023_04_04_163925_alter_column_code_and_time_code_in_table_admin', 3),
 (18, '2023_04_14_122715_create_permission_tables', 4),
-(20, '2023_02_05_204455_create_banner_table', 5);
+(20, '2023_02_05_204455_create_banner_table', 5),
+(21, '2023_03_25_151523_create_site_setting_table', 6);
 
 -- --------------------------------------------------------
 
@@ -141,7 +141,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 
 CREATE TABLE `model_has_permissions` (
   `permission_id` bigint(20) UNSIGNED NOT NULL,
-  `model_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `model_type` varchar(255) NOT NULL,
   `model_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -153,7 +153,7 @@ CREATE TABLE `model_has_permissions` (
 
 CREATE TABLE `model_has_roles` (
   `role_id` bigint(20) UNSIGNED NOT NULL,
-  `model_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `model_type` varchar(255) NOT NULL,
   `model_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -176,17 +176,17 @@ INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 CREATE TABLE `orders` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` int(11) DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `phone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `street_address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `note` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `provincial` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `district` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `ward` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `payment_method` enum('payment on delivery','online payment') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'online payment',
-  `payment_status` enum('paid','unpaid') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'unpaid',
-  `status` enum('new','preparing goods','delivering','delivered','order has been cancelled') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'new',
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `phone` varchar(255) NOT NULL,
+  `street_address` varchar(255) NOT NULL,
+  `note` text DEFAULT NULL,
+  `provincial` varchar(255) DEFAULT NULL,
+  `district` varchar(255) DEFAULT NULL,
+  `ward` varchar(255) DEFAULT NULL,
+  `payment_method` enum('payment on delivery','online payment') NOT NULL DEFAULT 'online payment',
+  `payment_status` enum('paid','unpaid') NOT NULL DEFAULT 'unpaid',
+  `status` enum('new','preparing goods','delivering','delivered','order has been cancelled') NOT NULL DEFAULT 'new',
   `total` double DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -229,7 +229,7 @@ CREATE TABLE `order_details` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `order_id` int(10) UNSIGNED NOT NULL,
   `product_id` int(10) UNSIGNED NOT NULL,
-  `size` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `size` varchar(255) NOT NULL,
   `qty` int(11) NOT NULL,
   `amount` double DEFAULT NULL,
   `total` double DEFAULT NULL,
@@ -281,8 +281,8 @@ INSERT INTO `order_details` (`id`, `order_id`, `product_id`, `size`, `qty`, `amo
 --
 
 CREATE TABLE `password_resets` (
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -294,8 +294,8 @@ CREATE TABLE `password_resets` (
 
 CREATE TABLE `permissions` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `guard_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `guard_name` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -340,11 +340,11 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at
 
 CREATE TABLE `personal_access_tokens` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tokenable_type` varchar(255) NOT NULL,
   `tokenable_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `token` varchar(64) NOT NULL,
+  `abilities` text DEFAULT NULL,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `expires_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -359,17 +359,17 @@ CREATE TABLE `personal_access_tokens` (
 
 CREATE TABLE `products` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `slug` varchar(255) DEFAULT NULL,
   `product_category_id` int(10) UNSIGNED NOT NULL,
-  `images` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `content` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `images` text NOT NULL,
+  `description` text DEFAULT NULL,
+  `content` text DEFAULT NULL,
   `price` double NOT NULL,
-  `size` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `size` varchar(255) NOT NULL,
   `qty` int(11) NOT NULL,
   `discount` double DEFAULT NULL,
-  `status` enum('active','inactive') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'inactive',
+  `status` enum('active','inactive') NOT NULL DEFAULT 'inactive',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -395,12 +395,12 @@ INSERT INTO `products` (`id`, `name`, `slug`, `product_category_id`, `images`, `
 (22, 'Váy', 'vay', 4, 'http://127.0.0.1:8000/storage/photos/Ảnh sản phẩm/ccvxcv.jpg', 'Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn.', '<p>NULL!!!</p>', 500000, '37,38,39,40', 18, NULL, 'active', '2023-04-06 10:30:22', '2023-04-22 01:23:15'),
 (23, 'Quần đen ninja', 'quan-den-ninja', 3, 'http://127.0.0.1:8000/storage/photos/Ảnh sản phẩm/quan_joker3.jpg', 'Laravel 5.3 Filter search results based on most matches', '<h3>The results of Eloquent queries are always returned as&nbsp;<em>Collection instances</em>. Extending Collections. Collections are &quot;macroable&quot;, which allows you to add&nbsp;...</h3>\r\n\r\n<ul>\r\n	<li>&nbsp;\r\n	<h3><a href=\"https://laravel.com/docs/5.0/queries\">Query Builder - Laravel - The PHP Framework For Web Artisans</a></h3>\r\n\r\n	<p><a href=\"https://laravel.com/docs/5.0/queries\"><cite>https://laravel.com&nbsp;&rsaquo; docs &rsaquo; queries</cite></a></p>\r\n\r\n	<p>&middot;<a href=\"https://translate.google.com/translate?hl=vi&amp;sl=en&amp;u=https://laravel.com/docs/5.0/queries&amp;prev=search&amp;pto=aue\">Dịch trang n&agrave;y</a></p>\r\n\r\n	<p>The database&nbsp;<em>query builder</em>&nbsp;provides a convenient, fluent interface to creating and running database queries. It can be used to perform most database operations&nbsp;...</p>\r\n	</li>\r\n	<li>&nbsp;\r\n	<h3><a href=\"https://laravel.com/docs/5.2/queries\">Query Builder - Laravel - The PHP Framework For Web Artisans</a></h3>\r\n\r\n	<p><a href=\"https://laravel.com/docs/5.2/queries\"><cite>https://laravel.com&nbsp;&rsaquo; docs &rsaquo; queries</cite></a></p>\r\n\r\n	<p>&middot;<a href=\"https://translate.google.com/translate?hl=vi&amp;sl=en&amp;u=https://laravel.com/docs/5.2/queries&amp;prev=search&amp;pto=aue\">Dịch trang n&agrave;y</a></p>\r\n\r\n	<p><em>orderBy</em>. The orderBy method allows you to sort the result of the query by a given column. The first argument to the orderBy method&nbsp;...</p>\r\n	</li>\r\n	<li>&nbsp;\r\n	<h3><a href=\"https://laravel.com/docs/10.x/scout\">Laravel Scout - Laravel - The PHP Framework For Web Artisans</a></h3>\r\n\r\n	<p><a href=\"https://laravel.com/docs/10.x/scout\"><cite>https://laravel.com&nbsp;&rsaquo; docs &rsaquo; scout</cite></a></p>\r\n\r\n	<p>&middot;<a href=\"https://translate.google.com/translate?hl=vi&amp;sl=en&amp;u=https://laravel.com/docs/10.x/scout&amp;prev=search&amp;pto=aue\">Dịch trang n&agrave;y</a></p>\r\n\r\n	<p>Typically, this is the plural&nbsp;<em>form</em>&nbsp;of the model name; however, ... from your existing database to determine the applicable search&nbsp;<em>results</em>&nbsp;for your query.</p>\r\n	</li>\r\n</ul>', 1000000, '39,40,41,42', 1, NULL, 'active', '2023-04-06 10:46:27', '2023-04-21 08:28:41'),
 (25, 'Quần jean', 'quan-jean', 3, 'http://127.0.0.1:8000/storage/photos/Ảnh sản phẩm/quan-ripjeans-den2.jpg,http://127.0.0.1:8000/storage/photos/Ảnh sản phẩm/quan-ripjeans-den1.jpg', 'Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn.', '<p><strong>Lorem Ipsum</strong>&nbsp;chỉ đơn giản l&agrave; một đoạn văn bản giả, được d&ugrave;ng v&agrave;o việc tr&igrave;nh b&agrave;y v&agrave; d&agrave;n trang phục vụ cho in ấn. Lorem Ipsum đ&atilde; được sử dụng như một văn bản chuẩn cho ng&agrave;nh c&ocirc;ng nghiệp in ấn từ những năm 1500, khi một họa sĩ v&ocirc; danh gh&eacute;p nhiều đoạn văn bản với nhau để tạo th&agrave;nh một bản mẫu văn bản. Đoạn văn bản n&agrave;y kh&ocirc;ng những đ&atilde; tồn tại năm thế kỉ, m&agrave; khi được &aacute;p dụng v&agrave;o tin học văn ph&ograve;ng, nội dung của n&oacute; vẫn kh&ocirc;ng hề bị thay đổi. N&oacute; đ&atilde; được phổ biến trong những năm 1960 nhờ việc b&aacute;n những bản giấy Letraset in những đoạn Lorem Ipsum, v&agrave; gần đ&acirc;y hơn, được sử dụng trong c&aacute;c ứng dụng d&agrave;n trang, như Aldus PageMaker.</p>', 500000, '37,38,39', 70, 300000, 'active', '2023-04-01 10:20:14', '2023-04-27 03:00:29'),
-(26, 'Chân váy xám', 'chan-vay-xam', 4, 'http://127.0.0.1:8000/storage/photos/Ảnh sản phẩm/ao-thun-unisex2.jpg,http://127.0.0.1:8000/storage/photos/Ảnh sản phẩm/ao-thun-unisex4.jpg,http://127.0.0.1:8000/storage/photos/Ảnh sản phẩm/ao-thun-unisex3.jpg', 'Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn.', '<p><strong>Lorem Ipsum</strong>&nbsp;chỉ đơn giản l&agrave; một đoạn văn bản giả, được d&ugrave;ng v&agrave;o việc tr&igrave;nh b&agrave;y v&agrave; d&agrave;n trang phục vụ cho in ấn. Lorem Ipsum đ&atilde; được sử dụng như một văn bản chuẩn cho ng&agrave;nh c&ocirc;ng nghiệp in ấn từ những năm 1500, khi một họa sĩ v&ocirc; danh gh&eacute;p nhiều đoạn văn bản với nhau để tạo th&agrave;nh một bản mẫu văn bản. Đoạn văn bản n&agrave;y kh&ocirc;ng những đ&atilde; tồn tại năm thế kỉ, m&agrave; khi được &aacute;p dụng v&agrave;o tin học văn ph&ograve;ng, nội dung của n&oacute; vẫn kh&ocirc;ng hề bị thay đổi. N&oacute; đ&atilde; được phổ biến trong những năm 1960 nhờ việc b&aacute;n những bản giấy Letraset in những đoạn Lorem Ipsum, v&agrave; gần đ&acirc;y hơn, được sử dụng trong c&aacute;c ứng dụng d&agrave;n trang, như Aldus PageMaker.</p>', 700000, 'S,M,L', 87, NULL, 'active', '2023-04-01 10:21:06', '2023-04-21 06:38:45'),
+(26, 'Chân váy xám', 'chan-vay-xam', 4, 'http://127.0.0.1:8000/storage/photos/products_image/c04e9fd4-49d1-43e8-bf23-f01e121b37d2.jpeg', 'Lorem Ipsum chỉ đơn giản là một đoạn văn bản giả, được dùng vào việc trình bày và dàn trang phục vụ cho in ấn.', '<p><strong>Lorem Ipsum</strong>&nbsp;chỉ đơn giản l&agrave; một đoạn văn bản giả, được d&ugrave;ng v&agrave;o việc tr&igrave;nh b&agrave;y v&agrave; d&agrave;n trang phục vụ cho in ấn. Lorem Ipsum đ&atilde; được sử dụng như một văn bản chuẩn cho ng&agrave;nh c&ocirc;ng nghiệp in ấn từ những năm 1500, khi một họa sĩ v&ocirc; danh gh&eacute;p nhiều đoạn văn bản với nhau để tạo th&agrave;nh một bản mẫu văn bản. Đoạn văn bản n&agrave;y kh&ocirc;ng những đ&atilde; tồn tại năm thế kỉ, m&agrave; khi được &aacute;p dụng v&agrave;o tin học văn ph&ograve;ng, nội dung của n&oacute; vẫn kh&ocirc;ng hề bị thay đổi. N&oacute; đ&atilde; được phổ biến trong những năm 1960 nhờ việc b&aacute;n những bản giấy Letraset in những đoạn Lorem Ipsum, v&agrave; gần đ&acirc;y hơn, được sử dụng trong c&aacute;c ứng dụng d&agrave;n trang, như Aldus PageMaker.</p>', 700000, 'S,M,L', 87, NULL, 'active', '2023-04-01 10:21:06', '2023-11-30 03:31:04'),
 (27, 'Áo phông cutee', 'ao-phong-cutee', 5, 'http://127.0.0.1:8000/storage/photos/Ảnh sản phẩm/ao-thun-unisex1.jpg', 'Order by best match in eloquent - mysql - Stack OverflowOrder by best match in eloquent - mysql - Stack OverflowOrder by best match in eloquent - mysql - Stack OverflowOrder by best match in eloquent - mysql - Stack Overflow', '<p>one two three</p>', 500000000, '44', 0, 100000, 'active', '2023-04-06 10:48:03', '2023-04-27 03:01:13'),
 (29, 'Áo phông baby', 'ao-phong-baby', 16, 'http://127.0.0.1:8000/storage/photos/Ảnh sản phẩm/jjhghj.jpg', 'good!', '<p>&Aacute;o polo trẻ em phối tay năng động, th&agrave;nh phần:<strong>&nbsp;</strong>50% Cafe + 50% Recycle PET</p>\r\n\r\n<p>Chất liệu cafe th&acirc;n thiện m&ocirc;i trường l&agrave;m từ b&atilde; cafe v&agrave; chai nhựa t&aacute;i chế</p>\r\n\r\n<p>C&oacute; khả năng thấm h&uacute;t nhanh v&agrave; kh&ocirc; nhanh, kh&ocirc;ng b&aacute;m m&ugrave;i</p>\r\n\r\n<p>Chống tia UV l&ecirc;n đến 98%</p>\r\n\r\n<p>&Aacute;o rất th&iacute;ch hợp để b&eacute; mặc đi chơi, đi học đặc biệt v&agrave;o m&ugrave;a h&egrave; hoạt động nhiều</p>\r\n\r\n<p>C&oacute; thể phối đa dạng với quần short, jeans, ch&acirc;n v&aacute;y...</p>\r\n\r\n<p>YODY - Look good. Feel good.</p>', 500000, 'S,M', 7, NULL, 'active', '2023-04-22 03:05:10', '2023-04-27 08:04:40'),
 (30, 'Áo phông cute', 'ao-phong-cute', 14, 'http://127.0.0.1:8000/storage/photos/Ảnh sản phẩm/337286773_1196258634387034_6386537082066342348_n.jpg', 'Lần đầu tiên vũ trụ áo Marvel , xuất hiện tại website Coolmate. Hơn cả một chiếc áo thun, đằng sau đó là một câu chuyện thời trang \"Proundly Made in VietNam\" theo hướng bền vững. Chính vì điều đó mà chiếc áo nam này có vài đặc điểm nổi bật:', '<ul>\r\n	<li>\r\n	<p>L&agrave; sản phẩm của sự hợp t&aacute;c giữa&nbsp;<a href=\"https://www.coolmate.me/product/marvel-i-ao-thun-marvel-hulk-i-choose-strength\" target=\"_blank\">Coolmate</a>&nbsp;v&agrave; Disney - đơn vị sở hữu bản quyền Marvel. Chiếc&nbsp;&aacute;o thun&nbsp;c&oacute; th&agrave;nh phần l&agrave; sợi t&aacute;i chế tại Việt Nam, hướng tới sự bền vững trong ng&agrave;nh may mặc.</p>\r\n	</li>\r\n	<li>Mềm mại, bền dai, kh&ocirc;ng bai, nh&atilde;o, x&ugrave; l&ocirc;ng v&agrave; kh&ocirc;ng g&acirc;y kh&oacute; chịu khi mặc</li>\r\n	<li>\r\n	<p>Chất liệu cotton co gi&atilde;n 4 chiều đem lại sự thoải m&aacute;i suốt ng&agrave;y d&agrave;i</p>\r\n	</li>\r\n	<li>Đ&acirc;y l&agrave; sản phẩm &aacute;o thun nam đi theo hướng thời trang bền vững, th&acirc;n thiện hơn với m&ocirc;i trường</li>\r\n</ul>', 300000, 'S,M,L,XL,2XL', 90, 200000, 'active', '2023-04-22 04:13:51', '2023-04-22 04:16:46'),
 (31, 'Áo phông cute phô mai que', 'ao-phong-cute-pho-mai-que', 9, 'http://127.0.0.1:8000/storage/photos/Ảnh sản phẩm/336706284_1378153532964591_5710040123852128128_n.jpg,http://127.0.0.1:8000/storage/photos/Ảnh sản phẩm/337279952_791066725423906_3068829300825733812_n.jpg,http://127.0.0.1:8000/storage/photos/Ảnh sản phẩm/336469103_1425321594883067_2382775101064829372_n.jpg', 'Lần đầu tiên vũ trụ áo Marvel , xuất hiện tại website Coolmate. Hơn cả một chiếc áo thun, đằng sau đó là một câu chuyện thời trang \"Proundly Made in VietNam\" theo hướng bền vững. Chính vì điều đó mà chiếc áo nam này có vài đặc điểm nổi bật:', '<p>Lần đầu ti&ecirc;n vũ trụ &aacute;o Marvel , xuất hiện tại website Coolmate. Hơn cả một chiếc &aacute;o thun, đằng sau đ&oacute; l&agrave; một c&acirc;u chuyện thời trang &quot;Proundly Made in VietNam&quot; theo hướng bền vững. Ch&iacute;nh v&igrave; điều đ&oacute; m&agrave; chiếc&nbsp;<a href=\"https://www.coolmate.me/collection/ao-nam\" target=\"_blank\">&aacute;o nam</a>&nbsp;n&agrave;y c&oacute; v&agrave;i đặc điểm nổi bật:</p>\r\n\r\n<p>Lần đầu ti&ecirc;n vũ trụ &aacute;o Marvel , xuất hiện tại website Coolmate. Hơn cả một chiếc &aacute;o thun, đằng sau đ&oacute; l&agrave; một c&acirc;u chuyện thời trang &quot;Proundly Made in VietNam&quot; theo hướng bền vững. Ch&iacute;nh v&igrave; điều đ&oacute; m&agrave; chiếc&nbsp;<a href=\"https://www.coolmate.me/collection/ao-nam\" target=\"_blank\">&aacute;o nam</a>&nbsp;n&agrave;y c&oacute; v&agrave;i đặc điểm nổi bật:</p>', 700000, 'M,2XL', 20, NULL, 'active', '2023-04-22 04:19:11', '2023-04-27 09:21:34'),
-(32, 'Áo phông trắng', 'ao-phong-trang', 12, 'http://127.0.0.1:8000/storage/photos/Ảnh sản phẩm/336181878_2864522453701125_5655872868205631919_n.jpg,http://127.0.0.1:8000/storage/photos/Ảnh sản phẩm/336647062_3371097389771114_30922578198300592_n.jpg', 'Lần đầu tiên vũ trụ áo Marvel , xuất hiện tại website Coolmate. Hơn cả một chiếc áo thun, đằng sau đó là một câu chuyện thời trang \"Proundly Made in VietNam\" theo hướng bền vững. Chính vì điều đó mà chiếc áo nam này có vài đặc điểm nổi bật:', '<p>Lần đầu ti&ecirc;n vũ trụ &aacute;o Marvel , xuất hiện tại website Coolmate. Hơn cả một chiếc &aacute;o thun, đằng sau đ&oacute; l&agrave; một c&acirc;u chuyện thời trang &quot;Proundly Made in VietNam&quot; theo hướng bền vững. Ch&iacute;nh v&igrave; điều đ&oacute; m&agrave; chiếc&nbsp;<a href=\"http://127.0.0.1:8000/shop/detail/32-ao-phong-trang\" target=\"_blank\">&aacute;o </a><a href=\"http://127.0.0.1:8000/shop/detail/32-ao-phong-trang\">nữ</a>&nbsp;n&agrave;y c&oacute; v&agrave;i đặc điểm nổi bật:</p>\r\n\r\n<p>&nbsp;</p>', 300000, '2XL,3XL', 0, NULL, 'active', '2023-04-22 04:20:53', '2023-04-27 09:17:26');
+(32, 'Áo phông trắng', 'ao-phong-trang', 12, 'http://127.0.0.1:8000/storage/photos/shares/c04e9fd4-49d1-43e8-bf23-f01e121b37d2.jpeg', 'Lần đầu tiên vũ trụ áo Marvel , xuất hiện tại website Coolmate. Hơn cả một chiếc áo thun, đằng sau đó là một câu chuyện thời trang \"Proundly Made in VietNam\" theo hướng bền vững. Chính vì điều đó mà chiếc áo nam này có vài đặc điểm nổi bật:', '<p>Lần đầu ti&ecirc;n vũ trụ &aacute;o Marvel , xuất hiện tại website Coolmate. Hơn cả một chiếc &aacute;o thun, đằng sau đ&oacute; l&agrave; một c&acirc;u chuyện thời trang &quot;Proundly Made in VietNam&quot; theo hướng bền vững. Ch&iacute;nh v&igrave; điều đ&oacute; m&agrave; chiếc&nbsp;<a href=\"http://127.0.0.1:8000/shop/detail/32-ao-phong-trang\" target=\"_blank\">&aacute;o </a><a href=\"http://127.0.0.1:8000/shop/detail/32-ao-phong-trang\">nữ</a>&nbsp;n&agrave;y c&oacute; v&agrave;i đặc điểm nổi bật:</p>\r\n\r\n<p>&nbsp;</p>', 300000, '2XL,3XL', 0, NULL, 'active', '2023-04-22 04:20:53', '2023-12-01 02:47:52');
 
 -- --------------------------------------------------------
 
@@ -410,8 +410,8 @@ INSERT INTO `products` (`id`, `name`, `slug`, `product_category_id`, `images`, `
 
 CREATE TABLE `product_categories` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `slug` varchar(255) DEFAULT NULL,
   `parent_id` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -444,8 +444,8 @@ CREATE TABLE `product_comments` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `product_id` int(10) UNSIGNED NOT NULL,
   `user_id` int(10) UNSIGNED DEFAULT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `messages` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `messages` varchar(255) NOT NULL,
   `rating` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -470,8 +470,8 @@ INSERT INTO `product_comments` (`id`, `product_id`, `user_id`, `email`, `message
 
 CREATE TABLE `roles` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `guard_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `guard_name` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -558,17 +558,8 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 
 CREATE TABLE `site_setting` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `site_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `site_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `site_keywords` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `site_icon` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `site_email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `site_phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `site_address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `site_link_facebook` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `site_link_youtube` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `site_link_instagram` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `site_description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `key` varchar(255) NOT NULL,
+  `value` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -577,8 +568,17 @@ CREATE TABLE `site_setting` (
 -- Dumping data for table `site_setting`
 --
 
-INSERT INTO `site_setting` (`id`, `site_name`, `site_title`, `site_keywords`, `site_icon`, `site_email`, `site_phone`, `site_address`, `site_link_facebook`, `site_link_youtube`, `site_link_instagram`, `site_description`, `created_at`, `updated_at`) VALUES
-(4, 'DQ Shop', 'DQ Shop', 'DQ Shop', 'http://127.0.0.1:8000/storage/photos/Banner/Cristiano Ronaldo TOTY FIFA 21 - 98  - Rating and Price.png', 'admin@gmail.com', '012345678', 'Nghệ An, Việt Nam', 'Lrv v 9.40.1', 'Lrv v 9.40.1', 'Lrv v 9.40.1', 'Bạn không có đồ mặc ư vậy thì shoping thôi nào!', '2023-04-04 10:28:20', '2023-06-12 10:00:27');
+INSERT INTO `site_setting` (`id`, `key`, `value`, `created_at`, `updated_at`) VALUES
+(1, 'site_name', 'DQ Store', '2023-11-29 04:43:07', '2023-11-29 04:43:07'),
+(2, 'site_title', 'Store', '2023-11-29 04:43:07', '2023-11-29 04:43:07'),
+(3, 'site_icon', 'http://127.0.0.1:8000/storage/photos/Icon/ajax-loader.gif', '2023-11-29 04:43:07', '2023-11-29 04:43:07'),
+(4, 'site_email', NULL, '2023-11-29 04:43:07', '2023-11-29 04:43:07'),
+(5, 'site_phone', NULL, '2023-11-29 04:43:07', '2023-11-29 04:43:07'),
+(6, 'site_address', NULL, '2023-11-29 04:43:07', '2023-11-29 04:43:07'),
+(7, 'site_link_facebook', NULL, '2023-11-29 04:43:07', '2023-11-29 04:43:07'),
+(8, 'site_link_youtube', NULL, '2023-11-29 04:43:07', '2023-11-29 04:43:07'),
+(9, 'site_link_instagram', NULL, '2023-11-29 04:43:07', '2023-11-29 04:43:07'),
+(10, 'site_description', NULL, '2023-11-29 04:43:07', '2023-11-29 04:43:07');
 
 -- --------------------------------------------------------
 
@@ -588,9 +588,9 @@ INSERT INTO `site_setting` (`id`, `site_name`, `site_title`, `site_keywords`, `s
 
 CREATE TABLE `slider` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `title` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `images` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `title` text NOT NULL,
+  `images` text NOT NULL,
+  `description` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -600,7 +600,7 @@ CREATE TABLE `slider` (
 --
 
 INSERT INTO `slider` (`id`, `title`, `images`, `description`, `created_at`, `updated_at`) VALUES
-(2, 'DQ Shop', 'http://127.0.0.1:8000/storage/photos/Slider/hero-1.jpg', 'Bán hàng vì đam mê!', '2023-04-10 07:55:34', '2023-04-10 07:55:34'),
+(2, 'DQ Shop', 'http://127.0.0.1:8000/storage/photos/Slider_images/c04e9fd4-49d1-43e8-bf23-f01e121b37d2.jpeg', 'Bán hàng vì đam mê!', '2023-04-10 07:55:34', '2023-11-30 01:37:04'),
 (4, 'Đăng Quang', 'http://127.0.0.1:8000/storage/photos/Slider/carousel-2.jpg', 'Reasonable Price', '2023-04-16 10:37:13', '2023-04-16 10:37:13');
 
 -- --------------------------------------------------------
@@ -611,18 +611,18 @@ INSERT INTO `slider` (`id`, `title`, `images`, `description`, `created_at`, `upd
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `phone` varchar(255) DEFAULT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `provincial` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `district` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `ward` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `remember_token` varchar(100) DEFAULT NULL,
+  `provincial` varchar(255) DEFAULT NULL,
+  `district` varchar(255) DEFAULT NULL,
+  `ward` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `code` varchar(255) DEFAULT NULL,
   `time_code` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -752,8 +752,7 @@ ALTER TABLE `role_has_permissions`
 -- Indexes for table `site_setting`
 --
 ALTER TABLE `site_setting`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `site_setting_site_email_unique` (`site_email`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `slider`
@@ -795,7 +794,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -849,7 +848,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `site_setting`
 --
 ALTER TABLE `site_setting`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `slider`
