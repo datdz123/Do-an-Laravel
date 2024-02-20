@@ -35,6 +35,14 @@
 - Luôn kiểm tra và cập nhật các thông số cấu hình như tên database, người dùng và mật khẩu trong file `.env`.
 - Nếu gặp bất kỳ vấn đề gì trong quá trình cài đặt, hãy kiểm tra lại các bước và đảm bảo rằng môi trường đáp ứng yêu cầu cài đặt của dự án.
 
+## Tài khoản quản trị
+
+'name' => 'Admin',
+'email' => 'admin@gmail.com',
+'phone' => '0981607062',
+'password' => '123456',
+'role' => '1',
+
 
 fix lỗi không di chuyển được ảnh trong file manager
 
