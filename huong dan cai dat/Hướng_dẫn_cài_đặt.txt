@@ -1,5 +1,5 @@
 Giới thiệu dự án	               Chi tiết dự án
-Tên đề tài :	               Xây dựng website bán hàng thời trang bằng laravel	
+Tên đề tài :	               Xây dựng website bán hàng thời trang bằng laravel
 Ngôn ngữ :	         		   Php ^8.0.2
 Framework : 			   Laravel 9.x
 Tên nhà phát triển :	         Lê Đăng Quang
@@ -18,10 +18,10 @@ Hưỡng dẫn cài đặt:
 
 [4]. Sau đó tiếp tục gõ “php artisan key:generate ”.
 
-[5]. Vào admin mySQL xampp tạo mới một database, sau đó import file database ( dq_shop.sql )
+[5]. Vào admin mySQL xampp tạo mới một database, sau đó import file database ( qd_shop.sql )
 trong dự án vào database vừa khởi tạo.
 
-[6]. Cấu hình database trong file .env gồm 
+[6]. Cấu hình database trong file .env gồm
 DB_DATABASE là tên database vừa khởi tạo,
 DB_USERNAME là tên người dùng ( mặc định là root ),
 DB_PASSWORD là mật khẩu (mặc định là rỗng ).

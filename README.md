@@ -9,8 +9,8 @@
 - **Tên đề tài:** Xây dựng website bán hàng thời trang bằng Laravel
 - **Ngôn ngữ:** PHP ^8.0.2
 - **Framework:** Laravel 9.x
-- **Tên nhà phát triển:** Lê Đăng Quang
-- **IDE (Khuyến khích):** VS Code
+- **Tên nhà phát triển:** Pham Quang Dat
+- **IDE (Khuyến khích):** PHP STORM
 - **Kiểu dự án:** Ứng dụng web
 - **Cơ sở dữ liệu:** MySQL
 
@@ -22,7 +22,7 @@
 2. Cài đặt [Composer](https://getcomposer.org/download/).
 3. Mở Command Prompt trong thư mục dự án và chạy lệnh `composer install`.
 4. Tiếp theo, chạy lệnh `php artisan key:generate`.
-5. Tạo mới một database trong phpMyAdmin hoặc MySQL trên XAMPP, sau đó import file database (`dq_shop.sql`) trong dự án vào database vừa tạo.
+5. Tạo mới một database trong phpMyAdmin hoặc MySQL trên XAMPP, sau đó import file database (`qd_shop.sql`) trong dự án vào database vừa tạo.
 6. Cấu hình database trong file `.env`, bao gồm:
    - `DB_DATABASE` là tên database vừa tạo.
    - `DB_USERNAME` là tên người dùng (mặc định là root).
