@@ -6,7 +6,7 @@
 
 ### Thông tin dự án
 
-- **Tên đề tài:** Xây dựng website bán hàng thời trang bằng Laravel
+- **Tên đề tài:** Xây dựng website bán hàng Dapper bằng Laravel
 - **Ngôn ngữ:** PHP ^8.0.2
 - **Framework:** Laravel 9.x
 - **Tên nhà phát triển:** Pham Quang Dat
