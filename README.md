@@ -1,8 +1,8 @@
-# Xây dựng website bán hàng thời trang bằng Laravel
+# Xây dựng website bán hàng Dapper bằng Laravel
 
 ## Giới thiệu dự án
 
-Đây là một dự án xây dựng website bán hàng thời trang sử dụng Laravel, một framework PHP mạnh mẽ.
+Đây là một dự án xây dựng website bán hàng Dapper sử dụng Laravel, một framework PHP mạnh mẽ.
 
 ### Thông tin dự án
 
