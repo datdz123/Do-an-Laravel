@@ -7,7 +7,6 @@
     <div class="row px-xl-5">
         <div class="col-lg-12" style=" width: 971px;">
             <div class="mb-4">
-                {{-- <h4 class="font-weight-semi-bold mb-4">@yield('title')</h4> --}}
                 <form action="" method="POST">
                     @csrf
                     <input type="hidden" name="code" value="{{$code}}">
