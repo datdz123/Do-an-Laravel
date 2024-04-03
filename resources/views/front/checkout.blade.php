@@ -14,6 +14,7 @@
 </div>
 <!-- Page Header End -->
 
+
 @php
     if (Auth::check()) {
         $user_id = Auth::user()->id;
