@@ -99,7 +99,6 @@
                     <button onclick="unPayNow()" type="submit" class="btn btn-primary px-3"><i
                             class="fa fa-shopping-cart mr-1"></i> Thêm
                         vào giỏ</button>
-                    {{-- <div class="input-group-btn  mr-3"> --}}
                     <input id="pay_now" type="hidden" name="pay_now" value="false">
                     <button onclick="payNow()" type="submit" class="btn btn-outline-primary px-3 ml-3">Mua
                         ngay</button>
