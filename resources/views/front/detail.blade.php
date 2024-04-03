@@ -27,6 +27,7 @@
             </div>
         </div>
 
+
         <div class="col-lg-7 pb-5">
             <h3 class="font-weight-semi-bold">{{ $product_detail->name }}</h3>
             <div class="d-flex mb-3">
