@@ -14,8 +14,7 @@
             <!-- Color Start -->
             <div class="border-bottom mb-4 pb-4">
                 <h5 class="font-weight-semi-bold mb-4">Danh mục sản phẩm</h5>
-                {{-- <form method="GET"> --}}
-                {{-- @csrf --}}
+
                 <form method="GET" action="{{ route('shop') }}">
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                         <input onclick="this.form.submit()" {{ request('id') == '' ? 'checked' : '' }} type="checkbox"
