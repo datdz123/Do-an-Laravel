@@ -5,7 +5,6 @@
 @include('front.components.top-bar')
 <!-- Page Header End -->
 
-
 <!-- Cart Start -->
 <div class="container-fluid">
     <div class="row px-xl-5">
