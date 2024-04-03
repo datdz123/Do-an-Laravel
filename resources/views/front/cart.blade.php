@@ -64,7 +64,6 @@
 
                                     {{-- <button type="submit" class="btn btn-sm btn-primary">Cập nhật</button> --}}
 
-
                                     <a href="{{ route('cart.remove', ['id' => $key]) }}"
                                         class="btn btn-sm btn-primary"><i class="fa fa-times"></i></a>
                                 </td>
