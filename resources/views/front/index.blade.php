@@ -96,7 +96,6 @@
 </div> --}}
 <!-- Categories End -->
 
-
 <!-- Offer Start -->
 <div class="container-fluid offer pt-5">
     <div class="row px-xl-5">
