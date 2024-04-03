@@ -12,7 +12,6 @@
         </div>
     </div>
 </div>
-<!-- Page Header End -->
 
 <div class="container-fluid justify-content-center d-flex align-items-center">
     <div class="row px-xl-5">
