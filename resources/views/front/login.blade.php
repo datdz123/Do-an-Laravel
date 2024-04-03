@@ -12,6 +12,7 @@
         </div>
     </div>
 </div>
+
 <!-- Page Header End -->
 
 <div class="container-fluid justify-content-center d-flex align-items-center">
@@ -50,7 +51,7 @@
                                 nhập</button>
                         </div>
                         <div class="col-md-12 form-group">
-                            <a href="{{ route('registerUser') }}">Đăng ký ở đây</a> - 
+                            <a href="{{ route('registerUser') }}">Đăng ký ở đây</a> -
                             <a href="{{ route('forgot-user-password') }}">Quên mật khẩu</a>
                         </div>
                     </div>
