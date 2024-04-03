@@ -124,13 +124,7 @@
                         </div> --}}
                     </div>
                 </div>
-                {{-- <div class="collapse mb-4" id="shipping-address">
-                    <h4 class="font-weight-semi-bold mb-4">Shipping Address</h4>
-                    <div class="row">
-                        <div class="col-md-6 form-group">
-                            <label>First Name</label>
-                            <input class="form-control" type="text" placeholder="John">
-                        </div>
+
                         <div class="col-md-6 form-group">
                             <label>Last Name</label>
                             <input class="form-control" type="text" placeholder="Doe">
