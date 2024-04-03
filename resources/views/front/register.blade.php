@@ -3,6 +3,7 @@
 @section('title', 'Đăng ký')
 @include('front.components.top-bar')
 
+
 <div class="container-fluid justify-content-center d-flex align-items-center">
     <div class="row px-xl-5">
         <div class="col-lg-12" style=" width: 971px;">
