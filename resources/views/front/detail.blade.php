@@ -5,7 +5,6 @@
 
 
 
-
 <!-- Shop Detail Start -->
 <div class="container-fluid py-5">
     <div class="row px-xl-5">
