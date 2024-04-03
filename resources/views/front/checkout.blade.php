@@ -95,6 +95,7 @@
                             @enderror
                         </div>
 
+
                         <div class="col-md-6 form-group">
                             <label>Ghi chú</label>
                             <textarea class="form-control @error('note') is-invalid @enderror" name="note" id="">{{ old('note') }}</textarea>
