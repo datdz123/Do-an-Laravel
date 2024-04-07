@@ -88,104 +88,148 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('/reset-password', [AuthController::class, 'post_reset_password']);
 
     Route::middleware(['auth:admin'])->group(function () {
-        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-        Route::post('/', [DashboardController::class, 'filter_chart_total']);
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::post('/', [DashboardController::class, 'filter_chart_total']);
 
-        Route::get('profile', [ProfileController::class, 'index'])->name('profile');
-        Route::post('profile', [ProfileController::class, 'update'])->name('edit_profile');
-        Route::post('profile-changePassword', [ProfileController::class, 'changePassword'])->name('profile.changePassword');
+    Route::get('profile', [ProfileController::class, 'index'])->name('profile');
+    Route::post('profile', [ProfileController::class, 'update'])->name('edit_profile');
+    Route::post('profile-changePassword', [ProfileController::class, 'changePassword'])->name('profile.changePassword');
 
-        Route::get('/logout', [AuthController::class, 'log_out'])->name('logout');
+    Route::get('/logout', [AuthController::class, 'log_out'])->name('logout');
 
-        //admins
-        // Route::middleware(['role:super-admin'])->group(function () {
-        Route::get('/member', [AdminController::class, 'index'])->name('member');
-        Route::get('/member/create', [AdminController::class, 'create'])->name('member.create');
-        Route::put('/member/store', [AdminController::class, 'store'])->name('member.store');
-        Route::get('/member/edit/{id}', [AdminController::class, 'edit'])->name('member.edit');
-        Route::delete('/member/delete/{id}', [AdminController::class, 'destroy'])->name('member.delete');
+    //admins
+    // Route::middleware(['role:super-admin'])->group(function () {
+    Route::get('/member', [AdminController::class, 'index'])->name('member');
+    Route::get('/member/create', [AdminController::class, 'create'])->name('member.create');
+    Route::put('/member/store', [AdminController::class, 'store'])->name('member.store');
+    Route::get('/member/edit/{id}', [AdminController::class, 'edit'])->name('member.edit');
+    Route::delete('/member/delete/{id}', [AdminController::class, 'destroy'])->name('member.delete');
 
-        Route::get('/member/assignRole/{id}', [AdminController::class, 'assignRole'])->name('member.assignRole');
-        Route::post('/member/assignRole/{id}', [AdminController::class, 'post_assignRole'])->name('member.post_assignRole');
+    Route::get('/member/assignRole/{id}', [AdminController::class, 'assignRole'])->name('member.assignRole');
+    Route::post('/member/assignRole/{id}', [AdminController::class, 'post_assignRole'])->name('member.post_assignRole');
 
-        Route::get('member/roles', [RoleController::class, 'index'])->name('member.roles');
-        Route::get('/member/roles/create', [RoleController::class, 'create'])->name('member.roles.create');
-        Route::post('/member/roles/create', [RoleController::class, 'store']);
-        Route::get('/member/roles/edit/{id}', [RoleController::class, 'edit'])->name('member.roles.edit');
-        Route::put('/member/roles/update/{id}', [RoleController::class, 'update'])->name('member.roles.update');
-        Route::delete('/member/roles/destroy/{id}', [RoleController::class, 'destroy'])->name('member.roles.destroy');
+    Route::get('member/roles', [RoleController::class, 'index'])->name('member.roles');
+    Route::get('/member/roles/create', [RoleController::class, 'create'])->name('member.roles.create');
+    Route::post('/member/roles/create', [RoleController::class, 'store']);
+    Route::get('/member/roles/edit/{id}', [RoleController::class, 'edit'])->name('member.roles.edit');
+    Route::put('/member/roles/update/{id}', [RoleController::class, 'update'])->name('member.roles.update');
+    Route::delete('/member/roles/destroy/{id}', [RoleController::class, 'destroy'])->name('member.roles.destroy');
 
-        Route::get('/member/permissions', [PermissionController::class, 'index'])->name('member.permissions');
-        Route::get('/member/permissions/create', [PermissionController::class, 'create'])->name('member.permissions.create');
-        Route::post('/member/permissions/create', [PermissionController::class, 'store']);
-        Route::get('/member/permissions/edit/{id}', [PermissionController::class, 'edit'])->name('member.permissions.edit');
-        Route::put('/member/permissions/update/{id}', [PermissionController::class, 'update'])->name('member.permissions.update');
-        Route::delete('/member/permissions/destroy/{id}', [PermissionController::class, 'destroy'])->name('member.permissions.destroy');
+    Route::get('/member/permissions', [PermissionController::class, 'index'])->name('member.permissions');
+    Route::get('/member/permissions/create', [PermissionController::class, 'create'])->name('member.permissions.create');
+    Route::post('/member/permissions/create', [PermissionController::class, 'store']);
+    Route::get('/member/permissions/edit/{id}', [PermissionController::class, 'edit'])->name('member.permissions.edit');
+    Route::put('/member/permissions/update/{id}', [PermissionController::class, 'update'])->name('member.permissions.update');
+    Route::delete('/member/permissions/destroy/{id}', [PermissionController::class, 'destroy'])->name('member.permissions.destroy');
 
-        // });
+    // });
 
-        // product_categories
-        Route::group(['prefix' => 'product-categories'], function () {
+    // product_categories
+    Route::group(['prefix' => 'product-categories'], function () {
 
-            Route::get('/', [Product_categoriesController::class, 'index'])->name('product_categories')->middleware('role_or_permission:super-admin|product categories view');
-            Route::get('/delete/{id}', [Product_categoriesController::class, 'delete'])->name('product_categories/delete')->middleware('role_or_permission:super-admin|delete product categories');
-            Route::get('/add', [Product_categoriesController::class, 'add'])->name('product_categories/add')->middleware('role_or_permission:super-admin|create product categories');
-            Route::post('/add', [Product_categoriesController::class, 'post_add'])->middleware('role_or_permission:super-admin|create product categories');
-            Route::get('/update/{id}', [Product_categoriesController::class, 'update'])->name('product_categories/update')->middleware('role_or_permission:super-admin|product categories view');
-            Route::post('/update/{id}', [Product_categoriesController::class, 'post_update'])->middleware('role_or_permission:super-admin|edit product categories');
-        });
-        //products
-        Route::group(['prefix' => 'products'], function () {
-            Route::get('/', [ProductsController::class, 'index'])->name('product')->middleware('role_or_permission:super-admin|product view');
-            Route::get('comments', [ProductsController::class, 'comments'])->name('product.comments')->middleware('role_or_permission:super-admin|product comments');
-            Route::delete('comments/delete/{id}', [ProductsController::class, 'delete_comments'])->name('product.comments.delete')->middleware('role_or_permission:super-admin|delete product comments');
-            Route::get('/add', [ProductsController::class, 'add'])->name('product/add')->middleware('role_or_permission:super-admin|create product');
-            Route::post('/add', [ProductsController::class, 'post_add'])->middleware('role_or_permission:super-admin|create product');
-            Route::get('/update/{id}', [ProductsController::class, 'update'])->name('product/update')->middleware('role_or_permission:super-admin|product view');
-            Route::post('/update/{id}', [ProductsController::class, 'post_update'])->middleware('role_or_permission:super-admin|edit product');
-            Route::delete('/delete/{id}', [ProductsController::class, 'delete'])->name('product/delete')->middleware('role_or_permission:super-admin|delete product');
-        });
-        //slider
-        Route::group(['prefix' => 'slider'], function () {
-            Route::get('/', [SliderController::class, 'index'])->name('slider')->middleware('role_or_permission:super-admin|slider view');
-            Route::get('/add', [SliderController::class, 'add'])->name('slider/add')->middleware('role_or_permission:super-admin|create slider');
-            Route::post('/add', [SliderController::class, 'post_add'])->middleware('role_or_permission:super-admin|create slider');
-            Route::get('/delete/{id}', [SliderController::class, 'delete'])->name('slider/delete')->middleware('role_or_permission:super-admin|delete slider');
-            Route::get('/update/{id}', [SliderController::class, 'update'])->name('slider/update')->middleware('role_or_permission:super-admin|slider view');
-            Route::post('/update/{id}', [SliderController::class, 'post_update'])->middleware('role_or_permission:super-admin|edit slider');
-        });
-        //order
-        Route::group(['prefix' => 'orders'], function () {
-            Route::get('', [OrderController::class, 'index'])->name('order')->middleware('role_or_permission:super-admin|order view');
-            Route::get('order-detail/{id}', [OrderController::class, 'detail'])->name('order.detail')->middleware('role_or_permission:super-admin|order view');
-            Route::put('order-detail', [OrderController::class, 'edit'])->name('order.edit')->middleware('role_or_permission:super-admin|edit order');
-            Route::delete('delete', [OrderController::class, 'delete'])->name('order.delete')->middleware('role_or_permission:super-admin|delete order');
-            Route::get('invoice-print/{id}', [OrderController::class, 'print'])->name('order.print')->middleware('role_or_permission:super-admin|order view');
-        });
-        //users
-        Route::group(['prefix' => 'users'], function () {
-            Route::get('', [UsersController::class, 'index'])->name('users')->middleware('role_or_permission:super-admin|user view');
-            Route::delete('delete{id}', [UsersController::class, 'delete'])->name('users.delete')->middleware('role_or_permission:super-admin|delete user');
-        });
-
-        //banner
-        // Route::group(['prefix' => 'banner'], function () {
-        Route::resource('banner', BannerController::class);
-        // });
-        
-        Route::get('/file-manager', function () {
-            return view('back.layouts.file-manager');
-        })->name('file-manager')->middleware('role_or_permission:super-admin|file manager');
-
-
-        Route::group(['prefix' => 'site-setting'], function () {
-            Route::get('', [SiteSettingController::class, 'index'])->name('site-setting')->middleware('role_or_permission:super-admin|site setting view');
-            Route::post('', [SiteSettingController::class, 'edit'])->middleware('role_or_permission:super-admin|edit site setting');
-
-            // Route::get('email-config', [SiteSettingController::class, 'email_config'])->name('email-config')->middleware('permission:edit slider');
-            // Route::post('email-config', [SiteSettingController::class, 'post_email_config'])->middleware('permission:edit slider');
-        });
+        Route::get('/', [Product_categoriesController::class, 'index'])->name('product_categories');
+//                ->middleware('role_or_permission:super-admin|product categories view');
+        Route::get('/delete/{id}', [Product_categoriesController::class, 'delete'])
+            ->name('product_categories/delete');
+//                ->middleware('role_or_permission:super-admin|delete product categories');
+        Route::get('/add', [Product_categoriesController::class, 'add'])->name('product_categories/add');
+//                ->middleware('role_or_permission:super-admin|create product categories');
+        Route::post('/add', [Product_categoriesController::class, 'post_add']);
+//                ->middleware('role_or_permission:super-admin|create product categories');
+        Route::get('/update/{id}', [Product_categoriesController::class, 'update'])->name('product_categories/update');
+//                ->middleware('role_or_permission:super-admin|product categories view');
+        Route::post('/update/{id}', [Product_categoriesController::class, 'post_update']);
+//                ->middleware('role_or_permission:super-admin|edit product categories');
     });
+    //products
+    Route::group(['prefix' => 'products'], function () {
+        Route::get('/', [ProductsController::class, 'index'])->name('product');
+//                ->middleware('role_or_permission:super-admin|product view');
+        Route::get('comments', [ProductsController::class, 'comments'])->name('product.comments');
+//                ->middleware('role_or_permission:super-admin|product comments');
+        Route::delete('comments/delete/{id}', [ProductsController::class, 'delete_comments'])->name('product.comments.delete');
+//                ->middleware('role_or_permission:super-admin|delete product comments');
+        Route::get('/add', [ProductsController::class, 'add'])->name('product/add');
+//            ->middleware('role_or_permission:super-admin|create product');
+        Route::post('/add', [ProductsController::class, 'post_add']);
+//                ->middleware('role_or_permission:super-admin|create product');
+        Route::get('/update/{id}', [ProductsController::class, 'update'])->name('product/update');
+//                ->middleware('role_or_permission:super-admin|product view');
+
+        Route::post('/update/{id}', [ProductsController::class, 'post_update']);
+//                ->middleware('role_or_permission:super-admin|edit product');
+
+        Route::delete('/delete/{id}', [ProductsController::class, 'delete'])->name('product/delete');
+//                ->middleware('role_or_permission:super-admin|delete product');-admin|delete product');
+    });
+    //slider
+    Route::group(['prefix' => 'slider'], function () {
+        Route::get('/', [SliderController::class, 'index'])->name('slider');
+        // ->middleware('role_or_permission:super-admin|slider view');
+
+        Route::get('/add', [SliderController::class, 'add'])->name('slider/add');
+        // ->middleware('role_or_permission:super-admin|create slider');
+
+        Route::post('/add', [SliderController::class, 'post_add']);
+        // ->middleware('role_or_permission:super-admin|create slider');
+
+        Route::get('/delete/{id}', [SliderController::class, 'delete'])->name('slider/delete');
+        // ->middleware('role_or_permission:super-admin|delete slider');
+
+        Route::get('/update/{id}', [SliderController::class, 'update'])->name('slider/update');
+        // ->middleware('role_or_permission:super-admin|slider view');
+
+        Route::post('/update/{id}', [SliderController::class, 'post_update']);
+        // ->middleware('role_or_permission:super-admin|edit slider');
+    });
+
+    //order
+    Route::group(['prefix' => 'orders'], function () {
+        Route::get('', [OrderController::class, 'index'])->name('order');
+        // ->middleware('role_or_permission:super-admin|order view');
+
+        Route::get('order-detail/{id}', [OrderController::class, 'detail'])->name('order.detail');
+        // ->middleware('role_or_permission:super-admin|order view');
+
+        Route::put('order-detail', [OrderController::class, 'edit'])->name('order.edit');
+        // ->middleware('role_or_permission:super-admin|edit order');
+
+        Route::delete('delete', [OrderController::class, 'delete'])->name('order.delete');
+        // ->middleware('role_or_permission:super-admin|delete order');
+
+        Route::get('invoice-print/{id}', [OrderController::class, 'print'])->name('order.print');
+        // ->middleware('role_or_permission:super-admin|order view');
+    });
+
+    //users
+    Route::group(['prefix' => 'users'], function () {
+        Route::get('', [UsersController::class, 'index'])->name('users');
+//            ->middleware('role_or_permission:super-admin|user view');
+        Route::delete('delete{id}', [UsersController::class, 'delete'])->name('users.delete');
+//            ->middleware('role_or_permission:super-admin|delete user');
+    });
+
+    //banner
+    // Route::group(['prefix' => 'banner'], function () {
+    Route::resource('banner', BannerController::class);
+    // });
+
+    Route::get('/file-manager', function () {
+        return view('back.layouts.file-manager');
+    })->name('file-manager');
+//        ->middleware('role_or_permission:super-admin|file manager');
+
+
+    Route::group(['prefix' => 'site-setting'], function () {
+        Route::get('', [SiteSettingController::class, 'index'])->name('site-setting');
+//            ->middleware('role_or_permission:super-admin|site setting view');
+        Route::post('', [SiteSettingController::class, 'edit']);
+//                ->middleware('role_or_permission:super-admin|edit site setting');
+
+        // Route::get('email-config', [SiteSettingController::class, 'email_config'])->name('email-config')->middleware('permission:edit slider');
+        // Route::post('email-config', [SiteSettingController::class, 'post_email_config'])->middleware('permission:edit slider');
+    });
+});
 });
 Route::group(['prefix' => 'laravel-filemanager'], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();

@@ -19,7 +19,7 @@ class AdminController extends Controller
     public function __construct()
     {
         // $this->middleware('permission:role-create', ['only' => ['create','store']]);
-        $this->middleware(['role:super-admin']);
+//        $this->middleware(['role:super-admin']);
     }
     /**
      * Display a listing of the resource.

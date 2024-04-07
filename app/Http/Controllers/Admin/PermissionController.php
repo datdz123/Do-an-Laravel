@@ -12,7 +12,7 @@ class PermissionController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['role:super-admin']);
+//        $this->middleware(['role:super-admin']);
     }
     /**
      * Display a listing of the resource.
@@ -33,9 +33,9 @@ class PermissionController extends Controller
     public function create()
     {
         // $admin = Admin::findOrFail($id);
-        // $name_roles = $admin->roles->first(); 
+        // $name_roles = $admin->roles->first();
         // dd($name_roles);
-        // $column_role = 
+        // $column_role =
         // $role = Role::orderBy('id','DESC')->get();
        return view('back.admin.permissions.create');
     }

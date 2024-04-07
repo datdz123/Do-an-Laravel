@@ -12,7 +12,7 @@ class RoleController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['role:super-admin']);
+//        $this->middleware(['role:super-admin']);
     }
     /**
      * Display a listing of the resource.
@@ -99,7 +99,7 @@ class RoleController extends Controller
             // foreach($request->permission as $item){
             // $role->revokePermissionTo($request->permission);
             // }
-            
+
             // foreach ($request->permission as $item) {
             // $role->givePermissionTo($item);
             // }
