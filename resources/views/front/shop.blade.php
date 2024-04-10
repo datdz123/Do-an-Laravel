@@ -194,9 +194,9 @@
                                 <input type="text" name="search" class="form-control" placeholder="Tìm theo tên"
                                     value="{{ request('search') }}">
                                 <div class="input-group-append">
-                                    <span class="input-group-text bg-transparent text-primary">
+                                    <button type="submit" class="input-group-text bg-transparent text-primary">
                                         <i class="fa fa-search"></i>
-                                    </span>
+                                    </button>
                                 </div>
                             </div>
                         </form>

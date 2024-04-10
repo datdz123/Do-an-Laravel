@@ -50,12 +50,20 @@
                             @enderror
                         </div>
                         <div class="col-md-6 form-group">
-                            <label>Tỉnh</label>
-                            <select class="selectProvinces custom-select" name="provincial" style="width: 100%;">
-                            </select>
-                            @error('provincial')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
+                            <div class="form-group">
+                                <label for="province">Tỉnh/Thành phố</label>
+                                <select id="province" name="province" class="form-control">
+                                    <option value="">Chọn một tỉnh</option>
+                                    <!-- populate options with data from your database or API -->
+{{--                                        <?php--}}
+{{--                                    while ($row = mysqli_fetch_assoc($result)) {--}}
+{{--                                        ?>--}}
+{{--                                    <option value="<?php echo $row['province_id'] ?>"><?php echo $row['name'] ?></option>--}}
+{{--                                        <?php--}}
+{{--                                    }--}}
+{{--                                        ?>--}}
+                                </select>
+                            </div>
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Email</label>
@@ -67,13 +75,10 @@
                             @enderror
                         </div>
                         <div class="col-md-6 form-group">
-                            <label>Huyện</label>
-                            <select class="custom-select selectDistricts" name="district" style="width: 100%;">
-                                <option value="">-- Chọn Huyện --</option>
+                            <label for="district">Quận/Huyện</label>
+                            <select id="district" name="district" class="form-control">
+                                <option value="">Chọn một quận/huyện</option>
                             </select>
-                            @error('district')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Số điện thoại</label>
@@ -85,10 +90,9 @@
                             @enderror
                         </div>
                         <div class="col-md-6 form-group">
-                            <label>Phường</label>
-                            <select name="ward" class="custom-select selectWards" id=""
-                                style="width: 100%;">
-                                <option value="">-- Chọn Phường --</option>
+                            <label for="wards">Phường/Xã</label>
+                            <select id="wards" name="wards" class="form-control">
+                                <option value="">Chọn một xã</option>
                             </select>
                             @error('ward')
                                 <div class="alert alert-danger">{{ $message }}</div>
@@ -125,49 +129,8 @@
                     </div>
                 </div>
 
-                        <div class="col-md-6 form-group">
-                            <label>Last Name</label>
-                            <input class="form-control" type="text" placeholder="Doe">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>E-mail</label>
-                            <input class="form-control" type="text" placeholder="example@email.com">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Mobile No</label>
-                            <input class="form-control" type="text" placeholder="+123 456 789">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Address Line 1</label>
-                            <input class="form-control" type="text" placeholder="123 Street">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Address Line 2</label>
-                            <input class="form-control" type="text" placeholder="123 Street">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Country</label>
-                            <select class="custom-select">
-                                <option selected>United States</option>
-                                <option>Afghanistan</option>
-                                <option>Albania</option>
-                                <option>Algeria</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>City</label>
-                            <input class="form-control" type="text" placeholder="New York">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>State</label>
-                            <input class="form-control" type="text" placeholder="New York">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>ZIP Code</label>
-                            <input class="form-control" type="text" placeholder="123">
-                        </div>
-                    </div>
-                </div> --}}
+                
+
             </div>
             <div class="col-lg-4">
                 <div class="card border-secondary mb-5">
@@ -250,119 +213,73 @@
 
     <script>
         $(document).ready(function() {
-            $.get('https://provinces.open-api.vn/api/?depth=3', function(req) {
-                let contentProvinces = '<option value="">-- Chọn tỉnh --</option>'
-                let contentDistricts = ''
-                let contentWards = ''
-                //Tỉnh
-                let provincial = '{{ old('provincial') }}'
-                req.forEach(item => {
-                    let selected = provincial === item.name ? 'selected' : ""
-                    contentProvinces +=
-                        '<option ' + selected + ' value="' +
-                        item.name + '">' + item.name +
-                        '</option>'
-                })
-                $('.selectProvinces').html(contentProvinces)
-                //Huyện
-
-                $('.selectProvinces').change(function(e) {
-                    contentDistricts = '<option value="">-- Chọn Huyện --</option>'
-                    contentWards = '<option value="">-- Chọn Phường --</option>'
-                    e.preventDefault();
-                    var nameProvinces = $('.selectProvinces').val()
-                    if (nameProvinces === 'null') {
-                        contentDistricts = '<option value="">-- Chọn Huyện --</option>'
-                        contentWards = '<option value="">-- Chọn Phường --</option>'
-                        $('.selectDistricts').html(contentDistricts)
-                        $('.selectWards').html(contentWards)
-                    }
-
-                    req.forEach(item => {
-                        if (item.name === nameProvinces) {
-                            item.districts.forEach(item => {
-                                contentDistricts += '<option value="' + item.name +
-                                    '">' + item.name + '</option>'
-                            })
-                            $('.selectDistricts').html(contentDistricts)
-                            $('.selectWards').html(contentWards)
-                        }
-                    })
-
-                    //Phường
-                    $('.selectDistricts').change(function(e) {
-                        contentWards = '<option value="">-- Chọn Phường --</option>'
-                        e.preventDefault();
-                        var nameDistricts = $('.selectDistricts').val()
-                        req.forEach(item => {
-                            if (item.name === nameProvinces) {
-                                item.districts.forEach(item => {
-                                    if (item.name === nameDistricts) {
-                                        item.wards.forEach(item => {
-                                            contentWards +=
-                                                '<option value="' +
-                                                item.name + '">' +
-                                                item.name +
-                                                '</option>'
-                                        });
-                                    }
-                                });
-                                $('.selectWards').html(contentWards)
-                            }
-                        })
+            // Initially hide the district and ward select boxes
+            $('#district').hide();
+            $('#wards').hide();
+            $.ajax({
+                url: '/get-provinces',
+                method: 'GET',
+                success: function(data) {
+                    $.each(data, function(i, province) {
+                        $('#province').append($('<option>', {
+                            value: province.province_id,
+                            text: province.name
+                        }));
                     });
-
-                })
-
-            })
-        })
-
-        //hiện thị old địa chỉ
-        window.onload = function() {
-            $.get('https://provinces.open-api.vn/api/?depth=3', function(req) {
-                var nameProvinces = '{{ old('provincial') }}'
-                let districts = '{{ old('district') }}'
-                let wards = '{{ old('ward') }}'
-                let contentDistricts = ''
-                let contentWards = ''
-                if (nameProvinces) {
-                    req.forEach(item => {
-                        if (item.name === nameProvinces) {
-                            item.districts.forEach(item => {
-                                let selectedDistricts = districts === item.name ?
-                                    'selected' : ""
-                                contentDistricts += '<option ' + selectedDistricts +
-                                    ' value="' + item.name +
-                                    '">' + item.name + '</option>'
-                            })
-                            $('.selectDistricts').html(contentDistricts)
-                        }
-                    })
                 }
-                if (districts) {
-                    var nameDistricts = $('.selectDistricts').val()
-                    req.forEach(item => {
-                        if (item.name === nameProvinces) {
-                            item.districts.forEach(item => {
-                                if (item.name === nameDistricts) {
-                                    item.wards.forEach(item => {
-                                        let selectedWards = wards === item
-                                            .name ?
-                                            'selected' : ""
-                                        contentWards +=
-                                            '<option ' + selectedWards + ' value="' +
-                                            item.name + '">' +
-                                            item.name +
-                                            '</option>'
-                                    });
-                                }
+            });
+
+            // Listen for changes in the "province" select box
+            $('#province').on('change', function() {
+                var province_id = $(this).val();
+                if (province_id) {
+                    // Fetch the districts for the selected province using AJAX
+                    $.ajax({
+                        url: '/get-districts/' + province_id,
+                        method: 'GET',
+                        success: function(data) {
+                            // Show the district select box and populate it with the returned data
+                            $('#district').show().empty();
+                            $.each(data, function(i, district) {
+                                $('#district').append($('<option>', {
+                                    value: district.district_id,
+                                    text: district.name
+                                }));
                             });
-                            $('.selectWards').html(contentWards)
                         }
-                    })
+                    });
+                } else {
+                    // Hide the district and ward select boxes if no province is selected
+                    $('#district').hide().empty();
+                    $('#wards').hide().empty();
                 }
-            })
-        }
+            });
+
+            // Listen for changes in the "district" select box
+            $('#district').on('change', function() {
+                var district_id = $(this).val();
+                if (district_id) {
+                    // Fetch the wards for the selected district using AJAX
+                    $.ajax({
+                        url: '/get-wards/' + district_id,
+                        method: 'GET',
+                        success: function(data) {
+                            // Show the ward select box and populate it with the returned data
+                            $('#wards').show().empty();
+                            $.each(data, function(i, ward) {
+                                $('#wards').append($('<option>', {
+                                    value: ward.ward_id,
+                                    text: ward.name
+                                }));
+                            });
+                        }
+                    });
+                } else {
+                    // Hide the ward select box if no district is selected
+                    $('#wards').hide().empty();
+                }
+            });
+        });
     </script>
 @endsection
 

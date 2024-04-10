@@ -5,10 +5,13 @@ namespace App\Http\Controllers\front;
 use App\Helpers\cartHelper;
 use App\Helpers\websiteInformationHelper;
 use App\Http\Controllers\Controller;
+use App\Models\District;
 use App\Models\OrderDetail;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Province;
 use App\Models\SiteSetting;
+use App\Models\Ward;
 use App\Utilities\VNPay;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -95,6 +98,22 @@ class CheckoutController extends Controller
             alert('Thất bại', 'Đã có lỗi trong quá trình đặt hàng!', 'error');
             return back();
         }
+    }
+    public function getProvinces()
+    {
+        $provinces = Province::all();
+        return response()->json($provinces);
+    }
+    public function getDistricts($province_id)
+    {
+        $districts = District::where('province_id', $province_id)->get();
+        return response()->json($districts);
+    }
+
+    public function getWards($district_id)
+    {
+        $wards = Ward::where('district_id', $district_id)->get();
+        return response()->json($wards);
     }
 
     public function vnPayCheck(Request $request)

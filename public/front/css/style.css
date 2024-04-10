@@ -5,6 +5,7 @@
  * Copyright 2011-2020 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -34,6 +35,8 @@
   --breakpoint-lg: 992px;
   --breakpoint-xl: 1200px;
   --font-family-sans-serif: "Poppins", sans-serif;
+    --color-background: #ffffff;
+    --color-text: #000000;
   --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
@@ -60,9 +63,9 @@ body {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  color: #6F6F6F;
   text-align: left;
-  background-color: #ffffff;
+    background-color: var(--color-background);
+    color: var(--color-text);
 }
 
 [tabindex="-1"]:focus:not(:focus-visible) {
@@ -315,6 +318,69 @@ legend {
   color: inherit;
   white-space: normal;
 }
+body.dark {
+    --color-background: #292c35;
+    --color-text: #ffffff;
+
+} /* #9b59b6 */
+
+body.dark h1, body.dark .support a {color: #fff;}
+
+.checkbox {
+    opacity: 0;
+    position: absolute;
+}
+
+.checkbox-label {
+    background-color: #111;
+    width: 50px;
+    height: 26px;
+    border-radius: 50px;
+    position: relative;
+    padding: 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.fa-moon {color: #f1c40f;}
+
+.fa-sun {color: #f39c12;}
+
+.checkbox-label .ball {
+    background-color: #fff;
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    border-radius: 50%;
+    transition: transform 0.2s linear;
+}
+
+.checkbox:checked + .checkbox-label .ball {
+    transform: translateX(24px);
+}
+/* button dark light */
+/*  Support me if you like it */
+.support {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+}
+
+.support a {
+    color: #292c35;
+    font-size: 32px;
+    backface-visibility: hidden;
+    display: inline-block;
+    transition: transform 0.2s ease;
+}
+
+.support a:hover{
+    transform: scale(1.1);
+}
 
 @media (max-width: 1200px) {
   legend {
@@ -348,6 +414,7 @@ progress {
 output {
   display: inline-block;
 }
+
 
 summary {
   display: list-item;
@@ -6143,8 +6210,8 @@ button.bg-primary:focus {
 }
 
 .bg-secondary {
-  /* background-color: #EDF1FF !important; */
-  background-color: #e6f2ff!important;
+    background-color: var(--color-background);
+    color: var(--color-text);
 }
 
 a.bg-secondary:hover, a.bg-secondary:focus,

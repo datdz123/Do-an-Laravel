@@ -41,8 +41,19 @@
                     <a class="text-dark" href="">Support</a>
                 </div>
             </div>
+
             <div class="col-lg-6 text-center text-lg-right">
+
                 <div class="d-inline-flex align-items-center">
+                    <div>
+                        <input type="checkbox" class="checkbox" id="checkbox">
+                        <label for="checkbox" class="checkbox-label">
+                            <i class="fas fa-moon"></i>
+                            <i class="fas fa-sun"></i>
+                            <span class="ball"></span>
+                        </label>
+                    </div>
+
                     <a target="_blank" class="text-dark px-2" href="{{$siteSettings['site_link_facebook'] ?? '#'}}">
                         <i class="fab fa-facebook-f"></i>
                     </a>
@@ -69,9 +80,9 @@
                         <input type="text" name="search" class="form-control" placeholder="Tìm kiếm sản phẩm"
                             value="{{ request('search') }}">
                         <div class="input-group-append">
-                            <span class="input-group-text bg-transparent text-primary">
+                            <button type="submit" class="input-group-text bg-transparent text-primary">
                                 <i class="fa fa-search"></i>
-                            </span>
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -244,3 +255,9 @@
         </div>
     </div>
     <!-- Navbar End -->
+<script>
+    const checkbox = document.getElementById("checkbox")
+    checkbox.addEventListener("change", () => {
+        document.body.classList.toggle("dark")
+    })
+</script>
