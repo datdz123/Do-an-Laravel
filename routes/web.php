@@ -63,7 +63,7 @@ Route::group(['prefix' => 'cart','middleware' => 'auth'], function () {
 Route::group(['prefix' => 'checkout'], function () {
     Route::get('', [CheckoutController::class, 'index'])->name('checkout');
     Route::post('', [CheckoutController::class, 'order'])->name('checkout.order');
-    Route::get('vnPayCheck', [CheckoutController::class, 'vnPayCheck'])->name('checkout.vnPayCheck');
+    Route::get('momo_payment', [CheckoutController::class, 'momo_payment'])->name('checkout.momo_payment');
     Route::get('checkout-success', [CheckoutController::class, 'success'])->name('checkout.success');
     Route::get('checkout-fail', [CheckoutController::class, 'fail'])->name('checkout.fail');
     Route::get('get-districts/{province_id}', [CheckoutController::class, 'getDistricts']);

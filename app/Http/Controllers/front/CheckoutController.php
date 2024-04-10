@@ -47,12 +47,10 @@ class CheckoutController extends Controller
             'note' => 'required | max: 500',
             'province' => 'required',
             'district' => 'required',
-            'wards' => 'required',
             'payment_method' => 'required',
         ]);
         $payment_status = 'unpaid';
         $status = 'new';
-
         if ($order = Order::create([
             'user_id' => $request->user_id,
             'name' => $request->name,
@@ -60,9 +58,9 @@ class CheckoutController extends Controller
             'phone' => $request->phone,
             'street_address' => $request->street_address,
             'note' => $request->note,
-            'provincial' => $request->province,
-            'district' => $request->district,
-            'ward' => $request->wards,
+            'provincial' => $request->province_name,
+            'district' => $request->district_name,
+            'ward' => $request->ward_name,
             'payment_method' => $request->payment_method,
             'payment_status' => $payment_status,
             'status' => $status,
@@ -116,6 +114,93 @@ class CheckoutController extends Controller
         $wards = Ward::where('district_id', $district_id)->get();
         return response()->json($wards);
     }
+   public function execPostRequest($url, $data)
+    {
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                'Content-Type: application/json',
+                'Content-Length: ' . strlen($data))
+        );
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+        //execute post
+        $result = curl_exec($ch);
+        //close connection
+        curl_close($ch);
+        return $result;
+    }
+    public function momo_payment(Request $request)
+    {
+
+
+        include "../common/helper.php";
+
+        $endpoint = "https://test-payment.momo.vn/gw_payment/transactionProcessor";
+
+
+        $partnerCode = 'MOMOBKUN20180529';
+        $accessKey = 'klm05TvNBzhg7h7j';
+        $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
+        $orderInfo = "Thanh toán qua MoMo";
+        $amount = "10000";
+        $orderId = time() ."";
+        $returnUrl = "http://localhost:8000/atm/result_atm.php";
+        $notifyurl = "http://localhost:8000/atm/ipn_momo.php";
+// Lưu ý: link notifyUrl không phải là dạng localhost
+        $bankCode = "SML";
+
+            $partnerCode = $_POST["partnerCode"];
+            $accessKey = $_POST["accessKey"];
+            $serectkey = $_POST["secretKey"];
+            $orderid = time()."";
+            $orderInfo = $_POST["orderInfo"];
+            $amount = $_POST["amount"];
+            $bankCode = $_POST['bankCode'];
+            $returnUrl = $_POST['returnUrl'];
+            $requestId = time()."";
+            $requestType = "payWithMoMoATM";
+            $extraData = "";
+            //before sign HMAC SHA256 signature
+            $rawHashArr =  array(
+                'partnerCode' => $partnerCode,
+                'accessKey' => $accessKey,
+                'requestId' => $requestId,
+                'amount' => $amount,
+                'orderId' => $orderid,
+                'orderInfo' => $orderInfo,
+                'bankCode' => $bankCode,
+                'returnUrl' => $returnUrl,
+                'notifyUrl' => $notifyurl,
+                'extraData' => $extraData,
+                'requestType' => $requestType
+            );
+            // echo $serectkey;die;
+            $rawHash = "partnerCode=".$partnerCode."&accessKey=".$accessKey."&requestId=".$requestId."&bankCode=".$bankCode."&amount=".$amount."&orderId=".$orderid."&orderInfo=".$orderInfo."&returnUrl=".$returnUrl."&notifyUrl=".$notifyurl."&extraData=".$extraData."&requestType=".$requestType;
+            $signature = hash_hmac("sha256", $rawHash, $serectkey);
+
+            $data =  array('partnerCode' => $partnerCode,
+                'accessKey' => $accessKey,
+                'requestId' => $requestId,
+                'amount' => $amount,
+                'orderId' => $orderid,
+                'orderInfo' => $orderInfo,
+                'returnUrl' => $returnUrl,
+                'bankCode' => $bankCode,
+                'notifyUrl' => $notifyurl,
+                'extraData' => $extraData,
+                'requestType' => $requestType,
+                'signature' => $signature);
+            $result = $this->execPostRequest($endpoint, json_encode($data));
+            $jsonResult = json_decode($result,true);  // decode json
+
+            error_log( print_r( $jsonResult, true ) );
+            header('Location: '.$jsonResult['payUrl']);
+
+    }
+
 
     public function vnPayCheck(Request $request)
     {

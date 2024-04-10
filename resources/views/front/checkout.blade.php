@@ -49,6 +49,9 @@
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
+                            <input type="hidden" id="province_name" name="province_name">
+                            <input type="hidden" id="district_name" name="district_name">
+                            <input type="hidden" id="ward_name" name="ward_name">
                             <div class="col-md-6 form-group">
                                 <div class="form-group">
                                     <label for="province">Tỉnh/Thành phố</label>
@@ -166,15 +169,14 @@
                             <h4 class="font-weight-semi-bold m-0">Phương thức thanh toán</h4>
                         </div>
                         <div class="card-body">
-                            @if(env('VNP_TMNCODE') && env('VNP_HASHSECRET'))
+
                                 <div class="form-group">
                                     <div class="custom-control custom-radio">
                                         <input value="online payment" type="radio" class="custom-control-input"
                                                name="payment_method" id="online">
-                                        <label class="custom-control-label" for="online">Thanh toán online (VN Pay)</label>
+                                        <label class="custom-control-label" for="online">Thanh toán online (MOMO)</label>
                                     </div>
                                 </div>
-                            @endif
                             <div class="form-group">
                                 <div class="custom-control custom-radio">
                                     <input checked value="payment on delivery" type="radio"
@@ -208,6 +210,8 @@
             $(document).ready(function() {
                 $('#province').on('change', function() {
                     var province_id = $(this).val();
+                    var province_name = $("#province option:selected").text();
+                    $('#province_name').val(province_name);
                     if (province_id) {
                         $.ajax({
                             url: `checkout/get-districts/${province_id}`, // Use template literal here
@@ -234,7 +238,8 @@
 
                 $('#district').on('change', function() {
                     var district_id = $(this).val();
-                    console.log(123,district_id)
+                    var district_name = $("#district option:selected").text();
+                    $('#district_name').val(district_name);
                     if (district_id) {
                         $.ajax({
                             url: `checkout/get-wards/${district_id}`, // Use template literal here
@@ -256,6 +261,12 @@
                     } else {
                         $('#wards').empty();
                     }
+                });
+                $('#wards').on('change', function() {
+                    var ward_id = $(this).val();
+                    var ward_name = $("#wards option:selected").text();
+                    $('#ward_name').val(ward_name);
+
                 });
             });
         </script>
