@@ -31,4 +31,18 @@ class Order extends Model
     public function orderDetails(){
         return $this->hasMany(OrderDetail::class ,'order_id','id');
     }
+    public function province()
+    {
+        return $this->belongsTo(Province::class, 'provincial');
+    }
+
+    public function district()
+    {
+        return $this->belongsTo(District::class, 'district');
+    }
+
+    public function ward()
+    {
+        return $this->belongsTo(Ward::class, 'ward');
+    }
 }

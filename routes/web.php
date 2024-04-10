@@ -63,10 +63,9 @@ Route::group(['prefix' => 'cart','middleware' => 'auth'], function () {
 Route::group(['prefix' => 'checkout'], function () {
     Route::get('', [CheckoutController::class, 'index'])->name('checkout');
     Route::post('', [CheckoutController::class, 'order'])->name('checkout.order');
-    Route::get('vnPayCheck', [CheckoutController::class, 'vnPayCheck']);
+    Route::get('vnPayCheck', [CheckoutController::class, 'vnPayCheck'])->name('checkout.vnPayCheck');
     Route::get('checkout-success', [CheckoutController::class, 'success'])->name('checkout.success');
     Route::get('checkout-fail', [CheckoutController::class, 'fail'])->name('checkout.fail');
-    Route::get('/get-provinces', [CheckoutController::class ,'getProvinces']);
     Route::get('get-districts/{province_id}', [CheckoutController::class, 'getDistricts']);
     Route::get('get-wards/{district_id}', [CheckoutController::class, 'getWards']);
 });

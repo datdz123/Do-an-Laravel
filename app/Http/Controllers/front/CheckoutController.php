@@ -21,7 +21,8 @@ class CheckoutController extends Controller
     function index()
     {
         if (session('cart') != []) {
-            return view('front.checkout');
+            $provinces = Province::all();
+            return view('front.checkout', compact('provinces'));
         } else {
             // alert('', 'Có vẻ bạn chưa có đơn hàng nào!', 'warning');
             return back();
@@ -33,6 +34,7 @@ class CheckoutController extends Controller
     }
     function fail()
     {
+
         return view('front.checkout-fail');
     }
     function order(cartHelper $cart, Request $request)
@@ -43,14 +45,14 @@ class CheckoutController extends Controller
             'phone'  => 'required | alpha_num',
             'street_address' => 'required',
             'note' => 'required | max: 500',
-            'provincial' => 'required',
+            'province' => 'required',
             'district' => 'required',
-            'ward' => 'required',
+            'wards' => 'required',
             'payment_method' => 'required',
-            'ward' => 'required',
         ]);
         $payment_status = 'unpaid';
         $status = 'new';
+
         if ($order = Order::create([
             'user_id' => $request->user_id,
             'name' => $request->name,
@@ -58,13 +60,14 @@ class CheckoutController extends Controller
             'phone' => $request->phone,
             'street_address' => $request->street_address,
             'note' => $request->note,
-            'provincial' => $request->provincial,
+            'provincial' => $request->province,
             'district' => $request->district,
-            'ward' => $request->ward,
+            'ward' => $request->wards,
             'payment_method' => $request->payment_method,
             'payment_status' => $payment_status,
             'status' => $status,
-        ])) {
+        ]))
+        {
             $main_total = 0; // tổng tiền đơn hàng
             $order_id = $order->id;
             foreach ($cart->items as $item) {
@@ -85,8 +88,9 @@ class CheckoutController extends Controller
                 'total' => $main_total
             ]);
 
+
             if ($request->payment_method == 'payment on delivery') { // thanh toán trực tiếp
-                $this->sendEmail($order);
+//                $this->sendEmail($order);
                 session(['cart' => '']);
                 return redirect()->route('checkout.success');
             }
@@ -98,12 +102,9 @@ class CheckoutController extends Controller
             alert('Thất bại', 'Đã có lỗi trong quá trình đặt hàng!', 'error');
             return back();
         }
+
     }
-    public function getProvinces()
-    {
-        $provinces = Province::all();
-        return response()->json($provinces);
-    }
+
     public function getDistricts($province_id)
     {
         $districts = District::where('province_id', $province_id)->get();
@@ -127,7 +128,7 @@ class CheckoutController extends Controller
         //kiểm tra kết quả giao dịch
         if ($vnp_ResponseCode != null) { //thành công
             if ($vnp_ResponseCode == 00) {
-                $this->sendEmail($order);
+//                $this->sendEmail($order);
                 $order->update([
                     'payment_status' => 'paid'
                 ]);
