@@ -86,15 +86,14 @@ class CheckoutController extends Controller
                 'total' => $main_total
             ]);
 
-
             if ($request->payment_method == 'payment on delivery') { // thanh toán trực tiếp
 //                $this->sendEmail($order);
                 session(['cart' => '']);
                 return redirect()->route('checkout.success');
             }
 
-            if ($request->payment_method == 'online payment') { //thanh toán online
-                return redirect()->to(VNPay::vnpay($order_id,$main_total));
+            if ($request->payment_method == 'momo_payment') { //thanh toán online
+                return redirect()->route('checkout.momo_payment');
             }
         } else {
             alert('Thất bại', 'Đã có lỗi trong quá trình đặt hàng!', 'error');
@@ -132,72 +131,48 @@ class CheckoutController extends Controller
         curl_close($ch);
         return $result;
     }
-    public function momo_payment(Request $request)
+    public function momo_payment(Request $request,cartHelper $cart)
     {
-
-
-        include "../common/helper.php";
-
-        $endpoint = "https://test-payment.momo.vn/gw_payment/transactionProcessor";
-
-
+        $endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
         $partnerCode = 'MOMOBKUN20180529';
         $accessKey = 'klm05TvNBzhg7h7j';
         $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
         $orderInfo = "Thanh toán qua MoMo";
-        $amount = "10000";
-        $orderId = time() ."";
-        $returnUrl = "http://localhost:8000/atm/result_atm.php";
-        $notifyurl = "http://localhost:8000/atm/ipn_momo.php";
-// Lưu ý: link notifyUrl không phải là dạng localhost
-        $bankCode = "SML";
+        $amount = $cart->total_price;
+        $orderId = time() . "";
+        $redirectUrl = "http://127.0.0.1:8000/checkout/checkout-success";
+        $ipnUrl = "http://127.0.0.1:8000/checkout";
+        $extraData = "";
 
-            $partnerCode = $_POST["partnerCode"];
-            $accessKey = $_POST["accessKey"];
-            $serectkey = $_POST["secretKey"];
-            $orderid = time()."";
-            $orderInfo = $_POST["orderInfo"];
-            $amount = $_POST["amount"];
-            $bankCode = $_POST['bankCode'];
-            $returnUrl = $_POST['returnUrl'];
-            $requestId = time()."";
-            $requestType = "payWithMoMoATM";
-            $extraData = "";
+            $requestId = time() . "";
+            $requestType = "payWithATM";
             //before sign HMAC SHA256 signature
-            $rawHashArr =  array(
-                'partnerCode' => $partnerCode,
-                'accessKey' => $accessKey,
+            $rawHash = "accessKey=" . $accessKey . "&amount=" . $amount . "&extraData=" . $extraData . "&ipnUrl=" . $ipnUrl . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&partnerCode=" . $partnerCode . "&redirectUrl=" . $redirectUrl . "&requestId=" . $requestId . "&requestType=" . $requestType;
+            $signature = hash_hmac("sha256", $rawHash, $secretKey);
+            $data = array('partnerCode' => $partnerCode,
+                'partnerName' => "Test",
+                "storeId" => "MomoTestStore",
                 'requestId' => $requestId,
                 'amount' => $amount,
-                'orderId' => $orderid,
+                'orderId' => $orderId,
                 'orderInfo' => $orderInfo,
-                'bankCode' => $bankCode,
-                'returnUrl' => $returnUrl,
-                'notifyUrl' => $notifyurl,
-                'extraData' => $extraData,
-                'requestType' => $requestType
-            );
-            // echo $serectkey;die;
-            $rawHash = "partnerCode=".$partnerCode."&accessKey=".$accessKey."&requestId=".$requestId."&bankCode=".$bankCode."&amount=".$amount."&orderId=".$orderid."&orderInfo=".$orderInfo."&returnUrl=".$returnUrl."&notifyUrl=".$notifyurl."&extraData=".$extraData."&requestType=".$requestType;
-            $signature = hash_hmac("sha256", $rawHash, $serectkey);
-
-            $data =  array('partnerCode' => $partnerCode,
-                'accessKey' => $accessKey,
-                'requestId' => $requestId,
-                'amount' => $amount,
-                'orderId' => $orderid,
-                'orderInfo' => $orderInfo,
-                'returnUrl' => $returnUrl,
-                'bankCode' => $bankCode,
-                'notifyUrl' => $notifyurl,
+                'redirectUrl' => $redirectUrl,
+                'ipnUrl' => $ipnUrl,
+                'lang' => 'vi',
                 'extraData' => $extraData,
                 'requestType' => $requestType,
                 'signature' => $signature);
             $result = $this->execPostRequest($endpoint, json_encode($data));
-            $jsonResult = json_decode($result,true);  // decode json
-
-            error_log( print_r( $jsonResult, true ) );
-            header('Location: '.$jsonResult['payUrl']);
+            $jsonResult = json_decode($result, true);  // decode json
+        if (isset($jsonResult['message'])=="Thành công.") {
+//            $order_id = $order->id;
+            $order = Order::find($orderId);
+            if ($order) {
+                $order->payment_status = 'paid';
+                $order->save();
+            }
+        }
+            return redirect($jsonResult['payUrl']);
 
     }
 

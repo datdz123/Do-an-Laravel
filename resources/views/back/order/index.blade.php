@@ -211,7 +211,7 @@
 
                                     @default
                                 @endswitch
-                                
+
                             </td>
                             <td>
                                 <b>Thời gian: {{ $item->created_at->format('d/m/Y') }}</b>
@@ -232,7 +232,7 @@
                                 </form>
                                 {{-- <div class="tools">
                                    <a title="Chi tiết" data-toggle="tooltip" data-placement="bottom" class="text-primary" href="">
-                                    <i class="fa fa-edit"></i></a> 
+                                    <i class="fa fa-edit"></i></a>
                                     <a class="btn btn-danger" href=""><i class="fa fa-trash-o"></i></a>
                                   </div> --}}
                             </td>

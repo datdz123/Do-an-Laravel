@@ -170,13 +170,13 @@
                         </div>
                         <div class="card-body">
 
-                                <div class="form-group">
-                                    <div class="custom-control custom-radio">
-                                        <input value="online payment" type="radio" class="custom-control-input"
-                                               name="payment_method" id="online">
-                                        <label class="custom-control-label" for="online">Thanh toán online (MOMO)</label>
-                                    </div>
+                            <div class="form-group">
+                                <div class="custom-control custom-radio">
+                                    <input value="momo_payment" type="radio" class="custom-control-input"
+                                           name="payment_method" id="online">
+                                    <label class="custom-control-label" for="online">Thanh toán qua MOMO</label>
                                 </div>
+                            </div>
                             <div class="form-group">
                                 <div class="custom-control custom-radio">
                                     <input checked value="payment on delivery" type="radio"

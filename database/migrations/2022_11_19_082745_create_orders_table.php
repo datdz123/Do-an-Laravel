@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('provincial')->nullable();
             $table->string('district')->nullable();
             $table->string('ward')->nullable();
-            $table->enum('payment_method',['payment on delivery','online payment'])->default('online payment');
+            $table->enum('payment_method',['payment on delivery','momo_payment'])->default('momo_payment');
             $table->enum('payment_status',['paid','unpaid'])->default('unpaid');
             $table->enum('status',['new','preparing goods','delivering','delivered','order has been cancelled'])->default('new');
             $table->double('total')->nullable();
