@@ -160,15 +160,9 @@
                                 <b>{{ $item->street_address }}, {{ $item->ward }}, {{ $item->district }},
                                     {{ $item->provincial }}</b>
                             </td>
-                            {{-- <td> <b>{{ Str::limit($item->note, '25') }}</b> </td> --}}
+
                             <td>
-                                {{-- @php
-                                    $main_total = 0;
-                                    foreach ($item->orderDetails as $key => $value) {
-                                        $main_total += $value->total;
-                                    }
-                                @endphp --}}
-                                {{-- <b> {{ number_format($main_total, 0, '.', '.') }} VND</b> --}}
+
                                 <b> {{ number_format($item->total, 0, '.', '.') }} VND</b>
                             </td>
                             <td>
