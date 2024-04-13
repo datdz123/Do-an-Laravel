@@ -66,6 +66,11 @@ class CheckoutController extends Controller
             'status' => $status,
         ]))
         {
+            //9704 0000 0000 0018
+            //NGUYEN VAN A
+            //03/07
+            // OTP
+             (['order_id' => $order->id]);
             $main_total = 0; // tổng tiền đơn hàng
             $order_id = $order->id;
             foreach ($cart->items as $item) {
@@ -92,7 +97,8 @@ class CheckoutController extends Controller
                 return redirect()->route('checkout.success');
             }
 
-            if ($request->payment_method == 'momo_payment') { //thanh toán online
+            if ($request->payment_method == 'momo_payment') {
+                //thanh toán online
                 return redirect()->route('checkout.momo_payment');
             }
         } else {
@@ -163,9 +169,10 @@ class CheckoutController extends Controller
                 'requestType' => $requestType,
                 'signature' => $signature);
             $result = $this->execPostRequest($endpoint, json_encode($data));
-            $jsonResult = json_decode($result, true);  // decode json
-        if (isset($jsonResult['message'])=="Thành công.") {
-//            $order_id = $order->id;
+        $jsonResult = json_decode($result, true);  // decode json
+
+        if (isset($jsonResult['message']) && $jsonResult['message'] == "Thành công.") {
+            $orderId = session('order_id');
             $order = Order::find($orderId);
             if ($order) {
                 $order->payment_status = 'paid';
