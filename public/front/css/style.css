@@ -56,7 +56,16 @@ html {
 article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
   display: block;
 }
+.card{
+    background-color: var(--color-background) !important;
+    color: var(--color-text) !important;
 
+}
+.card-footer.d-flex.justify-content-between.bg-light.border{
+    background-color: var(--color-background) !important;
+    color: var(--color-text) !important;
+
+}
 body {
   margin: 0;
   font-family: "Poppins", sans-serif;
@@ -64,8 +73,12 @@ body {
   font-weight: 400;
   line-height: 1.5;
   text-align: left;
-    background-color: var(--color-background);
-    color: var(--color-text);
+    background-color: var(--color-background) !important;
+    color: var(--color-text) !important;
+}
+.text-dark {
+
+    color: var(--color-text) !important;
 }
 
 [tabindex="-1"]:focus:not(:focus-visible) {
@@ -79,8 +92,9 @@ hr {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
+    margin-top: 0;
+     margin-bottom: 0.5rem;
+    color: var(--color-text) !important;
 }
 
 p {
@@ -6213,6 +6227,13 @@ button.bg-primary:focus {
     background-color: var(--color-background);
     color: var(--color-text);
 }
+.navbar-light .navbar-nav .nav-link {
+    color: var(--color-text) !important;
+}
+div#navbarCollapse {
+    background-color: var(--color-background);
+    color: var(--color-text);
+}
 
 a.bg-secondary:hover, a.bg-secondary:focus,
 button.bg-secondary:hover,
@@ -9428,9 +9449,7 @@ a.text-light:hover, a.text-light:focus {
   color: #d9d9d9 !important;
 }
 
-.text-dark {
-  color: #1C1C1C !important;
-}
+
 
 a.text-dark:hover, a.text-dark:focus {
   color: black !important;

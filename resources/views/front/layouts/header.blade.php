@@ -255,9 +255,24 @@
         </div>
     </div>
     <!-- Navbar End -->
-<script>
-    const checkbox = document.getElementById("checkbox")
-    checkbox.addEventListener("change", () => {
-        document.body.classList.toggle("dark")
-    })
-</script>
+    <script>
+        const checkbox = document.getElementById("checkbox");
+
+        // Khi trang web tải, kiểm tra trạng thái trong localStorage
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme == 'dark') {
+            document.body.classList.add('dark');
+            checkbox.checked = true;
+        }
+
+        checkbox.addEventListener("change", () => {
+            document.body.classList.toggle("dark");
+
+            // Lưu trạng thái vào localStorage
+            let theme = 'light';
+            if (document.body.classList.contains('dark')) {
+                theme = 'dark';
+            }
+            localStorage.setItem('theme', theme);
+        });
+    </script>
