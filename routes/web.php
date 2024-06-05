@@ -30,53 +30,54 @@ Route::get('shop', [ShopController::class, 'index'])->name('shop');
 Route::get('/shop/detail/{id}-{slug}', [Shop_detailsController::class, 'index'])->name('detail');
 Route::post('/shop/detail/{id}-{slug}', [Shop_detailsController::class, 'product_comment']);
 Route::get('/shop/{id}-{slug}', [ShopController::class, 'category'])->name('shop/category');
-
+Route::get('shop/search', [ShopController::class, 'search'])->name('shop.search');
 
 //đăng nhập & đăng ký
-Route::get('/login', [AuthUserController::class, 'login'])->name('loginUser');
-Route::post('/login', [AuthUserController::class, 'post_login']);
-Route::get('/register', [AuthUserController::class, 'register'])->name('registerUser');
-Route::post('/register', [AuthUserController::class, 'post_register']);
-Route::get('/logout', [AuthUserController::class, 'logout'])->name('logoutUser');
-Route::get('/forgot-password', [AuthUserController::class, 'forgot_password'])->name('forgot-user-password');
-Route::post('/forgot-password', [AuthUserController::class, 'post_forgot_password']);
-Route::get('/reset-user-password', [AuthUserController::class, 'reset_password'])->name('reset-user-password');
-Route::post('/reset-user-password', [AuthUserController::class, 'post_reset_password']);
+    Route::get('/login', [AuthUserController::class, 'login'])->name('loginUser');
+    Route::post('/login', [AuthUserController::class, 'post_login']);
+    Route::get('/register', [AuthUserController::class, 'register'])->name('registerUser');
+    Route::post('/register', [AuthUserController::class, 'post_register']);
+    Route::get('/logout', [AuthUserController::class, 'logout'])->name('logoutUser');
+    Route::get('/forgot-password', [AuthUserController::class, 'forgot_password'])->name('forgot-user-password');
+    Route::post('/forgot-password', [AuthUserController::class, 'post_forgot_password']);
+    Route::get('/reset-user-password', [AuthUserController::class, 'reset_password'])->name('reset-user-password');
+    Route::post('/reset-user-password', [AuthUserController::class, 'post_reset_password']);
+// Đa ngôn ngữ
 
 //thông tin cá nhân
-Route::middleware(['auth'])->group(function () {
-    Route::get('/user-information', [UserController::class, 'index'])->name('user.information');
-    Route::get('/user-information/change-password', [UserController::class, 'get_changePassword'])->name('user.change-password');
-    Route::post('/user-information/change-password', [UserController::class, 'changePassword']);
-    Route::post('/user-information/change-information', [UserController::class, 'changeInformation'])->name('user.information.change-information');
-});
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/user-information', [UserController::class, 'index'])->name('user.information');
+        Route::get('/user-information/change-password', [UserController::class, 'get_changePassword'])->name('user.change-password');
+        Route::post('/user-information/change-password', [UserController::class, 'changePassword']);
+        Route::post('/user-information/change-information', [UserController::class, 'changeInformation'])->name('user.information.change-information');
+    });
 //cart
-Route::group(['prefix' => 'cart','middleware' => 'auth'], function () {
-    Route::get('', [CartController::class, 'index'])->name('cart');
-    Route::post('add', [CartController::class, 'add'])->name('cart.add');
-    Route::get('remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
-    Route::get('update/{id}', [CartController::class, 'update'])->name('cart.update');
-    Route::get('clear', [CartController::class, 'clear'])->name('cart.clear');
-});
+    Route::group(['prefix' => 'cart', 'middleware' => 'auth'], function () {
+        Route::get('', [CartController::class, 'index'])->name('cart');
+        Route::post('add', [CartController::class, 'add'])->name('cart.add');
+        Route::get('remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+        Route::get('update/{id}', [CartController::class, 'update'])->name('cart.update');
+        Route::get('clear', [CartController::class, 'clear'])->name('cart.clear');
+    });
 
 //checkout
-Route::group(['prefix' => 'checkout'], function () {
-    Route::get('', [CheckoutController::class, 'index'])->name('checkout');
-    Route::post('', [CheckoutController::class, 'order'])->name('checkout.order');
-    Route::get('momo_payment', [CheckoutController::class, 'momo_payment'])->name('checkout.momo_payment');
-    Route::get('checkout-success', [CheckoutController::class, 'success'])->name('checkout.success');
-    Route::get('checkout-fail', [CheckoutController::class, 'fail'])->name('checkout.fail');
-    Route::get('get-districts/{province_id}', [CheckoutController::class, 'getDistricts']);
-    Route::get('get-wards/{district_id}', [CheckoutController::class, 'getWards']);
-});
+    Route::group(['prefix' => 'checkout'], function () {
+        Route::get('', [CheckoutController::class, 'index'])->name('checkout');
+        Route::post('', [CheckoutController::class, 'order'])->name('checkout.order');
+        Route::get('momo_payment', [CheckoutController::class, 'momo_payment'])->name('checkout.momo_payment');
+        Route::get('checkout-success', [CheckoutController::class, 'success'])->name('checkout.success');
+        Route::get('checkout-fail', [CheckoutController::class, 'fail'])->name('checkout.fail');
+        Route::get('get-districts/{province_id}', [CheckoutController::class, 'getDistricts']);
+        Route::get('get-wards/{district_id}', [CheckoutController::class, 'getWards']);
+    });
 //oder
-Route::get('order/{id}', [OrderUserController::class, 'order'])->name('order.user');
-Route::get('order-detail/{id}', [OrderUserController::class, 'order_detail'])->name('order.detail.user');
-Route::put('order-detail', [OrderUserController::class, 'order_cancel'])->name('order.cancel.user');
-Route::get('check-order', [OrderUserController::class, 'check_order'])->name('check.order'); //kt đơn khi k đăng nhập mua hàng
+    Route::get('order/{id}', [OrderUserController::class, 'order'])->name('order.user');
+    Route::get('order-detail/{id}', [OrderUserController::class, 'order_detail'])->name('order.detail.user');
+    Route::put('order-detail', [OrderUserController::class, 'order_cancel'])->name('order.cancel.user');
+    Route::get('check-order', [OrderUserController::class, 'check_order'])->name('check.order'); //kt đơn khi k đăng nhập mua hàng
 
 //contact
-Route::get('contact', [ContactController::class, 'index'])->name('contact');
+    Route::get('contact', [ContactController::class, 'index'])->name('contact');
 //about us
 
 

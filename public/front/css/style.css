@@ -4038,7 +4038,7 @@ input[type="button"].btn-block {
 
 .nav-link {
   display: block;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 3px;
 }
 
 .nav-link:hover, .nav-link:focus {
@@ -9711,4 +9711,11 @@ a.text-dark:hover, a.text-dark:focus {
   100% {
     transform: translateY(-15px);
   }
+}
+@media (min-width: 576px) and (max-width: 1279px)
+.custom-svg {
+    width: 20px;
+}
+.custom-svg {
+    width: 23px;
 }

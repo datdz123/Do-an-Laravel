@@ -220,4 +220,22 @@ class ShopController extends Controller
     //     // dd($products->get());
     //     return $products;
     // }
+
+
+    public function search(Request $request)
+    {
+        if($request->ajax())
+        {
+            $output = "";
+            $products = Product::where('name', 'LIKE', '%' . $request->search . '%')->get();
+            if($products->count() > 0)
+            {
+                foreach ($products as $product) {
+                    $output .= '<li>' . $product->name . '</li>';
+                }
+                return response($output);
+            }
+        }
+    }
+
 }

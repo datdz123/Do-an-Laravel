@@ -42,9 +42,9 @@
                 </div>
             </div>
 
-            <div class="col-lg-6 text-center text-lg-right">
 
-                <div class="d-inline-flex align-items-center">
+            <div class="col-lg-6 text-center text-lg-right">
+                <div class="d-inline-flex align-items-center justify-content-center">
                     <div>
                         <input type="checkbox" class="checkbox" id="checkbox">
                         <label for="checkbox" class="checkbox-label">
@@ -65,6 +65,7 @@
                     </a>
                 </div>
             </div>
+
         </div>
         <div class="row align-items-center py-3 px-xl-5">
             <div class="col-lg-3 d-none d-lg-block">
@@ -77,21 +78,47 @@
             <div class="col-lg-6 col-6 text-left">
                 <form action="{{ route('shop') }}" method="GET">
                     <div class="input-group">
-                        <input type="text" name="search" class="form-control" placeholder="Tìm kiếm sản phẩm"
-                            value="{{ request('search') }}">
+                        <input type="text" id="search" name="search_header" class="form-control" placeholder="Tìm kiếm sản phẩm" value="{{ request('search') }}">
                         <div class="input-group-append">
                             <button type="submit" class="input-group-text bg-transparent text-primary">
                                 <i class="fa fa-search"></i>
                             </button>
                         </div>
                     </div>
+                    <div id="productList"></div>
                 </form>
             </div>
-            <div class="col-lg-3 col-6 text-right">
+            <div class="col-lg-3 col-6 text-right d-flex justify-content-center">
                 {{-- <a href="" class="btn border">
                     <i class="fas fa-heart text-primary"></i>
                     <span class="badge">0</span>
                 </a> --}}
+
+                <div class="form-group d-flex mr-3">
+                    @if(App::getLocale() === 'vi')
+
+                    <div class="nav-item language">
+                        <a class="nav-link d-flex active" href="{{ route('home', ['locale' => 'vi']) }}">                            <img class="custom-svg" src="{{asset('svgIcon/viActive.svg')}}" alt="VI">
+                        </a>
+                    </div>
+                        <div class="nav-item language ">
+                            <a class="nav-link d-flex " href="{{ route('home', ['locale' => 'en']) }}">
+                                <img class="custom-svg" src="{{ asset('svgIcon/en.svg') }}" alt="Eng">
+                            </a>
+                        </div>
+                     @else
+                        <div class="nav-item language">
+                            <a class="nav-link d-flex " href="{{ route('home', ['locale' => 'vi']) }}">
+                                <img class="custom-svg" src="{{asset('svgIcon/vi.svg')}}" alt="VI">
+                            </a>
+                        </div>
+                    <div class="nav-item language ">
+                        <a class="nav-link d-flex " href="{{ route('home', ['locale' => 'en']) }}">
+                            <img class="custom-svg" src="{{ asset('svgIcon/enActive.svg') }}" alt="Eng">
+                        </a>
+                    </div>
+                    @endif
+                </div>
                 <a href="{{ route('cart') }}" class="btn border">
                     <i class="fas fa-shopping-cart text-primary"></i>
                     <span class="badge">{{ $cart->total_quantity }}</span>
@@ -105,35 +132,7 @@
     <div class="container-fluid ">
         <div class="row border-top px-xl-5">
             <div class="col-lg-3 d-none d-lg-block">
-                {{-- <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100"
-                    data-toggle="collapse" href="#navbar-vertical"
-                    style="height: 65px; margin-top: -1px; padding: 0 30px;">
-                    <h6 class="m-0">Categories</h6>
-                    <i class="fa fa-angle-down text-dark"></i>
-                </a> --}}
-                {{-- <nav class="collapse show navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0"
-                    id="navbar-vertical"  >
-                    <div class="navbar-nav w-100 overflow-hidden" style="height: 410px">
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link" data-toggle="dropdown">Dresses <i
-                                    class="fa fa-angle-down float-right mt-1"></i></a>
-                            <div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
-                                <a href="" class="dropdown-item">Men's Dresses</a>
-                                <a href="" class="dropdown-item">Women's Dresses</a>
-                                <a href="" class="dropdown-item">Baby's Dresses</a>
-                            </div>
-                        </div>
-                        <a href="" class="nav-item nav-link">Shirts</a>
-                        <a href="" class="nav-item nav-link">Jeans</a>
-                        <a href="" class="nav-item nav-link">Swimwear</a>
-                        <a href="" class="nav-item nav-link">Sleepwear</a>
-                        <a href="" class="nav-item nav-link">Sportswear</a>
-                        <a href="" class="nav-item nav-link">Jumpsuits</a>
-                        <a href="" class="nav-item nav-link">Blazers</a>
-                        <a href="" class="nav-item nav-link">Jackets</a>
-                        <a href="" class="nav-item nav-link">Shoes</a>
-                    </div>
-                </nav> --}}
+
             </div>
             <div class="col-lg-12">
                 <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
@@ -186,13 +185,13 @@
                                             khẩu</a>
                                         <a href="{{ route('order.user', ['id' => Auth::user()->id]) }}"
                                             class="dropdown-item">Đơn hàng của tôi</a>
-                                        <a href="{{ route('logoutUser') }}" class="dropdown-item">Đăng xuất</a>
+                                        <a href="{{ route('logoutUser') }}" class="dropdown-item">{{ __('Đăng xuất') }}</a>
                                     </div>
                                 </div>
                             @else
                                 <a href="{{ route('loginUser') }}?redirect_uri={{ url()->full() }}"
-                                    class="nav-item nav-link"> Đăng nhập</a>
-                                <a href="{{ route('registerUser') }}" class="nav-item nav-link">Đăng ký</a>
+                                    class="nav-item nav-link">{{  __('Đăng nhập') }} </a>
+                                <a href="{{ route('registerUser') }}" class="nav-item nav-link">{{ __('Đăng ký') }}</a>
                             @endif
                         </div>
                     </div>
@@ -255,7 +254,24 @@
         </div>
     </div>
     <!-- Navbar End -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+
+        $(document).ready(function(){
+            $('#search').on('keyup',function(){
+                var query = $(this).val();
+                $.ajax({
+                    url:"{{ route('shop.search') }}",
+                    type:"GET",
+                    data:{'search':query},
+                    success:function (data) {
+                        $('#productList').html(data);
+                    }
+                })
+            });
+        });
+
+
         const checkbox = document.getElementById("checkbox");
 
         // Khi trang web tải, kiểm tra trạng thái trong localStorage

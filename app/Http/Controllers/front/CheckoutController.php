@@ -155,6 +155,7 @@ class CheckoutController extends Controller
             //before sign HMAC SHA256 signature
             $rawHash = "accessKey=" . $accessKey . "&amount=" . $amount . "&extraData=" . $extraData . "&ipnUrl=" . $ipnUrl . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&partnerCode=" . $partnerCode . "&redirectUrl=" . $redirectUrl . "&requestId=" . $requestId . "&requestType=" . $requestType;
             $signature = hash_hmac("sha256", $rawHash, $secretKey);
+
             $data = array('partnerCode' => $partnerCode,
                 'partnerName' => "Test",
                 "storeId" => "MomoTestStore",
@@ -169,6 +170,7 @@ class CheckoutController extends Controller
                 'requestType' => $requestType,
                 'signature' => $signature);
             $result = $this->execPostRequest($endpoint, json_encode($data));
+
         $jsonResult = json_decode($result, true);  // decode json
 
         if (isset($jsonResult['message']) && $jsonResult['message'] == "Thành công.") {

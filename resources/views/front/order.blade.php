@@ -21,6 +21,7 @@
                         </thead>
                         <tbody class="align-middle">
                             @foreach ($order as $i => $item)
+
                                 <tr>
                                     <td class="text-left">
                                         <div class="col-12">Tên KH: {{ $item->name }}</div>
@@ -29,17 +30,14 @@
                                         <div class="col-12">Thời gian: {{ $item->created_at->format('d/m/Y') }}</div>
 
                                     </td>
+{{--                                    @dd($item->orderDetails)--}}
                                     <td class="align-middle">{{ $item->street_address }}, {{ $item->ward }},
                                         {{ $item->district }},
                                         {{ $item->provincial }}</td>
+
                                     <td class="align-middle">
-                                        @php
-                                            $main_total = 0;
-                                            foreach ($item->orderDetails as $key => $value) {
-                                                $main_total += $value->total;
-                                            }
-                                        @endphp
-                                        {{ number_format($main_total, 0, '.', '.') }} VND
+
+                                        {{ number_format($item->total, 0, '.', ',') }} VND
                                     </td>
                                     {{-- <td class="align-middle">
                                         <div class="col-12">
