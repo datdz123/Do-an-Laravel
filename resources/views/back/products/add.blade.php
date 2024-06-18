@@ -252,94 +252,8 @@
             prefix: route_prefix
         });
 
-        //     // DOM utility functions:
 
-        // const el = (sel, par) => (par || document).querySelector(sel);
-        // const elNew = (tag, props) => Object.assign(document.createElement(tag), props);
-
-
-        // // Preview images before upload:
-
-        // const elFiles = el("#files");
-        // const elPreview = el("#preview");
-
-        // const previewImage = (props) => elPreview.append(elNew("img", props));
-
-        // const reader = (file, method = "readAsDataURL") => new Promise((resolve, reject) => {
-        //   const fr = new FileReader();
-        //   fr.onload = () => resolve({ file, result: fr.result });
-        //   fr.onerror = (err) => reject(err);
-        //   fr[method](file);
-        // });
-
-        // const previewImages = async(files) => {
-        //   // Remove existing preview images
-        //   elPreview.innerHTML = "";
-
-        //   let filesData = [];
-
-        //   try {
-        //     // Read all files. Return Array of Promises
-        //     const readerPromises = files.map((file) => reader(file));
-        //     filesData = await Promise.all(readerPromises);
-        //   } catch (err) {
-        //     // Notify the user that something went wrong.
-        //     elPreview.textContent = "An error occurred while loading images. Try again.";
-        //     // In this specific case Promise.all() might be preferred over
-        //     // Promise.allSettled(), since it isn't trivial to modify a FileList
-        //     // to a subset of files of what the user initially selected.
-        //     // Therefore, let's just stash the entire operation.
-        //     console.error(err);
-        //     return; // Exit function here.
-        //   }
-
-        //   // All OK. Preview images:
-        //   filesData.forEach(data => {
-        //     previewImage({
-        //       src: data.result, // Base64 String
-        //       alt: data.file.name // File.name String
-        //     });
-        //   });
-        // };
-
-        // elFiles.addEventListener("change", (ev) => {
-        //   if (!ev.currentTarget.files) return; // Do nothing.
-        //   previewImages([...ev.currentTarget.files]);
-        // });
     </script>
-
-    {{-- <script type="text/javascript">
-        $(document).ready(function() {
-            var maxField = 7; //Input fields increment limitation
-            var addButton = $('.add_button'); //Add button selector
-            var wrapper = $('.field_wrapper'); //Input field wrapper
-            var fieldHTML =
-                `<div class="form-group">
-            <div class="col-md-5">
-                  <input class="form-control" style=" text-transform: uppercase;" type="text" name="size[]" value="" placeholder="Size" /></div>
-                  <div class="col-md-5">
-                      <input class="form-control" type="number" name="qty[]" value="" placeholder="Số lượng" />
-                  </div>
-            <a href="javascript:void(0);" class="btn btn-danger remove_button">Xóa</a></div></div>`; //New input field html
-            var x = 1; //Initial field counter is 1
-
-            //Once add button is clicked
-            $(addButton).click(function() {
-                //Check maximum number of input fields
-                if (x < maxField) {
-                    x++; //Increment field counter
-                    $(wrapper).append(fieldHTML); //Add field html
-                }
-            });
-
-            //Once remove button is clicked
-            $(wrapper).on('click', '.remove_button', function(e) {
-                e.preventDefault();
-                $(this).parent('div').remove(); //Remove field html
-                x--; //Decrement field counter
-            });
-        });
-    </script> --}}
 
 
     <script language="javascript">
@@ -378,15 +292,6 @@
         }
     </script>
 
-    {{-- <script>
-        function formatmoney() {
-            const number = document.getElementById('price').value;
-            document.getElementById('formatPrice').innerHTML = new Intl.NumberFormat('vi-VN', {
-                style: 'currency',
-                currency: 'VND'
-            }).format(number);
-        }
-    </script> --}}
 
     <script src=" https://cdn.jsdelivr.net/npm/cleave.js@1.6.0/dist/cleave.min.js"></script>
     <script>

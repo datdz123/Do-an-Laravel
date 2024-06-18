@@ -227,11 +227,17 @@ class ShopController extends Controller
         if($request->ajax())
         {
             $output = "";
-            $products = Product::where('name', 'LIKE', '%' . $request->search . '%')->get();
+            $products = Product::where('name', 'LIKE', '%' . $request->search . '%')->take(5)->get();
             if($products->count() > 0)
             {
                 foreach ($products as $product) {
-                    $output .= '<li>' . $product->name . '</li>';
+                    $productUrl = route('detail', ['id' => $product->id, 'slug' => $product->slug]);
+                    $output .= '<li class="list-group-item">';
+                    $output .= '<div class="media align-items-center">';
+                    $output .= '<img src="' . $product->images . '" class="mr-3"  style="width: 60px; height: 60px;">';
+                    $output .= '<div class="media-body">';
+                    $output .= '<a href="' . $productUrl . '">' . $product->name . '</a>';
+                    $output .= '</div></div></li>';
                 }
                 return response($output);
             }
