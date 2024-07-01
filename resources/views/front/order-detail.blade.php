@@ -51,7 +51,7 @@
                         <a href="{{ route('order.user', Auth::user()->id) }}" class="btn btn-primary">Danh sách đơn
                             hàng</a>
                     </div>
-                        
+
                     @endauth
                 </div>
 
@@ -151,9 +151,13 @@
                             $total = 0;
                         @endphp
                         @foreach ($order_detail as $stt => $item)
+{{--                            @dd($item);--}}
+
                             @php
                                 $product = \App\Models\Product::find($item['product_id']);
+
                                 $total += $item->total;
+
                             @endphp
                             <tr>
                                 <td>{{ ++$stt }} </td>

@@ -180,6 +180,7 @@ class CheckoutController extends Controller
                 $order->payment_status = 'paid';
                 $order->save();
             }
+            session(['cart' => []]);
         }
             return redirect($jsonResult['payUrl']);
 
