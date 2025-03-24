@@ -64,8 +64,11 @@ class CheckoutController extends Controller
             'payment_method' => $request->payment_method,
             'payment_status' => $payment_status,
             'status' => $status,
+
         ]))
         {
+
+
             //9704 0000 0000 0018
             //NGUYEN VAN A
             //03/07

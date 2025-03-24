@@ -58,7 +58,7 @@
                                     <select id="province" name="province" class="form-control">
                                         <option value="">Chọn một tỉnh</option>
                                         @foreach($provinces as $province)
-                                            <option value="{{ $province->province_id }}">{{ $province->name }}</option>
+                                            <option value="{{ $province->id }}">{{ $province->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -221,7 +221,7 @@
                                 $('#district').empty();
                                 $.each(data, function(i, district) {
                                     $('#district').append($('<option>', {
-                                        value: district.district_id,
+                                        value: district.id,
                                         text: district.name
                                     }));
                                 });
@@ -249,7 +249,7 @@
                                 $('#wards').empty();
                                 $.each(data, function(i, wards) {
                                     $('#wards').append($('<option>', {
-                                        value: wards.wards_id,
+                                        value: wards.id,
                                         text: wards.name
                                     }));
                                 });

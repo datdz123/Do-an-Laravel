@@ -216,14 +216,16 @@
                                         alt="Image">
                                     <div
                                         class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                      @if(isset($site))
                                         <div class="p-3" style="max-width: 700px;">
                                             <h4 class="text-light text-uppercase font-weight-medium mb-3">
-                                                {{ $site->site_name }}</h4>
+                                                fas fa-shopping-cart text-primary  {{ $site->site_name }}</h4>
                                             <h3 class="display-4 text-white font-weight-semi-bold mb-4">
                                                 {{ $site->site_description }}</h3>
                                             <a href="{{ route('shop') }} " class="btn btn-light py-2 px-3">Shop
                                                 Now</a>
                                         </div>
+                                        @endif
                                     </div>
                                 </div>
                             @endif
