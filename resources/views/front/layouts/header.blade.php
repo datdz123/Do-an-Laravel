@@ -3,30 +3,20 @@
 
 <head>
     <meta charset="utf-8">
+    @vite(['resources/scss/app.scss', 'resources/js/app.js'])
     <title>@yield('title') | {{$siteSettings['site_name'] ?? config('app.name')}}</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
     @include('front.components.meta')
-
-    <!-- Favicon -->
     <link href="{{ getImageUrl($siteSettings['site_icon']) ?? '' }}" rel="icon">
-
-    <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
-
-    <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('front/js/select2/dist/css/select2.css') }}">
-    <!-- Libraries Stylesheet -->
     <link href="{{ asset('front/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
-
-    <!-- Customized Bootstrap Stylesheet -->
     <link rel="stylesheet" href="{{ asset('front/css/rating.css') }}">
     <link href="{{ asset('front/css/style.css') }}" rel="stylesheet">
-</head>
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet"></head>
 
 <body>
     <!-- Topbar Start -->
@@ -130,12 +120,12 @@
 
     <!-- Navbar Start -->
     <div class="container-fluid ">
-        <div class="row border-top px-xl-5">
+        <div class="row border-top ">
             <div class="col-lg-3 d-none d-lg-block">
 
             </div>
-            <div class="col-lg-12">
-                <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
+            <div class="col-lg-12 px-0">
+                <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-xl-5">
                     <a href="{{route('home')}}" class="text-decoration-none d-block d-lg-none">
                         <h1 class="m-0 display-5 font-weight-semi-bold"><span
                                 class="text-primary font-weight-bold border px-3 mr-1">{{$siteSettings['site_name'] ?? config('app.name')}}</span>
@@ -205,7 +195,7 @@
                                     @php
                                         $image = explode(',', $item->images);
                                     @endphp
-                                    <div class="carousel-item {{ $i == 0 ? 'active' : '' }}" style="height: 410px;">
+                                    <div class="carousel-item {{ $i == 0 ? 'active' : '' }}" style="height:70vh;">
                                         <img class="img-fluid" src="{{ $image[0] }}" alt="Image">
                                         <div
                                             class="carousel-caption d-flex flex-column align-items-center justify-content-center">
@@ -214,14 +204,14 @@
                                                     {{ $item->title }}</h4>
                                                 <h3 class="display-4 text-white font-weight-semi-bold mb-4">
                                                     {{ $item->description }}</h3>
-                                                <a href="{{ route('shop') }} " class="btn btn-light py-2 px-3">Shop
-                                                    Now</a>
+{{--                                                <a href="{{ route('shop') }} " class="btn btn-light py-2 px-3">Shop--}}
+{{--                                                    Now</a>--}}
                                             </div>
                                         </div>
                                     </div>
                                 @endforeach
                             @else
-                                <div class="carousel-item active" style="height: 410px;">
+                                <div class="carousel-item active" style="height:70vh !important;">
                                     <img class="img-fluid" src="{{ url('front/img/carousel-null.png') }}"
                                         alt="Image">
                                     <div

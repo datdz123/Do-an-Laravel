@@ -1,6 +1,4 @@
 
-
-    <!-- Footer Start -->
     <div class="container-fluid bg-secondary text-dark mt-5 pt-5">
         <div class="row px-xl-5 pt-5">
             <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
@@ -70,12 +68,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('front/lib/easing/easing.min.js')}}"></script>
     <script src="{{ asset('front/lib/owlcarousel/owl.carousel.min.js')}}"></script>
-    <!-- Contact Javascript File -->
     <script src="{{ asset('front/mail/jqBootstrapValidation.min.js')}}"></script>
     <script src="{{ asset('front/mail/contact.js')}}"></script>
-    <!-- Template Javascript -->
     <script src="{{ asset('front/js/main.js')}}"></script>
-    <!--Start of Tawk.to Script-->
     <script type="text/javascript">
         var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
         (function(){
@@ -87,7 +82,6 @@
             s0.parentNode.insertBefore(s1,s0);
         })();
     </script>
-    <!--End of Tawk.to Script-->
     @yield('js')
 
 </body>

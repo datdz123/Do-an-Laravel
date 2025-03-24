@@ -4,6 +4,26 @@
 
 
 <!-- Featured Start -->
+<div class="container pt-5" style="max-width: 80%;">
+    <div class="row px-xl-5 pb-3">
+        <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
+            <div class="d-flex align-items-center mb-4" style="padding: 30px;">
+               <img src="{{ asset('/front/img/banner01.webp') }}" alt="">
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
+            <div class="d-flex align-items-center mb-4" style="padding: 30px;">
+                <img src="{{ asset('/front/img/banner02.webp') }}" alt="">
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-12 pb-1">
+            <div class="d-flex align-items-center  mb-4" style="padding: 30px;">
+                <img src="{{ asset('/front/img/banner03.webp') }}" alt="">
+            </div>
+        </div>
+
+    </div>
+</div>
 <div class="container-fluid pt-5">
     <div class="row px-xl-5 pb-3">
         <div class="col-lg-3 col-md-6 col-sm-12 pb-1">

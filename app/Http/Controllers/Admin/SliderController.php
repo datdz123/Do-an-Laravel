@@ -45,11 +45,13 @@ class SliderController extends Controller
     {
 
         $this->validate($request, [
-            'title'  => 'required',
-            'images'  => 'required',
-            'description'  => 'required',
+            'title' => 'nullable|string|max:255',
+            'images' => 'nullable|string',
+            'description' => 'nullable|string',
         ]);
         $data=$request->all();
+        $data['title'] = $data['title'] ?? '';
+        $data['description'] = $data['description'] ?? '';
         Slider::find($id)->update($data);
         toast('Cập nhật thành công!', 'success');
         return redirect()->route('slider')->with('success','Cập nhật thành công.');
