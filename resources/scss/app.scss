@@ -75,3 +75,119 @@
     margin: 0 10px;
     color: #fff;
 }
+.fs-6{
+    font-size: 16px;
+}
+
+
+$gray: #d3d3d3;
+$white: #ffffff;
+$black: #000;
+$shadow-light: 0 2px 5px rgba(0, 0, 0, 0.1);
+$shadow-hover: 0 4px 10px rgba(0, 0, 0, 0.2);
+
+.swiper-button-next,
+.swiper-button-prev {
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:hover {
+        color: $white !important;
+    }
+
+    &::after {
+        font-size: 20px;
+        font-weight: bold;
+        color: $white;
+
+    }
+    margin-top: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.swiper-button-next{
+    right: 20px !important;
+}
+.swiper-button-prev{
+    left: 20px !important;
+}
+.custom-logo{
+    height:80px;
+}
+
+.navbar-nav {
+    display: flex;
+    align-items: center; // Căn giữa theo chiều dọc
+    justify-content: flex-end; // Đẩy các phần tử về bên phải
+    gap: 10px; // Khoảng cách giữa các phần tử
+
+    .nav-item {
+        &.dropdown {
+            .nav-link {
+                color: $black;
+                font-weight: 500;
+                padding: 8px 15px;
+                transition: color 0.3s ease;
+
+                &:hover {
+                    color: #ff0000; // Màu đỏ khi hover
+                }
+            }
+
+            .dropdown-menu {
+                border: none;
+                box-shadow: $shadow-light;
+                .dropdown-item {
+                    padding: 10px 20px;
+                    &:hover {
+                        background-color: $gray;
+                    }
+                }
+            }
+        }
+
+        &.nav-link {
+            color: $black;
+            font-weight: 500;
+            padding: 8px 15px;
+            transition: color 0.3s ease;
+
+            &:hover {
+                color: #ff0000;
+            }
+        }
+    }
+
+    .search,
+    .li_log a,
+    > a:last-child { // Icon giỏ hàng
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+
+        svg {
+            width: 40px;
+            height: 40px;
+            fill: $black;
+        }
+    }
+
+    .p-cart {
+        position: absolute;
+        top: 14px;
+        right: 40px;
+        background-color: #ff0000;
+        color: $white;
+        font-size: 12px;
+        font-weight: bold;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}

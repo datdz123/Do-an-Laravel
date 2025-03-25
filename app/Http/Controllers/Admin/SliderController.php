@@ -18,12 +18,13 @@ class SliderController extends Controller
     function post_add(Request $request)
     {
         $this->validate($request, [
-            'title'  => 'required',
-            'images'  => 'required',
-            'description'  => 'required',
+            'title' => 'nullable|string|max:255',
+            'images' => 'nullable|string',
+            'description' => 'nullable|string',
         ]);
-
         $data=$request->all();
+        $data['title'] = $data['title'] ?? '';
+        $data['description'] = $data['description'] ?? '';
         Slider::create($data);
         toast('Thêm mới thành công!', 'success');
         return redirect()->route('slider')->with('success','Thêm mới thành công.');

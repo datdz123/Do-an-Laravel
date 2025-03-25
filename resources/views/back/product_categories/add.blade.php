@@ -67,7 +67,7 @@
         function ChangeToSlug() {
             var title, slug;
 
-            //Lấy text từ thẻ input title 
+            //Lấy text từ thẻ input title
             title = document.getElementById("name").value;
 
             //Đổi chữ hoa thành chữ thường

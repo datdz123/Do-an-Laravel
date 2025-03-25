@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PermissionController;
@@ -147,6 +148,16 @@ Route::group(['prefix' => 'admin'], function () {
             Route::get('/update/{id}', [ProductsController::class, 'update'])->name('product/update')->middleware('role_or_permission:super-admin|product view');
             Route::post('/update/{id}', [ProductsController::class, 'post_update'])->middleware('role_or_permission:super-admin|edit product');
             Route::delete('/delete/{id}', [ProductsController::class, 'delete'])->name('product/delete')->middleware('role_or_permission:super-admin|delete product');
+        });
+
+        Route::group(['prefix' => 'blog'], function () {
+            Route::get('/', [BlogController::class, 'index'])->name('blog.index');
+            Route::get('/create', [BlogController::class, 'create'])->name('blog.create');
+            Route::post('/', [BlogController::class, 'store'])->name('blog.store');
+            Route::get('/{id}', [BlogController::class, 'show'])->name('blog.show');
+            Route::get('/{id}/edit', [BlogController::class, 'edit'])->name('blog.edit');
+            Route::put('/{id}', [BlogController::class, 'update'])->name('blog.update');
+            Route::delete('/{id}', [BlogController::class, 'destroy'])->name('blog.destroy');
         });
         //slider
         Route::group(['prefix' => 'slider'], function () {
