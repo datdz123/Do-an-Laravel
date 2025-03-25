@@ -16,7 +16,7 @@
     </div>
 
     <div class="container-fluid login-section py-5">
-        <div class="row ">
+        <div class="row">
             <div class="col-lg-6 col-12 px-0">
                 <div class="login-image">
                     <img src="{{ asset('front/img/frame_01.svg') }}" alt="Login Illustration" class="img-fluid">
@@ -40,6 +40,7 @@
                         </li>
                     </ul>
                     <div class="tab-content" id="authTabContent">
+                        <!-- Tab Đăng nhập -->
                         <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
                             <form action="" method="POST">
                                 @csrf
@@ -63,7 +64,7 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-12 form-group d-flex justify-content-between align-items-center">
-                                        <button type="submit" class="btn btn-primary font-weight-bold">ĐĂNG NHẬP</button>
+                                        <button type="submit" class="btn btn-primary font-weight-bold text-white">ĐĂNG NHẬP</button>
                                         <a href="{{ route('forgot-user-password') }}" class="forgot-password">Quên mật khẩu?</a>
                                     </div>
                                     <div class="col-md-12 form-group">
@@ -75,9 +76,57 @@
                             </form>
                         </div>
 
+                        <!-- Tab Đăng ký -->
                         <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
-                            <p>Chuyển hướng đến trang đăng ký...</p>
-                            <a href="{{ route('registerUser') }}" class="btn btn-primary">Đi đến trang Đăng ký</a>
+                            <form action="{{ route('registerUser') }}" method="POST">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-md-12 form-group position-relative">
+                                        <input class="form-control @error('name') is-invalid @enderror" type="text" name="name" placeholder="Họ và tên" value="{{ old('name') }}">
+                                        <i class="fas fa-user position-absolute positon-custom"></i>
+                                        @error('name')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-12 form-group position-relative">
+                                        <input class="form-control @error('phone') is-invalid @enderror" type="text" name="phone" placeholder="0987123456" maxlength="10" value="{{ old('phone') }}">
+                                        <i class="fas fa-phone position-absolute positon-custom"></i>
+                                        @error('phone')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-12 form-group position-relative">
+                                        <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" placeholder="abc@gmail.com" value="{{ old('email') }}">
+                                        <i class="fas fa-envelope position-absolute positon-custom"></i>
+                                        @error('email')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-12 form-group position-relative">
+                                        <input class="form-control @error('password') is-invalid @enderror" name="password" type="password" placeholder="Nhập mật khẩu">
+                                        <i class="fas fa-lock position-absolute positon-custom"></i>
+                                        @error('password')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-12 form-group position-relative">
+                                        <input class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation" type="password" placeholder="Xác nhận mật khẩu">
+                                        <i class="fas fa-lock position-absolute positon-custom"></i>
+                                        @error('password_confirmation')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-12 form-group">
+                                        <button type="submit" class="btn btn-primary btn-block font-weight-bold text-white">TẠO TÀI KHOẢN</button>
+                                    </div>
+                                    <div class="col-md-12 form-group">
+                                        <p class="text-center mb-3">Hoặc đăng nhập bằng</p>
+                                        <a href="#" class="btn btn-google btn-block mb-2"><i class="fab fa-google"></i> ĐĂNG NHẬP BẰNG GOOGLE</a>
+                                        <a href="#" class="btn btn-facebook btn-block"><i class="fab fa-facebook-f"></i> ĐĂNG NHẬP BẰNG FACEBOOK</a>
+                                    </div>
+
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -155,10 +204,12 @@
             width: 853px;
             margin: 0 auto;
             padding: 50px 0;
+
             .login-image {
                 padding-bottom: 20px;
                 text-align: center;
                 background: #EEEEEE;
+
                 img {
                     max-width: 100%;
                     width: 100%;
@@ -193,7 +244,6 @@
                         }
                     }
                 }
-
             }
 
             .login-form-container {
@@ -204,6 +254,7 @@
                 box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
                 width: 100%;
                 transition: transform 0.3s ease;
+
                 .nav-tabs {
                     border-bottom: 2px solid #ddd;
                     margin-bottom: 30px;
@@ -258,6 +309,15 @@
                         }
                     }
 
+                    .position-relative {
+                        i {
+                            right: 5%;
+                            top: 70%;
+                            transform: translateY(-50%);
+                            color: #999;
+                        }
+                    }
+
                     .alert-danger {
                         margin-top: 5px;
                         font-size: 0.9rem;
@@ -273,7 +333,6 @@
                         font-weight: 600;
                         border-radius: 8px;
                         transition: background 0.3s ease, transform 0.3s ease;
-                        width: 200px;
 
                         &:hover {
                             background: #5a78e3;
@@ -281,7 +340,8 @@
                         }
                     }
 
-                    .forgot-password {
+                    .forgot-password,
+                    .register-link {
                         color: #6e8efb;
                         text-decoration: none;
                         font-weight: 500;
@@ -313,6 +373,10 @@
                         &:hover {
                             background: #e63939;
                         }
+                    }
+                    .positon-custom{
+                        top: 35%;
+                        right: 35px;
                     }
 
                     .btn-facebook {
