@@ -23,42 +23,7 @@
 <body>
     <!-- Topbar Start -->
     <div class="container-fluid">
-        <div class="row bg-secondary py-2 px-xl-5">
-            <div class="col-lg-6 d-none d-lg-block">
-                <div class="d-inline-flex align-items-center">
-                    <a class="text-dark" href="">FAQs</a>
-                    <span class="text-muted px-2">|</span>
-                    <a class="text-dark" href="">Help</a>
-                    <span class="text-muted px-2">|</span>
-                    <a class="text-dark" href="">Support</a>
-                </div>
-            </div>
 
-
-            <div class="col-lg-6 text-center text-lg-right">
-                <div class="d-inline-flex align-items-center justify-content-center">
-                    <div>
-                        <input type="checkbox" class="checkbox" id="checkbox">
-                        <label for="checkbox" class="checkbox-label">
-                            <i class="fas fa-moon"></i>
-                            <i class="fas fa-sun"></i>
-                            <span class="ball"></span>
-                        </label>
-                    </div>
-
-                    <a target="_blank" class="text-dark px-2" href="{{$siteSettings['site_link_facebook'] ?? '#'}}">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a target="_blank" class="text-dark px-2" href="{{$siteSettings['site_link_instagram'] ?? '#'}}">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a target="_blank" class="text-dark pl-2" href="{{$siteSettings['site_link_youtube'] ?? '#'}}">
-                        <i class="fab fa-youtube"></i>
-                    </a>
-                </div>
-            </div>
-
-        </div>
         <div class="row align-items-center py-3 px-xl-5">
             <div class="col-lg-3 d-none d-lg-block">
 
@@ -221,6 +186,26 @@
                                             <p class="p-cart count-products">
                                                 0                            </p>
                                         </a>
+                                <div class="d-inline-flex align-items-center justify-content-center">
+                                    <div>
+                                        <input type="checkbox" class="checkbox" id="checkbox">
+                                        <label for="checkbox" class="checkbox-label">
+                                            <i class="fas fa-moon"></i>
+                                            <i class="fas fa-sun"></i>
+                                            <span class="ball"></span>
+                                        </label>
+                                    </div>
+
+                                    <a target="_blank" class="text-dark px-2" href="{{$siteSettings['site_link_facebook'] ?? '#'}}">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                    <a target="_blank" class="text-dark px-2" href="{{$siteSettings['site_link_instagram'] ?? '#'}}">
+                                        <i class="fab fa-instagram"></i>
+                                    </a>
+                                    <a target="_blank" class="text-dark pl-2" href="{{$siteSettings['site_link_youtube'] ?? '#'}}">
+                                        <i class="fab fa-youtube"></i>
+                                    </a>
+                                </div>
                                     </div>
                     </div>
                 </nav>

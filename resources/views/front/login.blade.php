@@ -1,20 +1,6 @@
-<!-- resources/views/front/auth/login.blade.php -->
 @extends('front/layouts/masterlayout')
-
 @section('content')
     @section('title', 'Đăng nhập')
-
-    <div class="container-fluid page-header bg-secondary mb-5">
-        <div class="header-content d-flex flex-column align-items-center justify-content-center">
-            <h1 class="font-weight-semi-bold text-uppercase mb-3">@yield('title')</h1>
-            <div class="breadcrumb d-inline-flex">
-                <p class="m-0"><a href="">Home</a></p>
-                <p class="separator m-0 px-2">-</p>
-                <p class="m-0">@yield('title')</p>
-            </div>
-        </div>
-    </div>
-
     <div class="container-fluid login-section py-5">
         <div class="row">
             <div class="col-lg-6 col-12 px-0">
@@ -50,22 +36,22 @@
                                         {!! $alert::my_alert() !!}
                                     </div>
                                     <div class="col-md-12 form-group">
-                                        <label>Nhập địa chỉ email *</label>
-                                        <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" placeholder="abc@gmail.com" value="{{ old('email') }}">
+                                        <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" placeholder="Nhập địa chỉ email *" value="{{ old('email') }}">
                                         @error('email')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="col-md-12 form-group">
-                                        <label>Mật khẩu *</label>
-                                        <input class="form-control @error('password') is-invalid @enderror" name="password" type="password" placeholder="">
+                                        <input class="form-control @error('password') is-invalid @enderror" name="password" type="password" placeholder="Mật khẩu *">
                                         @error('password')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="col-md-12 form-group d-flex justify-content-between align-items-center">
-                                        <button type="submit" class="btn btn-primary font-weight-bold text-white">ĐĂNG NHẬP</button>
+                                    <div class="col-md-12 form-group d-flex justify-content-end align-items-center">
                                         <a href="{{ route('forgot-user-password') }}" class="forgot-password">Quên mật khẩu?</a>
+                                    </div>
+                                    <div class="col-12 w-100">
+                                    <button type="submit" class="btn btn-primary font-weight-bold text-white w-100 rounded mb-3 py-2">ĐĂNG NHẬP</button>
                                     </div>
                                     <div class="col-md-12 form-group">
                                         <p class="text-center mb-3">Hoặc đăng nhập bằng</p>
@@ -75,8 +61,6 @@
                                 </div>
                             </form>
                         </div>
-
-                        <!-- Tab Đăng ký -->
                         <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
                             <form action="{{ route('registerUser') }}" method="POST">
                                 @csrf
@@ -290,7 +274,6 @@
                     }
 
                     .form-control {
-                        height: 50px;
                         border-radius: 8px;
                         border: 1px solid #ddd;
                         padding: 0 15px;
@@ -328,7 +311,7 @@
                     .btn-primary {
                         background: #6e8efb;
                         border: none;
-                        padding: 12px;
+                        padding: 8px;
                         font-size: 1.1rem;
                         font-weight: 600;
                         border-radius: 8px;
@@ -354,10 +337,10 @@
                     }
 
                     .btn-google {
+                        margin-bottom: 10px !important;
                         background: #ff4d4d;
                         color: #fff;
                         border: none;
-                        padding: 12px;
                         font-size: 1rem;
                         font-weight: 600;
                         border-radius: 8px;
@@ -383,7 +366,6 @@
                         background: #4267b2;
                         color: #fff;
                         border: none;
-                        padding: 12px;
                         font-size: 1rem;
                         font-weight: 600;
                         border-radius: 8px;

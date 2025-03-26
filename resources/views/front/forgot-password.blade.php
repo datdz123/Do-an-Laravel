@@ -32,7 +32,7 @@
                                 <label>Cấp địa chỉ email đăng ký tài khoản</label>
                                 <input class="form-control @error('email') is-invalid @enderror" type="email"
                                        name="email" placeholder="abc@gmail.com" value="{{ old('email') }}">
-                                <i class="fas fa-envelope position-absolute" style="right: 15px; top: 50%; transform: translateY(-50%); color: #999;"></i>
+                                <i class="fas fa-envelope position-absolute" style="right: 35px; top: 70%; transform: translateY(-50%); color: #999;"></i>
                                 @error('email')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
@@ -42,11 +42,7 @@
                                 <button type="submit"
                                         class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Xác nhận</button>
                             </div>
-                            <div class="col-md-12 form-group links">
-                                <a href="{{ route('loginUser') }}">Đăng nhập</a>
-                                <span class="separator">-</span>
-                                <a href="{{ route('registerUser') }}">Đăng ký</a>
-                            </div>
+
                         </div>
                     </form>
                 </div>
