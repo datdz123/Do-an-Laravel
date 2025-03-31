@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Blog;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class BlogController extends Controller
 {
@@ -14,7 +17,8 @@ class BlogController extends Controller
      */
     public function index()
     {
-        return view('admin.blog.index');
+        $blogs = Blog::with('user')->latest()->paginate(10);
+        return view('admin.blog.index', compact('blogs'));
     }
 
     /**
@@ -24,7 +28,7 @@ class BlogController extends Controller
      */
     public function create()
     {
-        // Show the form for creating a new blog post
+        return view('admin.blog.create');
     }
 
     /**
@@ -35,14 +39,26 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        // Validate and store the new blog post
         $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'category' => 'required|string|max:100'
         ]);
 
-        // Code to save the blog post
+        $imagePath = $request->file('image')->store('blogs', 'public');
 
+        Blog::create([
+            'user_id' => auth()->id(),
+            'title' => $request->title,
+            'slug' => Str::slug($request->title),
+            'content' => $request->content,
+            'image' => $imagePath,
+            'category' => $request->category
+        ]);
+
+        return redirect()->route('admin.blog.index')
+            ->with('success', 'Bài viết được tạo thành công!');
     }
 
     /**
@@ -53,8 +69,8 @@ class BlogController extends Controller
      */
     public function show($id)
     {
-        // Display a specific blog post
-        return view('admin.blog.show', compact('id'));
+        $blog = Blog::with('user')->findOrFail($id);
+        return view('admin.blog.show', compact('blog'));
     }
 
     /**
@@ -65,7 +81,8 @@ class BlogController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.blog.edit', compact('id'));
+        $blog = Blog::findOrFail($id);
+        return view('admin.blog.edit', compact('blog'));
     }
 
     /**
@@ -77,14 +94,34 @@ class BlogController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Validate and update the blog post
+        $blog = Blog::findOrFail($id);
+        
         $request->validate([
             'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'category' => 'required|string|max:100'
         ]);
 
-        // Code to update the blog post
+        if ($request->hasFile('image')) {
+            // Xóa ảnh cũ
+            Storage::disk('public')->delete($blog->image);
+            // Lưu ảnh mới
+            $imagePath = $request->file('image')->store('blogs', 'public');
+        } else {
+            $imagePath = $blog->image;
+        }
 
-        return redirect()->route('blog.index')->with('success', 'Blog post updated successfully.');
+        $blog->update([
+            'title' => $request->title,
+            'slug' => Str::slug($request->title),
+            'content' => $request->content,
+            'image' => $imagePath,
+            'category' => $request->category
+        ]);
+
+        return redirect()->route('admin.blog.index')
+            ->with('success', 'Bài viết được cập nhật thành công!');
     }
 
     /**
@@ -95,8 +132,15 @@ class BlogController extends Controller
      */
     public function destroy($id)
     {
-        // Code to delete the blog post
+        $blog = Blog::findOrFail($id);
+        
+        // Xóa ảnh
+        Storage::disk('public')->delete($blog->image);
+        
+        // Xóa bài viết
+        $blog->delete();
 
-        return redirect()->route('blog.index')->with('success', 'Blog post deleted successfully.');
+        return redirect()->route('admin.blog.index')
+            ->with('success', 'Bài viết được xóa thành công!');
     }
 }

@@ -9,11 +9,30 @@ class Blog extends Model
 {
     use HasFactory;
 
-    protected $table = 'blog';
-    protected $primarykey = 'id';
-    protected $quarded = [];
+    protected $table = 'blogs';
+    protected $primaryKey = 'id';
 
-    public function blogComments(){
-        return $this->hasMany(BlogComment::class ,'blog_id','id');
+    protected $fillable = [
+        'user_id',
+        'title',
+        'slug',
+        'image',
+        'category',
+        'content'
+    ];
+
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime'
+    ];
+    
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function blogComments()
+    {
+        return $this->hasMany(BlogComment::class, 'blog_id', 'id');
     }
 }

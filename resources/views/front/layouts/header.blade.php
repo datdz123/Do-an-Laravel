@@ -22,70 +22,68 @@
 
 <body>
     <!-- Topbar Start -->
-    <div class="container-fluid">
+{{--    <div class="container-fluid">--}}
 
-        <div class="row align-items-center py-3 px-xl-5">
-            <div class="col-lg-3 d-none d-lg-block">
+{{--        <div class="row align-items-center py-3 px-xl-5">--}}
+{{--            <div class="col-lg-3 d-none d-lg-block">--}}
 
-            </div>
-            <div class="col-lg-6 col-6 text-left">
-                <form action="{{ route('shop') }}" method="GET">
-                    <div class="input-group">
-                        <input type="text" id="search" name="search_header" class="form-control" placeholder="Tìm kiếm sản phẩm" value="{{ request('search') }}">
-                        <div class="input-group-append">
-                            <button type="submit" class="input-group-text bg-transparent text-primary">
-                                <i class="fa fa-search"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div id="productList"></div>
-                </form>
-            </div>
-            <div class="col-lg-3 col-6 text-right d-flex justify-content-center">
-                {{-- <a href="" class="btn border">
-                    <i class="fas fa-heart text-primary"></i>
-                    <span class="badge">0</span>
-                </a> --}}
+{{--            </div>--}}
+{{--            <div class="col-lg-6 col-6 text-left">--}}
+{{--                <form action="{{ route('shop') }}" method="GET">--}}
+{{--                    <div class="input-group">--}}
+{{--                        <input type="text" id="search" name="search_header" class="form-control" placeholder="Tìm kiếm sản phẩm" value="{{ request('search') }}">--}}
+{{--                        <div class="input-group-append">--}}
+{{--                            <button type="submit" class="input-group-text bg-transparent text-primary">--}}
+{{--                                <i class="fa fa-search"></i>--}}
+{{--                            </button>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div id="productList"></div>--}}
+{{--                </form>--}}
+{{--            </div>--}}
+{{--            <div class="col-lg-3 col-6 text-right d-flex justify-content-center">--}}
+{{--                --}}{{-- <a href="" class="btn border">--}}
+{{--                    <i class="fas fa-heart text-primary"></i>--}}
+{{--                    <span class="badge">0</span>--}}
+{{--                </a> --}}
 
-                <div class="form-group d-flex mr-3">
-                    @if(App::getLocale() === 'vi')
+{{--                <div class="form-group d-flex mr-3">--}}
+{{--                    @if(App::getLocale() === 'vi')--}}
 
-                    <div class="nav-item language">
-                        <a class="nav-link d-flex active" href="{{ route('home', ['locale' => 'vi']) }}">                            <img class="custom-svg" src="{{asset('svgIcon/viActive.svg')}}" alt="VI">
-                        </a>
-                    </div>
-                        <div class="nav-item language ">
-                            <a class="nav-link d-flex " href="{{ route('home', ['locale' => 'en']) }}">
-                                <img class="custom-svg" src="{{ asset('svgIcon/en.svg') }}" alt="Eng">
-                            </a>
-                        </div>
-                     @else
-                        <div class="nav-item language">
-                            <a class="nav-link d-flex " href="{{ route('home', ['locale' => 'vi']) }}">
-                                <img class="custom-svg" src="{{asset('svgIcon/vi.svg')}}" alt="VI">
-                            </a>
-                        </div>
-                    <div class="nav-item language ">
-                        <a class="nav-link d-flex " href="{{ route('home', ['locale' => 'en']) }}">
-                            <img class="custom-svg" src="{{ asset('svgIcon/enActive.svg') }}" alt="Eng">
-                        </a>
-                    </div>
-                    @endif
-                </div>
+{{--                    <div class="nav-item language">--}}
+{{--                        <a class="nav-link d-flex active" href="{{ route('home', ['locale' => 'vi']) }}">                            <img class="custom-svg" src="{{asset('svgIcon/viActive.svg')}}" alt="VI">--}}
+{{--                        </a>--}}
+{{--                    </div>--}}
+{{--                        <div class="nav-item language ">--}}
+{{--                            <a class="nav-link d-flex " href="{{ route('home', ['locale' => 'en']) }}">--}}
+{{--                                <img class="custom-svg" src="{{ asset('svgIcon/en.svg') }}" alt="Eng">--}}
+{{--                            </a>--}}
+{{--                        </div>--}}
+{{--                     @else--}}
+{{--                        <div class="nav-item language">--}}
+{{--                            <a class="nav-link d-flex " href="{{ route('home', ['locale' => 'vi']) }}">--}}
+{{--                                <img class="custom-svg" src="{{asset('svgIcon/vi.svg')}}" alt="VI">--}}
+{{--                            </a>--}}
+{{--                        </div>--}}
+{{--                    <div class="nav-item language ">--}}
+{{--                        <a class="nav-link d-flex " href="{{ route('home', ['locale' => 'en']) }}">--}}
+{{--                            <img class="custom-svg" src="{{ asset('svgIcon/enActive.svg') }}" alt="Eng">--}}
+{{--                        </a>--}}
+{{--                    </div>--}}
+{{--                    @endif--}}
+{{--                </div>--}}
 
-            </div>
-        </div>
-    </div>
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
     <!-- Topbar End -->
 
     <!-- Navbar Start -->
-    <div class="container-fluid ">
+    <div class="w-100 max-w-100 sticky-custom sticky-top bg-light ">
+    <div class="container-fluid  ">
         <div class="row border-top ">
-            <div class="col-lg-3 d-none d-lg-block">
-
-            </div>
-            <div class="col-lg-12 px-0">
-                <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-xl-5">
+            <div class="col-lg-12 px-0 ">
+                <nav class="navbar navbar-expand-lg  navbar-light py-3 py-lg-0 px-xl-5 ">
                  <div class="logo">
                     <a href="{{ route('home') }}" class="text-decoration-none">
                         <h1 class="m-0 display-5 font-weight-semi-bold">
@@ -122,6 +120,16 @@
                             @endif
                         </div>
                         <div class="navbar-nav ml-auto py-0">
+                            <div class="d-inline-flex align-items-center justify-content-center">
+                                <div>
+                                    <input type="checkbox" class="checkbox" id="checkbox">
+                                    <label for="checkbox" class="checkbox-label">
+                                        <i class="fas fa-moon"></i>
+                                        <i class="fas fa-sun"></i>
+                                        <span class="ball"></span>
+                                    </label>
+                                </div>
+                            </div>
                             @if (Auth::check())
                                 <div class="nav-item dropdown">
                                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Hi:
@@ -186,26 +194,7 @@
                                             <p class="p-cart count-products">
                                                 0                            </p>
                                         </a>
-                                <div class="d-inline-flex align-items-center justify-content-center">
-                                    <div>
-                                        <input type="checkbox" class="checkbox" id="checkbox">
-                                        <label for="checkbox" class="checkbox-label">
-                                            <i class="fas fa-moon"></i>
-                                            <i class="fas fa-sun"></i>
-                                            <span class="ball"></span>
-                                        </label>
-                                    </div>
 
-                                    <a target="_blank" class="text-dark px-2" href="{{$siteSettings['site_link_facebook'] ?? '#'}}">
-                                        <i class="fab fa-facebook-f"></i>
-                                    </a>
-                                    <a target="_blank" class="text-dark px-2" href="{{$siteSettings['site_link_instagram'] ?? '#'}}">
-                                        <i class="fab fa-instagram"></i>
-                                    </a>
-                                    <a target="_blank" class="text-dark pl-2" href="{{$siteSettings['site_link_youtube'] ?? '#'}}">
-                                        <i class="fab fa-youtube"></i>
-                                    </a>
-                                </div>
                                     </div>
                     </div>
                 </nav>
@@ -213,6 +202,8 @@
             </div>
         </div>
     </div>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function(){
