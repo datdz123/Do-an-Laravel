@@ -108,13 +108,13 @@ class menuAdminHelper{
                     [
                         'text' => 'Danh sách',
                         'icon' => 'fa fa-list',
-                        'link' => route('blog.index'),
+                        'link' => route('admin.blog.index'),
                         'isActive' => request()->is('admin/blog'),
                     ],
                     [
                         'text' => 'Thêm mới',
                         'icon' => 'fa fa-plus-square',
-                        'link' => route('blog.create'),
+                        'link' => route('admin.blog.create'),
                         'isActive' => request()->is('admin/blog/create'),
                     ],
                 ],

@@ -13,13 +13,22 @@ class Product extends Model
     protected $table = 'products';
     protected $primaryKey = 'id';
     protected $guarded = [];
-
+    protected $fillable = [
+        'name',
+        'slug',
+        'description',
+        'content',
+        'price',
+        'discount',
+        'images',
+        'product_category_id',
+        'status'
+    ];
 
     public function productCategory()
     {
         return $this->belongsTo(ProductCategory::class, 'product_category_id', 'id');
     }
-
 
     public function productComments()
     {
@@ -32,5 +41,10 @@ class Product extends Model
     public function scopeActive($query)
     {
         return $query->where('status', self::STATUS_ACTIVE);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(ProductCategory::class, 'product_category_id', 'id');
     }
 }

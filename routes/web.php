@@ -23,6 +23,7 @@ use App\Http\Controllers\front\OrderUserController;
 use App\Http\Controllers\front\Shop_detailsController;
 use App\Http\Controllers\front\ShopController;
 use App\Http\Controllers\front\UserController;
+use App\Http\Controllers\front\BlogController as FrontBlogController;
 use Illuminate\Support\Facades\Route;
 
 //front
@@ -32,6 +33,10 @@ Route::get('/shop/detail/{id}-{slug}', [Shop_detailsController::class, 'index'])
 Route::post('/shop/detail/{id}-{slug}', [Shop_detailsController::class, 'product_comment']);
 Route::get('/shop/{id}-{slug}', [ShopController::class, 'category'])->name('shop/category');
 Route::get('shop/search', [ShopController::class, 'search'])->name('shop.search');
+
+// Blog routes for frontend
+Route::get('/blog', [FrontBlogController::class, 'index'])->name('blog.index');
+Route::get('/blog/{id}-{slug}', [FrontBlogController::class, 'show'])->name('blog.show');
 
 //đăng nhập & đăng ký
     Route::get('/login', [AuthUserController::class, 'login'])->name('loginUser');

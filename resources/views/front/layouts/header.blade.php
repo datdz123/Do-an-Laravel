@@ -177,7 +177,7 @@
                                             </svg>
                                         </a>
 
-                                        <a href="https://savani.vn/xem-gio-hang.html">
+                                        <a  href="{{ route('cart') }}">
                                             <svg width="35" height="36" viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <circle cx="17.5" cy="18" r="17.5" fill="#EEEEEE"></circle>
                                                 <g clip-path="url(#clip0_99_1743)">
@@ -190,9 +190,9 @@
                                                     </clipPath>
                                                 </defs>
                                             </svg>
-                                            <!-- <span class="span-cart">Giỏ hàng</span> -->
                                             <p class="p-cart count-products">
-                                                0                            </p>
+                                                {{ session('cart') ? count(session('cart')) : 0 }}
+                                            </p>
                                         </a>
 
                                     </div>
@@ -204,22 +204,74 @@
     </div>
     </div>
 
+    <!-- Modal Search -->
+    <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('shop') }}" method="GET" id="searchForm">
+                        <div class="input-group">
+                            <input type="text" id="searchInput" name="search" class="form-control form-control-lg" 
+                                   placeholder="Tìm kiếm sản phẩm..." autocomplete="off">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="searchResults" class="mt-3">
+                        <div class="list-group"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function(){
-            $('#search').on('keyup',function(){
-                var query = $(this).val();
-                $.ajax({
-                    url:"{{ route('shop.search') }}",
-                    type:"GET",
-                    data:{'search':query},
-                    success:function (data) {
-                        $('#productList').html(data);
+            // Mở modal khi click vào icon search
+            $('#search-icon').click(function(){
+                $('#searchModal').modal('show');
+            });
+
+            // Xử lý search realtime
+            let searchTimeout;
+            $('#searchInput').on('keyup', function(){
+                clearTimeout(searchTimeout);
+                const query = $(this).val();
+                
+                // Đợi người dùng ngừng gõ 300ms mới search
+                searchTimeout = setTimeout(function() {
+                    if(query.length > 0) {
+                        $.ajax({
+                            url: "{{ route('shop.search') }}",
+                            type: "GET",
+                            data: {'search': query},
+                            success: function(data) {
+                                $('#searchResults .list-group').html(data);
+                                $('#searchResults').show();
+                            }
+                        });
+                    } else {
+                        $('#searchResults').hide();
                     }
-                })
+                }, 300);
+            });
+
+            // Đóng kết quả search khi click ngoài
+            $(document).on('click', function(e) {
+                if (!$(e.target).closest('#searchResults, #searchInput').length) {
+                    $('#searchResults').hide();
+                }
             });
         });
-
 
         const checkbox = document.getElementById("checkbox");
         const currentTheme = localStorage.getItem('theme');

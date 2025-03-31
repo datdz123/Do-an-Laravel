@@ -1,5 +1,5 @@
 @extends('back/layouts/masterlayout')
-@section('title', 'Danh sách Blog')
+@section('title', 'Danh sách Blog')
 <section class="content">
 @section('content')
 <div class="container-fluid">
@@ -9,7 +9,7 @@
                 <div class="card-header">
                     <h3 class="card-title">Danh sách bài viết</h3>
                 </div>
-                <div class="card-body">
+                <div class="card-body"></div>
                     <div class="mb-3">
                         <a href="{{ route('admin.blog.create') }}" class="btn btn-primary">
                             <i class="fas fa-plus"></i> Thêm bài viết mới
@@ -39,20 +39,26 @@
                             <tr>
                                 <td>{{ $blog->id }}</td>
                                 <td>
-                                    <img src="{{ asset('storage/' . $blog->image) }}" alt="{{ $blog->title }}" style="max-width: 100px;">
+                                    <a href="{{ route('admin.blog.show', ['id' => $blog->id]) }}">
+                                        <img src="{{ asset('storage/' . $blog->image) }}" alt="{{ $blog->title }}" style="height: 100px; width: 100px; object-fit: cover;">
+                                    </a>
                                 </td>
-                                <td>{{ $blog->title }}</td>
+                                <td>
+                                    <a href="{{ route('admin.blog.show', ['id' => $blog->id]) }}" class="text-decoration-none">
+                                        {{ $blog->title }}
+                                    </a>
+                                </td>
                                 <td>{{ $blog->category }}</td>
                                 <td>{{ $blog->user->name }}</td>
                                 <td>{{ $blog->created_at->format('d/m/Y H:i') }}</td>
                                 <td>
-                                    <a href="{{ route('admin.blog.show', $blog->id) }}" class="btn btn-info btn-sm">
+                                    <a href="{{ route('admin.blog.show', ['id' => $blog->id]) }}" class="btn btn-info btn-sm">
                                         <i class="fas fa-eye"></i>
                                     </a>
-                                    <a href="{{ route('admin.blog.edit', $blog->id) }}" class="btn btn-warning btn-sm">
+                                    <a href="{{ route('admin.blog.edit', ['id' => $blog->id]) }}" class="btn btn-warning btn-sm">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                    <a href="{{ route('admin.blog.destroy', $blog->id) }}" class="btn btn-danger btn-sm delete">
+                                    <a href="{{ route('admin.blog.destroy', ['id' => $blog->id]) }}" class="btn btn-danger btn-sm delete">
                                         <i class="fas fa-trash"></i>
                                     </a>
                                 </td>

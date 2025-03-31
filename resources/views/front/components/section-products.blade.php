@@ -32,9 +32,13 @@
                                                     -{{ round(($product->price - $product->discount) / $product->price * 100) }}%
                                                 </div>
                                             @endif
-                                            <img src="{{ explode(',', $product->images)[0] }}" alt="{{ $product->name }}" class="card-img-top" style="height: 300px; object-fit: cover;">
+                                            <a href="{{ route('detail', ['id' => $product->id, 'slug' => $product->slug]) }}">
+                                                <img src="{{ explode(',', $product->images)[0] }}" alt="{{ $product->name }}" class="card-img-top" style="height: 300px; object-fit: cover;">
+                                            </a>
                                             <div class="card-body text-center">
-                                                <h5 class="card-title fs-6">{{ $product->name }}</h5>
+                                                <a href="{{ route('detail', ['id' => $product->id, 'slug' => $product->slug]) }}">
+                                                    <h5 class="card-title fs-6">{{ $product->name }}</h5>
+                                                </a>
                                                 <p class="text-danger fw-bold fs-6 mb-0">
                                                     {{ number_format($product->discount ?: $product->price, 0, '.', '.') }}đ
                                                     @if($product->discount)

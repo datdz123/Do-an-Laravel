@@ -224,24 +224,51 @@ class ShopController extends Controller
 
     public function search(Request $request)
     {
-        if($request->ajax())
-        {
+        if($request->ajax()) {
             $output = "";
-            $products = Product::where('name', 'LIKE', '%' . $request->search . '%')->take(5)->get();
-            if($products->count() > 0)
-            {
+            $products = Product::where('name', 'LIKE', '%' . $request->search . '%')
+                             ->orWhere('description', 'LIKE', '%' . $request->search . '%')
+                             ->with(['productCategory'])
+                             ->take(5)
+                             ->get();
+
+            if($products->count() > 0) {
                 foreach ($products as $product) {
-                    $productUrl = route('detail', ['id' => $product->id, 'slug' => $product->slug]);
-                    $output .= '<li class="list-group-item">';
-                    $output .= '<div class="media align-items-center">';
-                    $output .= '<img src="' . $product->images . '" class="mr-3"  style="width: 60px; height: 60px;">';
-                    $output .= '<div class="media-body">';
-                    $output .= '<a href="' . $productUrl . '">' . $product->name . '</a>';
-                    $output .= '</div></div></li>';
+                    $price = $product->discount ? $product->discount : $product->price;
+                    $formattedPrice = number_format($price, 0, ',', '.') . 'đ';
+
+                    // Xử lý đường dẫn ảnh
+                    $images = explode(',', $product->images);
+                    $firstImage = count($images) > 0 ? trim($images[0]) : 'no-image.jpg';
+
+                    // Loại bỏ domain và storage nếu có
+                    $firstImage = preg_replace('/^(https?:\/\/[^\/]+\/storage\/)+/', '', $firstImage);
+
+                    // Tạo đường dẫn đúngcreate.blade
+                    $imageUrl = asset('storage/' . $firstImage);
+
+                    $output .= '<a href="' . route('detail', ['id' => $product->id, 'slug' => $product->slug]) . '" class="list-group-item list-group-item-action">';
+                    $output .= '<div class="d-flex align-items-center">';
+                    $output .= '<img src="' . $imageUrl . '" alt="' . htmlspecialchars($product->name, ENT_QUOTES, 'UTF-8') . '" class="img-fluid" style="width: 60px; height: 60px; object-fit: cover;">';
+                    $output .= '<div class="ml-3">';
+                    $output .= '<h6 class="mb-1">' . htmlspecialchars($product->name, ENT_QUOTES, 'UTF-8') . '</h6>';
+                    if($product->productCategory) {
+                        $output .= '<small class="text-muted">' . htmlspecialchars($product->productCategory->name, ENT_QUOTES, 'UTF-8') . '</small><br>';
+                    }
+                    $output .= '<span class="text-danger">' . $formattedPrice . '</span>';
+                    if($product->discount) {
+                        $output .= ' <del class="text-muted small">' . number_format($product->price, 0, ',', '.') . 'đ</del>';
+                    }
+                    $output .= '</div></div></a>';
                 }
-                return response($output);
+            } else {
+                $output .= '<div class="list-group-item">Không tìm thấy sản phẩm nào</div>';
             }
+
+            return response($output);
         }
+
+        return redirect()->route('shop', ['search' => $request->search]);
     }
 
 }
