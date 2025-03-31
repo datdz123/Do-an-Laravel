@@ -151,13 +151,13 @@ Route::group(['prefix' => 'admin'], function () {
         });
 
         Route::group(['prefix' => 'blog'], function () {
-            Route::get('/', [BlogController::class, 'index'])->name('blog.index');
-            Route::get('/create', [BlogController::class, 'create'])->name('blog.create');
-            Route::post('/', [BlogController::class, 'store'])->name('blog.store');
-            Route::get('/{id}', [BlogController::class, 'show'])->name('blog.show');
-            Route::get('/{id}/edit', [BlogController::class, 'edit'])->name('blog.edit');
-            Route::put('/{id}', [BlogController::class, 'update'])->name('blog.update');
-            Route::delete('/{id}', [BlogController::class, 'destroy'])->name('blog.destroy');
+            Route::get('/', [BlogController::class, 'index'])->name('admin.blog.index');
+            Route::get('/create', [BlogController::class, 'create'])->name('admin.blog.create');
+            Route::post('/', [BlogController::class, 'store'])->name('admin.blog.store');
+            Route::get('/{id}', [BlogController::class, 'show'])->name('admin.blog.show');
+            Route::get('/{id}/edit', [BlogController::class, 'edit'])->name('admin.blog.edit');
+            Route::put('/{id}', [BlogController::class, 'update'])->name('admin.blog.update');
+            Route::delete('/{id}', [BlogController::class, 'destroy'])->name('admin.blog.destroy');
         });
         //slider
         Route::group(['prefix' => 'slider'], function () {
