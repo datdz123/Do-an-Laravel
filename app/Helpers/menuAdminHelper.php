@@ -31,7 +31,6 @@ class menuAdminHelper{
                         'link' => route('slider/add'),
                         'isActive' => request()->is('admin/slider/add'),
                     ],
-                    // Thêm các mục con khác nếu cần
                 ],
             ],
             [
@@ -52,7 +51,6 @@ class menuAdminHelper{
                         'link' => route('banner.create'),
                         'isActive' => request()->is('admin/banner/create'),
                     ],
-                    // Thêm các mục con khác nếu cần
                 ],
             ],
             [
@@ -73,7 +71,6 @@ class menuAdminHelper{
                         'link' => route('product_categories/add'),
                         'isActive' => request()->is('admin/product_categories/add'),
                     ],
-                    // Thêm các mục con khác nếu cần
                 ],
             ],
             [
@@ -100,7 +97,26 @@ class menuAdminHelper{
                         'link' => route('product.comments'),
                         'isActive' => request()->is('admin/products/comments'),
                     ],
-                    // Thêm các mục con khác nếu cần
+                ],
+            ],
+            [
+                'text' => 'Blog',
+                'icon' => 'fa fa-blog',
+                'link' => '#',
+                'isActive' => request()->is('admin/blog*'),
+                'subItems' => [
+                    [
+                        'text' => 'Danh sách',
+                        'icon' => 'fa fa-list',
+                        'link' => route('admin.blog.index'),
+                        'isActive' => request()->is('admin/blog'),
+                    ],
+                    [
+                        'text' => 'Thêm mới',
+                        'icon' => 'fa fa-plus-square',
+                        'link' => route('admin.blog.create'),
+                        'isActive' => request()->is('admin/blog/create'),
+                    ],
                 ],
             ],
             [
@@ -115,7 +131,6 @@ class menuAdminHelper{
                         'link' => route('order'),
                         'isActive' => request()->is('admin/order'),
                     ],
-                    // Các mục con khác nếu cần
                 ],
             ],
             [
@@ -155,7 +170,6 @@ class menuAdminHelper{
                         'link' => route('member.permissions'),
                         'isActive' => request()->is('admin/member/permissions*'),
                     ],
-                    // Thêm các mục con khác nếu cần
                 ],
             ],
             [

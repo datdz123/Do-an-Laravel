@@ -66,6 +66,7 @@
                 <div class="box-footer">
                     <button type="submit" class="btn btn-primary">Xác nhận</button>
                 </div>
+            </div>
         </form>
     </div>
 </section>

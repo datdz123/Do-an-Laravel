@@ -5,6 +5,7 @@ namespace App\Http\Controllers\front;
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
 use App\Models\Product;
+use App\Models\ProductCategory;
 use App\Models\Slider;
 use Illuminate\Http\Request;
 
@@ -17,10 +18,28 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $products = Product::orderBy('created_at','DESC')->where('status','active' )->limit(8)->get();
+        $rootCategories = ProductCategory::where('parent_id', 0)
+            ->whereIn('slug', ['thoi-trang-nam', 'thoi-trang-nu','do-tre-em'])
+            ->with('allChildren')
+            ->get();
+        $categoriesWithProducts = $rootCategories->map(function ($rootCategory) {
+            $categoryIds = $rootCategory->getAllChildIds();
+            $products = Product::whereIn('product_category_id', $categoryIds)
+                ->with('productCategory')
+                ->active()
+                ->orderBy('created_at', 'DESC')
+                ->limit(6)
+                ->get();
+
+            return [
+                'category' => $rootCategory,
+                'products' => $products,
+            ];
+        });
+
         $slider = Slider::orderBy('created_at','DESC')->get();
         $banner = Banner::orderBy('created_at','DESC')->where('status','active' )->get();
-        return view('front/index', compact('products','slider','banner'));
+        return view('front/index', compact('categoriesWithProducts','slider','banner'));
     }
 
     /**

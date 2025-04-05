@@ -24,7 +24,6 @@
                         @foreach ($cart->items as $key => $item)
                             @php
                                 $product = \App\Models\Product::find($item['product_id']);
-
                                 $image = explode(',', $product->images);
                             @endphp
                             <tr>

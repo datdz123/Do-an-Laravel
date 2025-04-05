@@ -1,7 +1,5 @@
 
-
-    <!-- Footer Start -->
-    <div class="container-fluid bg-secondary text-dark mt-5 pt-5">
+    <div class="container-fluid footer bg-secondary text-dark mt-5 pt-5">
         <div class="row px-xl-5 pt-5">
             <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
                 <a href="" class="text-decoration-none">
@@ -54,7 +52,7 @@
             <div class="col-md-6 px-xl-0">
                 <p class="mb-md-0 text-center text-md-left text-dark">
                     &copy; <a class="text-dark font-weight-semi-bold" href="{{route('home')}}">{{$siteSettings['site_name'] ?? config('app.name')}}</a>. All Rights Reserved. Designed
-                    by Dat
+                    by Quang Đạt
                 </p>
             </div>
             <div class="col-md-6 px-xl-0 text-center text-md-right">
@@ -62,29 +60,29 @@
             </div>
         </div>
     </div>
-    <!-- Footer End -->
 
 
-    <!-- Back to Top -->
     <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
-
     @include('sweetalert::alert')
-
-    <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('front/lib/easing/easing.min.js')}}"></script>
     <script src="{{ asset('front/lib/owlcarousel/owl.carousel.min.js')}}"></script>
-
-    <!-- Contact Javascript File -->
     <script src="{{ asset('front/mail/jqBootstrapValidation.min.js')}}"></script>
     <script src="{{ asset('front/mail/contact.js')}}"></script>
-
-    <!-- Template Javascript -->
     <script src="{{ asset('front/js/main.js')}}"></script>
-
+    <script type="text/javascript">
+        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+        (function(){
+            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+            s1.async=true;
+            s1.src='https://embed.tawk.to/67dd18d09b1c5d190de9b178/1imrqhrke';
+            s1.charset='UTF-8';
+            s1.setAttribute('crossorigin','*');
+            s0.parentNode.insertBefore(s1,s0);
+        })();
+    </script>
     @yield('js')
 
 </body>
-
 </html>

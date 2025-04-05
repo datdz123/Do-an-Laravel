@@ -12,10 +12,7 @@ use Illuminate\Support\Facades\Mail;
 
 class AuthUserController extends Controller
 {
-    public function register()
-    {
-        return view('front/register');
-    }
+
     public function post_register(Request $request)
     {
         $this->validate($request, [

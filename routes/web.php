@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PermissionController;
@@ -22,6 +23,7 @@ use App\Http\Controllers\front\OrderUserController;
 use App\Http\Controllers\front\Shop_detailsController;
 use App\Http\Controllers\front\ShopController;
 use App\Http\Controllers\front\UserController;
+use App\Http\Controllers\front\BlogController as FrontBlogController;
 use Illuminate\Support\Facades\Route;
 
 //front
@@ -31,6 +33,10 @@ Route::get('/shop/detail/{id}-{slug}', [Shop_detailsController::class, 'index'])
 Route::post('/shop/detail/{id}-{slug}', [Shop_detailsController::class, 'product_comment']);
 Route::get('/shop/{id}-{slug}', [ShopController::class, 'category'])->name('shop/category');
 Route::get('shop/search', [ShopController::class, 'search'])->name('shop.search');
+
+// Blog routes for frontend
+Route::get('/blog', [FrontBlogController::class, 'index'])->name('blog.index');
+Route::get('/blog/{id}-{slug}', [FrontBlogController::class, 'show'])->name('blog.show');
 
 //đăng nhập & đăng ký
     Route::get('/login', [AuthUserController::class, 'login'])->name('loginUser');
@@ -147,6 +153,16 @@ Route::group(['prefix' => 'admin'], function () {
             Route::get('/update/{id}', [ProductsController::class, 'update'])->name('product/update')->middleware('role_or_permission:super-admin|product view');
             Route::post('/update/{id}', [ProductsController::class, 'post_update'])->middleware('role_or_permission:super-admin|edit product');
             Route::delete('/delete/{id}', [ProductsController::class, 'delete'])->name('product/delete')->middleware('role_or_permission:super-admin|delete product');
+        });
+
+        Route::group(['prefix' => 'blog'], function () {
+            Route::get('/', [BlogController::class, 'index'])->name('admin.blog.index');
+            Route::get('/create', [BlogController::class, 'create'])->name('admin.blog.create');
+            Route::post('/', [BlogController::class, 'store'])->name('admin.blog.store');
+            Route::get('/{id}', [BlogController::class, 'show'])->name('admin.blog.show');
+            Route::get('/{id}/edit', [BlogController::class, 'edit'])->name('admin.blog.edit');
+            Route::put('/{id}', [BlogController::class, 'update'])->name('admin.blog.update');
+            Route::delete('/{id}', [BlogController::class, 'destroy'])->name('admin.blog.destroy');
         });
         //slider
         Route::group(['prefix' => 'slider'], function () {

@@ -20,7 +20,6 @@ class CartController extends Controller
         $qty = $request->qty;
 
         $pro = Product::where('id', $product_id)->first();
-        // dd($pro);
         if ($pro->qty < $qty) {
             toast('Sản phẩm không đủ hàng!', 'error');
             return back();

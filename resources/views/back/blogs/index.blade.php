@@ -1,49 +1,81 @@
 @extends('back/layouts/masterlayout')
-@section('content')
-@section('title', 'Thương hiệu sản phẩm')
+@section('title', 'Danh sách Blog')
 <section class="content">
-    <div class="box box-primary">
-        <div class="box-header">
-            <h3 class="box-title">@yield('title')</h3>
-            <h3 class="box-title pull-right"> <a class="btn btn-primary" href="{{ route('brands/add') }}">
-                    <i class="fa fa-plus-square"></i> Thêm mới</a>
-            </h3>
+@section('content')
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Danh sách bài viết</h3>
+                </div>
+                <div class="card-body"></div>
+                    <div class="mb-3">
+                        <a href="{{ route('admin.blog.create') }}" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Thêm bài viết mới
+                        </a>
+                    </div>
+
+                    @if(session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Hình ảnh</th>
+                                <th>Tiêu đề</th>
+                                <th>Danh mục</th>
+                                <th>Tác giả</th>
+                                <th>Ngày tạo</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($blogs as $blog)
+                            <tr>
+                                <td>{{ $blog->id }}</td>
+                                <td>
+                                    <a href="{{ route('admin.blog.show', ['id' => $blog->id]) }}">
+                                        <img src="{{ asset('storage/' . $blog->image) }}" alt="{{ $blog->title }}" style="height: 100px; width: 100px; object-fit: cover;">
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="{{ route('admin.blog.show', ['id' => $blog->id]) }}" class="text-decoration-none">
+                                        {{ $blog->title }}
+                                    </a>
+                                </td>
+                                <td>{{ $blog->category }}</td>
+                                <td>{{ $blog->user->name }}</td>
+                                <td>{{ $blog->created_at->format('d/m/Y H:i') }}</td>
+                                <td>
+                                    <a href="{{ route('admin.blog.show', ['id' => $blog->id]) }}" class="btn btn-info btn-sm">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a href="{{ route('admin.blog.edit', ['id' => $blog->id]) }}" class="btn btn-warning btn-sm">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="{{ route('admin.blog.destroy', ['id' => $blog->id]) }}" class="btn btn-danger btn-sm delete">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+
+                    <div class="mt-3">
+                        {{ $blogs->links() }}
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- /.box-header -->
-        <div class="box-body">
-            <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th>Tên danh mục</th>
-                        <th class="pull-right">Thao tác</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($brands as $item)
-                        <tr>
-                            <td>{{ $item->name }}</td>
-                            <td class="pull-right">
-                                <a style="width: 40px" class="btn btn-success "
-                                    href="
-                                {{ route('brands/info', ['id' => $item->id]) }}
-                                "><i
-                                        class="fa fa-eye"></i></a>
-                                <a style="width: 40px" class="btn btn-warning "
-                                    href="
-                                {{ route('brands/update', ['id' => $item->id]) }}"><i
-                                        class="fa fa-pencil-square-o"></i></a>
-                                <a style="width: 40px" class="btn btn-danger  delete" href="
-                                    {{ route('brands/delete', ['id' => $item->id]) }}"><i
-                                        class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-        <!-- /.box-body -->
     </div>
-</section>
+</div>
+@endsection
 
 @section('js')
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -75,7 +107,4 @@
     </script>
 
     @include('sweetalert::alert')
-@endsection
-
-
 @endsection

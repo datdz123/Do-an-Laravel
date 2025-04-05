@@ -2,32 +2,24 @@
 @section('content')
 @section('title', 'Chi tiết sản phẩm')
 @include('front.components.top-bar')
-
-
-
-<!-- Shop Detail Start -->
-<div class="container-fluid py-5">
+<div class="container-fluid pb-5">
     <div class="row px-xl-5">
         <div class="col-lg-5 pb-5">
-            <div id="product-carousel" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner border">
-
-                    @foreach (getMultipleImages($product_detail->images) as $key => $item)
-                        <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-                            <img class="w-100 h-100" src="{{ $item }}" alt="Image">
-                        </div>
+            <div class="product-image-container">
+                @php
+                    $images = getMultipleImages($product_detail->images);
+                    $firstImage = $images[0] ?? url('front/img/default-image.jpg');
+                @endphp
+                <div class="main-image">
+                    <img id="main-image" src="{{ $firstImage }}" alt="Main Image" class="w-100" style="max-height:500px; object-fit: cover;">
+                </div>
+                <div class="thumbnails d-flex flex-wrap mt-3">
+                    @foreach ($images as $key => $item)
+                        <img src="{{ $item }}" alt="Thumbnail {{ $key }}" class="thumbnail {{ $key == 0 ? 'active' : '' }}" style="width: 80px; height: 80px; object-fit: cover; margin: 5px; cursor: pointer;" onclick="changeImage('{{ $item }}', this)">
                     @endforeach
                 </div>
-                <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
-                    <i class="fa fa-2x fa-angle-left text-dark"></i>
-                </a>
-                <a class="carousel-control-next" href="#product-carousel" data-slide="next">
-                    <i class="fa fa-2x fa-angle-right text-dark"></i>
-                </a>
             </div>
         </div>
-
-
         <div class="col-lg-7 pb-5">
             <h3 class="font-weight-semi-bold">{{ $product_detail->name }}</h3>
             <div class="d-flex mb-3">
@@ -140,11 +132,6 @@
                     <h4 class="mb-3">Mô tả sản phẩm</h4>
                     {!! $product_detail->content !!}
                 </div>
-
-
-
-
-
                 <div class="tab-pane fade" id="tab-pane-3">
                     <div class="row">
                         <div class="col-md-6">
@@ -176,7 +163,6 @@
                         @if (Auth::check())
                             <div class="col-md-6">
                                 <h4 class="mb-4">Để lại đánh giá</h4>
-                                {{-- <small>Your email address will not be published. Required fields are marked *</small> --}}
                                 <form method="POST">
                                     @csrf
                                     <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
@@ -221,10 +207,6 @@
         </div>
     </div>
 </div>
-<!-- Shop Detail End -->
-
-
-<!-- Products Start -->
 <div class="container-fluid py-5">
     <div class="text-center mb-4">
         <h2 class="section-title px-5"><span class="px-2">Sản phẩm liên quan</span></h2>
@@ -232,9 +214,6 @@
     <div class="row px-xl-5">
         <div class="col">
             <div class="owl-carousel related-carousel">
-{{-- @php
-    dd($relatedProducts->count());
-@endphp --}}
                 @foreach ($relatedProducts as $item)
                     <div class="card product-item border-0">
                         <div
@@ -266,16 +245,21 @@
         </div>
     </div>
 </div>
-<!-- Products End -->
 
 @section('js')
     <script type="text/javascript">
         function payNow() {
             $('#pay_now').val('true')
         }
-
         function unPayNow() {
             $('#pay_now').val('false')
+        }
+        function changeImage(imageUrl, element) {
+            document.getElementById('main-image').src = imageUrl;
+            document.querySelectorAll('.thumbnail').forEach(thumb => {
+                thumb.classList.remove('active');
+            });
+            element.classList.add('active');
         }
     </script>
 
@@ -347,5 +331,4 @@
         })
     </script>
 @endsection
-
 @endsection
