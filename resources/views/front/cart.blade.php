@@ -1,139 +1,255 @@
 @extends('front/layouts/masterlayout')
 @section('content')
 @section('title', 'Giỏ hàng')
-<!-- Page Header Start -->
+
 @include('front.components.top-bar')
-<!-- Page Header End -->
 
-<!-- Cart Start -->
-<div class="container-fluid">
-    <div class="row px-xl-5">
-        <div class="col-lg-8 table-responsive mb-5">
-            <table class="table table-bordered text-center mb-0">
-                <thead class="bg-secondary text-dark">
-                    <tr>
-                        <th>Sản phẩm</th>
-                        <th>Giá</th>
-                        <th>Số lượng</th>
-                        <th>Tổng</th>
-                        <th>Thao tác</th>
-                    </tr>
-                </thead>
-                <tbody class="align-middle">
-                    @if ($cart->items != [])
-                        @foreach ($cart->items as $key => $item)
-                            @php
-                                $product = \App\Models\Product::find($item['product_id']);
-                                $image = explode(',', $product->images);
-                            @endphp
-                            <tr>
-                                <td class="text-left"><img src="{{ $image[0] }}" alt=""
-                                        style="width: 50px;">
-                                    <a
-                                        href="{{ route('detail', ['id' => $item['product_id'], 'slug' => $product->slug]) }} ">{{ $product->name }}
-                                    </a> <small class="pt-1"> / {{ $item['size'] }}</small>
-                                </td>
-
-                                <td class="align-middle">{{ number_format($item['price'], 0, '.', '.') }} VND</td>
-                                <td class="align-middle">
-                                    <form action="{{ route('cart.update', ['id' => $key]) }}"
-                                        method="GET">
-                                        <div class="input-group quantity mx-auto" style="width: 100px;">
-                                            <div class="input-group-btn">
-                                                <button class="btn btn-sm btn-primary btn-minus">
-                                                    <i class="fa fa-minus"></i>
-                                                </button>
-                                            </div>
-                                            <input name="qty" type="text"
-                                                class="form-control form-control-sm bg-secondary text-center"
-                                                value="{{ $item['qty'] }}">
-                                            <div class="input-group-btn">
-                                                <button class="btn btn-sm btn-primary btn-plus">
-                                                    <i class="fa fa-plus"></i>
-                                                </button>
-                                            </div>
-
-                                        </div>
-                                    </form>
-                                </td>
-                                <td class="align-middle">
-                                    {{ number_format($item['price'] * $item['qty'], 0, '.', '.') }}
-                                    VND </td>
-                                <td class="align-middle">
-
-                                    {{-- <button type="submit" class="btn btn-sm btn-primary">Cập nhật</button> --}}
-
-                                    <a href="{{ route('cart.remove', ['id' => $key]) }}"
-                                        class="btn btn-sm btn-primary"><i class="fa fa-times"></i></a>
-                                </td>
-                            </tr>
-                        @endforeach
-                    @else
-                            <tr>
-                                <td colspan="5">Giỏ hàng của bạn đang rỗng! <a href="{{route('shop')}}">shoping ngay</a></td>
-                            </tr>
-                    @endif
-
-
-                </tbody>
-
-            </table>
-        </div>
-        <div class="col-lg-4">
-
-            <a href="{{ route('cart.clear') }}"
-            class="btn btn-block btn-primary py-3 mb-3 clear {{ $cart->items == [] ? 'disabled' : '' }} ">Xóa hết giỏ hàng
-            </a>
-
-
-            {{-- <a class="btn btn-block btn-primary my-3 py-3">Cập nhật giỏ hàng</a> --}}
-            <div class="card border-secondary mb-5">
-                <div class="card-header bg-secondary border-0">
-                    <h4 class="font-weight-semi-bold m-0">Tóm tắt giỏ hàng</h4>
-                </div>
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mb-4">
+            <div class="card shadow-sm">
                 <div class="card-body">
-                    <div class="d-flex justify-content-between mb-3 pt-1">
-                        <h6 class="font-weight-medium">Tổng tiền</h6>
-                        <h6 class="font-weight-medium">{{ number_format($cart->total_price, 0, '.', '.') }} VND </h6>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <h6 class="font-weight-medium">Vận chuyển</h6>
-                        <h6 class="font-weight-medium"> Miễn Phí vận chuyển</h6>
+                    <div class="table-responsive">
+                        <table class="table table-hover shopping-cart-table">
+                            <thead>
+                                <tr>
+                                    <th class="py-3">Sản phẩm</th>
+                                    <th class="py-3">Giá</th>
+                                    <th class="py-3" width="150">Số lượng</th>
+                                    <th class="py-3">Tổng</th>
+                                    <th class="py-3 text-center" width="100">Xóa</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if ($cart->items != [])
+                                    @foreach ($cart->items as $key => $item)
+                                        @php
+                                            $product = \App\Models\Product::find($item['product_id']);
+                                            $image = explode(',', $product->images);
+                                        @endphp
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <img src="{{ $image[0] }}" alt="{{ $product->name }}" 
+                                                         class="img-fluid rounded" style="width: 80px;">
+                                                    <div class="ml-3">
+                                                        <a href="{{ route('detail', ['id' => $item['product_id'], 'slug' => $product->slug]) }}"
+                                                           class="product-name">{{ $product->name }}</a>
+                                                        <div class="text-muted small mt-1">Size: {{ $item['size'] }}</div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="align-middle">
+                                                <span class="text-primary font-weight-bold">
+                                                    {{ number_format($item['price'], 0, '.', '.') }} VND
+                                                </span>
+                                            </td>
+                                            <td class="align-middle">
+                                                <form action="{{ route('cart.update', ['id' => $key]) }}" method="GET">
+                                                    <div class="quantity-control">
+                                                        <button type="button" class="btn btn-outline-primary btn-sm btn-minus">
+                                                            <i class="fa fa-minus"></i>
+                                                        </button>
+                                                        <input name="qty" type="text" class="form-control form-control-sm text-center qty-input"
+                                                               value="{{ $item['qty'] }}">
+                                                        <button type="button" class="btn btn-outline-primary btn-sm btn-plus">
+                                                            <i class="fa fa-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </td>
+                                            <td class="align-middle">
+                                                <span class="text-primary font-weight-bold">
+                                                    {{ number_format($item['price'] * $item['qty'], 0, '.', '.') }} VND
+                                                </span>
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                <a href="{{ route('cart.remove', ['id' => $key]) }}" 
+                                                   class="btn btn-outline-danger btn-sm remove-item">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <tr>
+                                        <td colspan="5" class="text-center py-4">
+                                            <div class="empty-cart">
+                                                <i class="fa fa-shopping-cart fa-3x text-muted mb-3"></i>
+                                                <h5 class="text-muted">Giỏ hàng của bạn đang trống</h5>
+                                                <a href="{{route('shop')}}" class="btn btn-primary mt-3">
+                                                    <i class="fa fa-shopping-bag mr-2"></i>Mua sắm ngay
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endif
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <div class="card-footer border-secondary bg-transparent">
-                    <div class="d-flex justify-content-between mt-2">
-                        <h5 class="font-weight-bold">Tổng cộng</h5>
-                        <h5 class="font-weight-bold">{{ number_format($cart->total_price, 0, '.', '.') }} VND</h5>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="position-sticky" style="top: 2rem;">
+                @if ($cart->items != [])
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-body">
+                            <a href="{{ route('cart.clear') }}" class="btn btn-outline-danger btn-block clear">
+                                <i class="fa fa-trash mr-2"></i>Xóa giỏ hàng
+                            </a>
+                        </div>
                     </div>
-                    <a href="{{ route('checkout') }}"
-                    class="btn btn-block btn-primary my-3 py-3 {{ $cart->items == [] ? 'disabled' : '' }} ">Thanh toán</a>
+                @endif
+
+                <div class="card shadow-sm">
+                    <div class="card-header bg-white border-bottom-0">
+                        <h5 class="card-title mb-0">Tóm tắt đơn hàng</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between mb-3">
+                            <span>Tạm tính</span>
+                            <span class="text-dark font-weight-bold">{{ number_format($cart->total_price, 0, '.', '.') }} VND</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-3">
+                            <span>Phí vận chuyển</span>
+                            <span class="text-success">Miễn phí</span>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between mb-3">
+                            <span class="font-weight-bold">Tổng cộng</span>
+                            <span class="text-primary font-weight-bold h5 mb-0">
+                                {{ number_format($cart->total_price, 0, '.', '.') }} VND
+                            </span>
+                        </div>
+                        <a href="{{ route('checkout') }}" 
+                           class="btn btn-primary btn-block {{ $cart->items == [] ? 'disabled' : '' }}">
+                            <i class="fa fa-credit-card mr-2"></i>Thanh toán
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- Cart End -->
+
+<style>
+.shopping-cart-table th {
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    color: #6c757d;
+    background-color: #f8f9fa;
+}
+
+.product-name {
+    color: #2b2f4c;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.product-name:hover {
+    color: #D19C97;
+    text-decoration: none;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.quantity-control .form-control {
+    width: 50px;
+    text-align: center;
+    padding: 0.25rem;
+    border-color: #dee2e6;
+}
+
+.quantity-control .btn {
+    padding: 0.25rem 0.5rem;
+}
+
+.empty-cart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 0;
+}
+
+.remove-item {
+    transition: all 0.2s;
+}
+
+.remove-item:hover {
+    background-color: #dc3545;
+    color: white;
+}
+
+.card {
+    border: none;
+    border-radius: 0.5rem;
+}
+
+.card-header {
+    background-color: transparent;
+    padding: 1.5rem;
+}
+
+.btn-outline-danger {
+    transition: all 0.2s;
+}
+
+.btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: white;
+}
+</style>
 
 @section('js')
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        $('.clear').on('click', function(ev) {
-            ev.preventDefault()
-            var self = $(this)
-            Swal.fire({
-                title: 'Xóa',
-                text: "Bạn có chắc muốn xóa hết giỏ hàng không?",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Xóa'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    location.href = self.attr('href')
-                }
-            })
-        })
-    </script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    $('.clear').on('click', function(ev) {
+        ev.preventDefault();
+        var self = $(this);
+        Swal.fire({
+            title: 'Xóa giỏ hàng?',
+            text: "Bạn có chắc muốn xóa tất cả sản phẩm khỏi giỏ hàng?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#dc3545',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Xóa giỏ hàng',
+            cancelButtonText: 'Hủy'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                location.href = self.attr('href');
+            }
+        });
+    });
+
+    // Quantity controls
+    $('.btn-minus').click(function() {
+        var input = $(this).closest('.quantity-control').find('input');
+        var value = parseInt(input.val());
+        if (value > 1) {
+            input.val(value - 1).trigger('change');
+        }
+    });
+
+    $('.btn-plus').click(function() {
+        var input = $(this).closest('.quantity-control').find('input');
+        var value = parseInt(input.val());
+        input.val(value + 1).trigger('change');
+    });
+
+    $('.qty-input').change(function() {
+        $(this).closest('form').submit();
+    });
+</script>
 @endsection
 
 @endsection
