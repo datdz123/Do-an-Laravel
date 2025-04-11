@@ -35,7 +35,14 @@ Route::get('/shop/{id}-{slug}', [ShopController::class, 'category'])->name('shop
 Route::get('shop/search', [ShopController::class, 'search'])->name('shop.search');
 
 // Blog routes for frontend
-Route::get('/blog', [FrontBlogController::class, 'index'])->name('blog.index');
+Route::get('/blog', function () {
+    return view('front.blog');
+})->name('blog');
+
+Route::get('/blog/{id}', function ($id) {
+    return view('front.blog-detail');
+})->name('blog.detail');
+
 Route::get('/blog/{id}-{slug}', [FrontBlogController::class, 'show'])->name('blog.show');
 
 //đăng nhập & đăng ký

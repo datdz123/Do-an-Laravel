@@ -95,6 +95,7 @@
                         <div class="navbar-nav mx-auto py-0">
                             <a href="{{ route('shop') }}"
                                 class="nav-item nav-link {{ request()->is('shop') ? 'active' : '' }}">{{__('Shop')}}</a>
+                          
                             @php
                                 $categories = App\Models\ProductCategory::where('parent_id', 0)->get();
                             @endphp
@@ -111,6 +112,8 @@
                                     </div>
                                 </div>
                             @endforeach
+                            <a href="{{ route('blog') }}"
+                            class="nav-item nav-link {{ request()->is('blog') ? 'active' : '' }}">Blog</a>
 
                             @if (Auth::check())
                             @else

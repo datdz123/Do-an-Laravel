@@ -105,7 +105,208 @@
     </div>
 
     @include('front/components/section-products')
+    
+    <!-- Blog Section Start -->
+    <div class="container-fluid py-5">
+        <div class="text-center mb-5">
+            <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
+                <span class="bg-secondary pr-3">Tin tức & Blog</span>
+            </h2>
+            <p class="text-muted">Cập nhật những xu hướng thời trang mới nhất và bí quyết phối đồ</p>
+        </div>
+        <div class="row">
+            <!-- Blog Post 1 -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="blog-card h-100">
+                    <div class="blog-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
+                             class="img-fluid" alt="Xu hướng thời trang 2023">
+                        <div class="blog-date">
+                            <span class="day">15</span>
+                            <span class="month">Tháng 6</span>
+                        </div>
+                    </div>
+                    <div class="blog-content p-4">
+                        <div class="blog-category">
+                            <a href="#" class="text-primary">Thời trang</a>
+                        </div>
+                        <h5 class="blog-title">
+                            <a href="{{ route('blog.detail', ['id' => 1]) }}">Xu hướng thời trang 2023: Phong cách tối giản và bền vững</a>
+                        </h5>
+                        <p class="blog-excerpt">
+                            Khám phá những xu hướng thời trang nổi bật năm 2023, tập trung vào phong cách tối giản và thời trang bền vững.
+                        </p>
+                        <a href="{{ route('blog.detail', ['id' => 1]) }}" class="btn btn-outline-primary btn-sm">Đọc thêm</a>
+                    </div>
+                </div>
+            </div>
 
+            <!-- Blog Post 2 -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="blog-card h-100">
+                    <div class="blog-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
+                             class="img-fluid" alt="Bí quyết phối đồ">
+                        <div class="blog-date">
+                            <span class="day">22</span>
+                            <span class="month">Tháng 6</span>
+                        </div>
+                    </div>
+                    <div class="blog-content p-4">
+                        <div class="blog-category">
+                            <a href="#" class="text-primary">Phong cách</a>
+                        </div>
+                        <h5 class="blog-title">
+                            <a href="{{ route('blog.detail', ['id' => 2]) }}">Bí quyết phối đồ: Từ cơ bản đến nâng cao</a>
+                        </h5>
+                        <p class="blog-excerpt">
+                            Hướng dẫn chi tiết về cách phối đồ từ những món đồ cơ bản trong tủ quần áo. Từ cách kết hợp màu sắc đến việc chọn phụ kiện phù hợp.
+                        </p>
+                        <a href="{{ route('blog.detail', ['id' => 2]) }}" class="btn btn-outline-primary btn-sm">Đọc thêm</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blog Post 3 -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="blog-card h-100">
+                    <div class="blog-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
+                             class="img-fluid" alt="Chăm sóc quần áo">
+                        <div class="blog-date">
+                            <span class="day">30</span>
+                            <span class="month">Tháng 6</span>
+                        </div>
+                    </div>
+                    <div class="blog-content p-4">
+                        <div class="blog-category">
+                            <a href="#" class="text-primary">Chăm sóc</a>
+                        </div>
+                        <h5 class="blog-title">
+                            <a href="{{ route('blog.detail', ['id' => 3]) }}">Hướng dẫn chăm sóc và bảo quản quần áo đúng cách</a>
+                        </h5>
+                        <p class="blog-excerpt">
+                            Bí quyết giữ quần áo luôn mới và bền đẹp. Từ cách giặt, phơi đến việc bảo quản theo mùa.
+                        </p>
+                        <a href="{{ route('blog.detail', ['id' => 3]) }}" class="btn btn-outline-primary btn-sm">Đọc thêm</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Blog Section End -->
+
+    <style>
+    .blog-card {
+        border: none;
+        border-radius: 10px;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        background: #fff;
+    }
+
+    .blog-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+
+    .blog-image-wrapper {
+        position: relative;
+        overflow: hidden;
+        height: 250px;
+    }
+
+    .blog-image-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .blog-card:hover .blog-image-wrapper img {
+        transform: scale(1.05);
+    }
+
+    .blog-date {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: rgba(209, 156, 151, 0.9);
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        text-align: center;
+        min-width: 60px;
+    }
+
+    .blog-date .day {
+        display: block;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1;
+    }
+
+    .blog-date .month {
+        display: block;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+    }
+
+    .blog-category {
+        margin-bottom: 10px;
+    }
+
+    .blog-category a {
+        font-size: 0.9rem;
+        font-weight: 500;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .blog-category a:hover {
+        color: #D19C97 !important;
+    }
+
+    .blog-title {
+        margin-bottom: 15px;
+    }
+
+    .blog-title a {
+        color: #2b2f4c;
+        text-decoration: none;
+        transition: color 0.3s ease;
+        font-size: 1.2rem;
+        line-height: 1.4;
+    }
+
+    .blog-title a:hover {
+        color: #D19C97;
+    }
+
+    .blog-excerpt {
+        color: #6c757d;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-bottom: 15px;
+    }
+
+    .section-title {
+        position: relative;
+        display: inline-block;
+    }
+
+    .section-title::before {
+        position: absolute;
+        content: "";
+        width: 100%;
+        height: 1px;
+        top: 50%;
+        left: 0;
+        background: #dee2e6;
+        z-index: -1;
+    }
+    </style>
 
 @endsection
 @section('css')
