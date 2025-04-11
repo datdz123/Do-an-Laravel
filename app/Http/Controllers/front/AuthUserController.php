@@ -18,7 +18,7 @@ class AuthUserController extends Controller
         $this->validate($request, [
             'name'  => 'required',
             'email' => 'required | email:rfc | email:strict',
-            'phone' => 'required | numeric',
+            'phone' => 'required | regex:/^0[0-9]{9}$/',
             'password' => 'required|confirmed|min:6',
         ]);
 
@@ -56,7 +56,7 @@ class AuthUserController extends Controller
             'password' => $request->password
         ])) {
             toast('Đăng nhập thành công', 'success');
-            return redirect($request->redirect_uri);
+            return redirect()->route('home');
         } else {
             alert('Đăng nhập thất bại', 'Tài khoản hoặc mật khẩu không chính xác!', 'error');
             return back();
