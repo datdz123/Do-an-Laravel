@@ -28,6 +28,8 @@ use Illuminate\Support\Facades\Route;
 
 //front
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+
 Route::get('shop', [ShopController::class, 'index'])->name('shop');
 Route::get('/shop/detail/{id}-{slug}', [Shop_detailsController::class, 'index'])->name('detail');
 Route::post('/shop/detail/{id}-{slug}', [Shop_detailsController::class, 'product_comment']);
@@ -46,51 +48,52 @@ Route::get('/blog/{id}', function ($id) {
 Route::get('/blog/{id}-{slug}', [FrontBlogController::class, 'show'])->name('blog.show');
 
 //đăng nhập & đăng ký
-    Route::get('/login', [AuthUserController::class, 'login'])->name('loginUser');
-    Route::post('/login', [AuthUserController::class, 'post_login']);
-    Route::get('/register', [AuthUserController::class, 'register'])->name('registerUser');
-    Route::post('/register', [AuthUserController::class, 'post_register']);
-    Route::get('/logout', [AuthUserController::class, 'logout'])->name('logoutUser');
-    Route::get('/forgot-password', [AuthUserController::class, 'forgot_password'])->name('forgot-user-password');
-    Route::post('/forgot-password', [AuthUserController::class, 'post_forgot_password']);
-    Route::get('/reset-user-password', [AuthUserController::class, 'reset_password'])->name('reset-user-password');
-    Route::post('/reset-user-password', [AuthUserController::class, 'post_reset_password']);
+Route::get('/login', [AuthUserController::class, 'login'])->name('loginUser');
+Route::post('/login', [AuthUserController::class, 'post_login']);
+Route::get('/register', [AuthUserController::class, 'register'])->name('registerUser');
+Route::post('/register', [AuthUserController::class, 'post_register']);
+Route::get('/logout', [AuthUserController::class, 'logout'])->name('logoutUser');
+Route::get('/forgot-password', [AuthUserController::class, 'forgot_password'])->name('forgot-user-password');
+Route::post('/forgot-password', [AuthUserController::class, 'post_forgot_password']);
+Route::get('/reset-user-password', [AuthUserController::class, 'reset_password'])->name('reset-user-password');
+Route::post('/reset-user-password', [AuthUserController::class, 'post_reset_password']);
 // Đa ngôn ngữ
+Route::get('lang/{locale}', [HomeController::class, 'changeLanguage'])->name('change-language');
 
 //thông tin cá nhân
-    Route::middleware(['auth'])->group(function () {
-        Route::get('/user-information', [UserController::class, 'index'])->name('user.information');
-        Route::get('/user-information/change-password', [UserController::class, 'get_changePassword'])->name('user.change-password');
-        Route::post('/user-information/change-password', [UserController::class, 'changePassword']);
-        Route::post('/user-information/change-information', [UserController::class, 'changeInformation'])->name('user.information.change-information');
-    });
+Route::middleware(['auth'])->group(function () {
+    Route::get('/user-information', [UserController::class, 'index'])->name('user.information');
+    Route::get('/user-information/change-password', [UserController::class, 'get_changePassword'])->name('user.change-password');
+    Route::post('/user-information/change-password', [UserController::class, 'changePassword']);
+    Route::post('/user-information/change-information', [UserController::class, 'changeInformation'])->name('user.information.change-information');
+});
 //cart
-    Route::group(['prefix' => 'cart', 'middleware' => 'auth'], function () {
-        Route::get('', [CartController::class, 'index'])->name('cart');
-        Route::post('add', [CartController::class, 'add'])->name('cart.add');
-        Route::get('remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
-        Route::get('update/{id}', [CartController::class, 'update'])->name('cart.update');
-        Route::get('clear', [CartController::class, 'clear'])->name('cart.clear');
-    });
+Route::group(['prefix' => 'cart', 'middleware' => 'auth'], function () {
+    Route::get('', [CartController::class, 'index'])->name('cart');
+    Route::post('add', [CartController::class, 'add'])->name('cart.add');
+    Route::get('remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+    Route::get('update/{id}', [CartController::class, 'update'])->name('cart.update');
+    Route::get('clear', [CartController::class, 'clear'])->name('cart.clear');
+});
 
 //checkout
-    Route::group(['prefix' => 'checkout'], function () {
-        Route::get('', [CheckoutController::class, 'index'])->name('checkout');
-        Route::post('', [CheckoutController::class, 'order'])->name('checkout.order');
-        Route::get('momo_payment', [CheckoutController::class, 'momo_payment'])->name('checkout.momo_payment');
-        Route::get('checkout-success', [CheckoutController::class, 'success'])->name('checkout.success');
-        Route::get('checkout-fail', [CheckoutController::class, 'fail'])->name('checkout.fail');
-        Route::get('get-districts/{province_id}', [CheckoutController::class, 'getDistricts']);
-        Route::get('get-wards/{district_id}', [CheckoutController::class, 'getWards']);
-    });
+Route::group(['prefix' => 'checkout'], function () {
+    Route::get('', [CheckoutController::class, 'index'])->name('checkout');
+    Route::post('', [CheckoutController::class, 'order'])->name('checkout.order');
+    Route::get('momo_payment', [CheckoutController::class, 'momo_payment'])->name('checkout.momo_payment');
+    Route::get('checkout-success', [CheckoutController::class, 'success'])->name('checkout.success');
+    Route::get('checkout-fail', [CheckoutController::class, 'fail'])->name('checkout.fail');
+    Route::get('get-districts/{province_id}', [CheckoutController::class, 'getDistricts']);
+    Route::get('get-wards/{district_id}', [CheckoutController::class, 'getWards']);
+});
 //oder
-    Route::get('order/{id}', [OrderUserController::class, 'order'])->name('order.user');
-    Route::get('order-detail/{id}', [OrderUserController::class, 'order_detail'])->name('order.detail.user');
-    Route::put('order-detail', [OrderUserController::class, 'order_cancel'])->name('order.cancel.user');
-    Route::get('check-order', [OrderUserController::class, 'check_order'])->name('check.order'); //kt đơn khi k đăng nhập mua hàng
+Route::get('order/{id}', [OrderUserController::class, 'order'])->name('order.user');
+Route::get('order-detail/{id}', [OrderUserController::class, 'order_detail'])->name('order.detail.user');
+Route::put('order-detail', [OrderUserController::class, 'order_cancel'])->name('order.cancel.user');
+Route::get('check-order', [OrderUserController::class, 'check_order'])->name('check.order'); //kt đơn khi k đăng nhập mua hàng
 
 //contact
-    Route::get('contact', [ContactController::class, 'index'])->name('contact');
+Route::get('contact', [ContactController::class, 'index'])->name('contact');
 //about us
 
 
@@ -114,31 +117,30 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/logout', [AuthController::class, 'log_out'])->name('logout');
 
         //admins
-         Route::middleware(['role:super-admin'])->group(function () {
-        Route::get('/member', [AdminController::class, 'index'])->name('member');
-        Route::get('/member/create', [AdminController::class, 'create'])->name('member.create');
-        Route::put('/member/store', [AdminController::class, 'store'])->name('member.store');
-        Route::get('/member/edit/{id}', [AdminController::class, 'edit'])->name('member.edit');
-        Route::delete('/member/delete/{id}', [AdminController::class, 'destroy'])->name('member.delete');
+        Route::middleware(['role:super-admin'])->group(function () {
+            Route::get('/member', [AdminController::class, 'index'])->name('member');
+            Route::get('/member/create', [AdminController::class, 'create'])->name('member.create');
+            Route::put('/member/store', [AdminController::class, 'store'])->name('member.store');
+            Route::get('/member/edit/{id}', [AdminController::class, 'edit'])->name('member.edit');
+            Route::delete('/member/delete/{id}', [AdminController::class, 'destroy'])->name('member.delete');
 
-        Route::get('/member/assignRole/{id}', [AdminController::class, 'assignRole'])->name('member.assignRole');
-        Route::post('/member/assignRole/{id}', [AdminController::class, 'post_assignRole'])->name('member.post_assignRole');
+            Route::get('/member/assignRole/{id}', [AdminController::class, 'assignRole'])->name('member.assignRole');
+            Route::post('/member/assignRole/{id}', [AdminController::class, 'post_assignRole'])->name('member.post_assignRole');
 
-        Route::get('member/roles', [RoleController::class, 'index'])->name('member.roles');
-        Route::get('/member/roles/create', [RoleController::class, 'create'])->name('member.roles.create');
-        Route::post('/member/roles/create', [RoleController::class, 'store']);
-        Route::get('/member/roles/edit/{id}', [RoleController::class, 'edit'])->name('member.roles.edit');
-        Route::put('/member/roles/update/{id}', [RoleController::class, 'update'])->name('member.roles.update');
-        Route::delete('/member/roles/destroy/{id}', [RoleController::class, 'destroy'])->name('member.roles.destroy');
+            Route::get('member/roles', [RoleController::class, 'index'])->name('member.roles');
+            Route::get('/member/roles/create', [RoleController::class, 'create'])->name('member.roles.create');
+            Route::post('/member/roles/create', [RoleController::class, 'store']);
+            Route::get('/member/roles/edit/{id}', [RoleController::class, 'edit'])->name('member.roles.edit');
+            Route::put('/member/roles/update/{id}', [RoleController::class, 'update'])->name('member.roles.update');
+            Route::delete('/member/roles/destroy/{id}', [RoleController::class, 'destroy'])->name('member.roles.destroy');
 
-        Route::get('/member/permissions', [PermissionController::class, 'index'])->name('member.permissions');
-        Route::get('/member/permissions/create', [PermissionController::class, 'create'])->name('member.permissions.create');
-        Route::post('/member/permissions/create', [PermissionController::class, 'store']);
-        Route::get('/member/permissions/edit/{id}', [PermissionController::class, 'edit'])->name('member.permissions.edit');
-        Route::put('/member/permissions/update/{id}', [PermissionController::class, 'update'])->name('member.permissions.update');
-        Route::delete('/member/permissions/destroy/{id}', [PermissionController::class, 'destroy'])->name('member.permissions.destroy');
-
-         });
+            Route::get('/member/permissions', [PermissionController::class, 'index'])->name('member.permissions');
+            Route::get('/member/permissions/create', [PermissionController::class, 'create'])->name('member.permissions.create');
+            Route::post('/member/permissions/create', [PermissionController::class, 'store']);
+            Route::get('/member/permissions/edit/{id}', [PermissionController::class, 'edit'])->name('member.permissions.edit');
+            Route::put('/member/permissions/update/{id}', [PermissionController::class, 'update'])->name('member.permissions.update');
+            Route::delete('/member/permissions/destroy/{id}', [PermissionController::class, 'destroy'])->name('member.permissions.destroy');
+        });
 
         // product_categories
         Route::group(['prefix' => 'product-categories'], function () {

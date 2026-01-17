@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\SiteSetting;
+use App\Http\Requests\SiteSettingRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Cache;
@@ -18,23 +19,8 @@ class SiteSettingController extends Controller
 
         return view('back.site_setting.index');
     }
-    public function edit(Request $request)
+    public function edit(SiteSettingRequest $request)
     {
-
-        $this->validate($request, [
-            'site_name' => 'nullable | max: 10',
-            'site_title' => 'nullable',
-            // 'site_keywords' => 'nullable',
-            'site_icon' => 'nullable',
-            'site_email' => 'nullable | email',
-            'site_phone' => 'nullable | numeric',
-            'site_address' => 'nullable',
-            'site_link_facebook' => 'nullable',
-            'site_link_youtube' => 'nullable',
-            'site_link_instagram' => 'nullable',
-            'site_description' => 'nullable | max: 500',
-        ]);
-
         $siteSettings = [];
 
         foreach ($request->except('_token') as $key => $value) {

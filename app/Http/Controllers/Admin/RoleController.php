@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RoleRequest;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -41,12 +42,8 @@ class RoleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RoleRequest $request)
     {
-        $this->validate($request, [
-            'name'  => 'required'
-        ]);
-
         try {
             Role::create($request->all());
         } catch (\Throwable $th) {
@@ -86,24 +83,13 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(RoleRequest $request, $id)
     {
-        // dd($request->all());
-        $this->validate($request, [
-            'name'  => 'required'
-        ]);
         $role = Role::findOrFail($id);
         try {
             $role->update(['name' => $request->name]);
 
-            // foreach($request->permission as $item){
-            // $role->revokePermissionTo($request->permission);
-            // }
-
-            // foreach ($request->permission as $item) {
-            // $role->givePermissionTo($item);
-            // }
-            DB::table('role_has_permissions')->where('role_id',$id)->delete();
+            DB::table('role_has_permissions')->where('role_id', $id)->delete();
             $role->syncPermissions($request->permission);
         } catch (\Throwable $th) {
             return back()->with('error', 'Có lỗi xảy ra, vui lòng thử lại sau.');

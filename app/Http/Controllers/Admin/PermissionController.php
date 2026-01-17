@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PermissionRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Permission;
@@ -22,7 +23,7 @@ class PermissionController extends Controller
     public function index()
     {
         $permissions = Permission::all();
-        return view('back.admin.permissions.permissions',compact('permissions'));
+        return view('back.admin.permissions.permissions', compact('permissions'));
     }
 
     /**
@@ -32,12 +33,7 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        // $admin = Admin::findOrFail($id);
-        // $name_roles = $admin->roles->first();
-        // dd($name_roles);
-        // $column_role =
-        // $role = Role::orderBy('id','DESC')->get();
-       return view('back.admin.permissions.create');
+        return view('back.admin.permissions.create');
     }
 
     /**
@@ -46,18 +42,14 @@ class PermissionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PermissionRequest $request)
     {
-        $this->validate($request, [
-            'name'  => 'required'
-        ]);
-
         try {
             Permission::create($request->all());
         } catch (\Throwable $th) {
-            return back()->with('error','Có lỗi xảy ra, vui lòng thử lại sau.');
+            return back()->with('error', 'Có lỗi xảy ra, vui lòng thử lại sau.');
         }
-        return redirect()->route('member.permissions')->with('success','Thêm mới thành công.');
+        return redirect()->route('member.permissions')->with('success', 'Thêm mới thành công.');
     }
 
     /**
@@ -81,7 +73,7 @@ class PermissionController extends Controller
     {
         $role = Role::all();
         $permission = Permission::findOrFail($id);
-        return view('back.admin.permissions.edit',compact('permission','role'));
+        return view('back.admin.permissions.edit', compact('permission', 'role'));
     }
 
     /**
@@ -91,23 +83,19 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PermissionRequest $request, $id)
     {
-        $this->validate($request, [
-            'name'  => 'required'
-        ]);
-            $permission = Permission::findOrFail($id);
+        $permission = Permission::findOrFail($id);
         try {
             $permission->update($request->all());
 
-            DB::table('role_has_permissions')->where('permission_id',$id)->delete();
+            DB::table('role_has_permissions')->where('permission_id', $id)->delete();
 
             $permission->syncRoles($request->roles);
-
         } catch (\Throwable $th) {
-            return back()->with('error','Có lỗi xảy ra, vui lòng thử lại sau.');
+            return back()->with('error', 'Có lỗi xảy ra, vui lòng thử lại sau.');
         }
-        return redirect()->route('member.permissions')->with('success','Cập nhật thành công.');
+        return redirect()->route('member.permissions')->with('success', 'Cập nhật thành công.');
     }
 
     /**
@@ -120,9 +108,9 @@ class PermissionController extends Controller
     {
         try {
             Permission::find($id)->delete();
-         } catch (\Throwable $th) {
-             return back()->with('error','Có lỗi xảy ra, vui lòng thử lại sau.');
-         }
-         return redirect()->route('member.permissions')->with('success','Đã xóa thành công.');
+        } catch (\Throwable $th) {
+            return back()->with('error', 'Có lỗi xảy ra, vui lòng thử lại sau.');
+        }
+        return redirect()->route('member.permissions')->with('success', 'Đã xóa thành công.');
     }
 }

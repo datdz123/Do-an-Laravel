@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AdminStoreRequest;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,7 +19,7 @@ class AdminController extends Controller
 
     public function __construct()
     {
-//         $this->middleware('permission:role-create', ['only' => ['create','store']]);
+        //         $this->middleware('permission:role-create', ['only' => ['create','store']]);
         $this->middleware(['role:super-admin']);
     }
     /**
@@ -72,20 +73,14 @@ class AdminController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AdminStoreRequest $request)
     {
-        $this->validate($request, [
-            'name'  => 'required',
-            'email' => 'required | email:rfc | email:strict',
-            'phone' => 'required | numeric',
-            'password' => 'required|confirmed|min:6',
-            'password_confirmation' => 'required|same:password|min:6'
-
-        ]);
         $password = Hash::make($request->password);
-        $request['password'] = $password;
+        $data = $request->all();
+        $data['password'] = $password;
+
         try {
-            Admin::create($request->all());
+            Admin::create($data);
         } catch (\Throwable $th) {
             return back()->with('error', 'Có lỗi xảy ra, vui lòng thử lại sau.');
         }
@@ -135,7 +130,7 @@ class AdminController extends Controller
     public function destroy($id)
     {
         $admin = Admin::find($id);
-        if(in_array('super-admin',$admin->getRoleNames()->toArray())){
+        if (in_array('super-admin', $admin->getRoleNames()->toArray())) {
             return back()->with('error', 'Không thể xóa thành viên với vai trò super-admin.');
         }
         try {

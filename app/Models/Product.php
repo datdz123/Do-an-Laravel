@@ -22,7 +22,9 @@ class Product extends Model
         'discount',
         'images',
         'product_category_id',
-        'status'
+        'status',
+        'size',
+        'qty'
     ];
 
     public function productCategory()

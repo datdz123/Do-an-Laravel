@@ -1,12 +1,12 @@
 @extends('front/layouts/masterlayout')
 @section('content')
-@section('title', 'Chi tiết đơn hàng')
+@section('title', __('Chi tiết đơn hàng'))
 <!-- Page Header Start -->
 <div class="container-fluid bg-secondary mb-5">
     <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
         <h1 class="font-weight-semi-bold text-uppercase mb-3">@yield('title')</h1>
         <div class="d-inline-flex">
-            <p class="m-0"><a href="">Home</a></p>
+            <p class="m-0"><a href="">{{ __('Home') }}</a></p>
             <p class="m-0 px-2">-</p>
             <p class="m-0">@yield('title')</p>
         </div>
@@ -21,35 +21,34 @@
             <div class="mb-4">
                 <div class="row">
                     <div class="col-lg-6">
-                        <h5 class="box-title">Thông tin đơn hàng</h5>
+                        <h5 class="box-title">{{ __('Thông tin đơn hàng') }}</h5>
                         @switch($order->status)
-                            @case('new')
-                                <div class=" text-primary">Đơn hàng mới</div>
-                            @break
+                        @case('new')
+                        <div class=" text-primary">{{ __('Đơn hàng mới') }}</div>
+                        @break
 
-                            @case('preparing goods')
-                                <div class=" text-primary">Shop đang chuẩn bị hàng</div>
-                            @break
+                        @case('preparing goods')
+                        <div class=" text-primary">{{ __('Shop đang chuẩn bị hàng') }}</div>
+                        @break
 
-                            @case('delivering')
-                                <div class=" text-info">Đang giao hàng</div>
-                            @break
+                        @case('delivering')
+                        <div class=" text-info">{{ __('Đang giao hàng') }}</div>
+                        @break
 
-                            @case('delivered')
-                                <div class=" text-success">Đã giao hàng - hoàn thành</div>
-                            @break
+                        @case('delivered')
+                        <div class=" text-success">{{ __('Đã giao hàng - hoàn thành') }}</div>
+                        @break
 
-                            @case('order has been cancelled')
-                                <div class=" text-danger">Đơn hàng đã hủy</div>
-                            @break
+                        @case('order has been cancelled')
+                        <div class=" text-danger">{{ __('Đơn hàng đã hủy') }}</div>
+                        @break
 
-                            @default
+                        @default
                         @endswitch
                     </div>
                     @auth
                     <div class="col-lg-6 text-right">
-                        <a href="{{ route('order.user', Auth::user()->id) }}" class="btn btn-primary">Danh sách đơn
-                            hàng</a>
+                        <a href="{{ route('order.user', Auth::user()->id) }}" class="btn btn-primary">{{ __('Danh sách đơn hàng') }}</a>
                     </div>
 
                     @endauth
@@ -58,76 +57,77 @@
                 <table id="" class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th>Mã đơn hàng: </th>
+                            <th>{{ __('Mã đơn hàng:') }}</th>
                             <td>{{ $order->id }} </td>
                         </tr>
                         <tr>
-                            <th>Tên khách hàng: </th>
+                            <th>{{ __('Tên khách hàng:') }}</th>
                             <td>{{ $order->name }} </td>
                         </tr>
                         <tr>
-                            <th>Email: </th>
+                            <th>{{ __('Email') }}: </th>
                             <td>{{ $order->email }} </td>
                         </tr>
                         <tr>
-                            <th>Số điện thoại: </th>
+                            <th>{{ __('Số điện thoại:') }}</th>
                             <td>{{ $order->phone }} </td>
                         </tr>
                         <tr>
-                            <th>Địa chỉ: </th>
+                            <th>{{ __('Địa chỉ:') }}</th>
                             <td>{{ $order->street_address }}, {{ $order->ward }}, {{ $order->district }},
-                                {{ $order->provincial }} </td>
+                                {{ $order->provincial }}
+                            </td>
                         </tr>
                         <tr>
-                            <th>Ghi chú: </th>
+                            <th>{{ __('Ghi chú:') }}</th>
                             <td>{{ $order->note }} </td>
                         </tr>
                         <tr>
-                            <th>Phương thức thanh toán: </th>
+                            <th>{{ __('Phương thức thanh toán:') }}</th>
                             <td>
-                                {{ $order->payment_method == 'payment on delivery' ? 'Thanh toán khi nhận hàng' : 'Thanh toán trực tuyến' }}
+                                {{ $order->payment_method == 'payment on delivery' ? __('Thanh toán khi nhận hàng') : __('Thanh toán trực tuyến') }}
 
                             </td>
                         </tr>
                         <tr>
-                            <th>Tình trạng thanh toán: </th>
+                            <th>{{ __('Tình trạng thanh toán:') }}</th>
                             <td>
-                                {{ $order->payment_status == 'paid' ? 'Đã thanh toán' : 'Chưa thanh toán' }}
+                                {{ $order->payment_status == 'paid' ? __('Đã thanh toán') : __('Chưa thanh toán') }}
 
                             </td>
                         </tr>
                         <tr>
-                            <th>Trạng thái đơn hàng: </th>
+                            <th>{{ __('Trạng thái đơn hàng:') }}</th>
                             <td>
 
                                 @switch($order->status)
-                                    @case('new')
-                                        <div>Đơn hàng mới</div>
-                                    @break
+                                @case('new')
+                                <div>{{ __('Đơn hàng mới') }}</div>
+                                @break
 
-                                    @case('preparing goods')
-                                        <div>Chuẩn bị hàng</div>
-                                    @break
+                                @case('preparing goods')
+                                <div>{{ __('Chuẩn bị hàng') }}</div>
+                                @break
 
-                                    @case('delivering')
-                                        <div>Đang giao</div>
-                                    @break
+                                @case('delivering')
+                                <div>{{ __('Đang giao') }}</div>
+                                @break
 
-                                    @case('delivered')
-                                        <div>Đã giao</div>
-                                    @break
+                                @case('delivered')
+                                <div>{{ __('Đã giao') }}</div>
+                                @break
 
-                                    @case('order has been cancelled')
-                                        <div>Đã bị hủy</div>
-                                    @break
+                                @case('order has been cancelled')
+                                <div>{{ __('Đã bị hủy') }}</div>
+                                @break
 
-                                    @default
+                                @default
                                 @endswitch
 
                             </td>
                         </tr>
                         <tr>
-                            <th>Thời gian: </th>
+                            <th>{{ __('Thời gian:') }}</th>
                             <td>{{ $order->created_at->format('H:i:s - d/m/Y') }} </td>
                         </tr>
                     </thead>
@@ -135,58 +135,58 @@
 
                     </tbody>
                 </table>
-                <h5 class="box-title">Danh sách sản phẩm</h5>
+                <h5 class="box-title">{{ __('Danh sách sản phẩm') }}</h5>
                 <table id="" class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Tên sản phẩm</th>
-                            <th>Kích cỡ</th>
-                            <th>Số lượng</th>
-                            <th>Giá</th>
+                            <th>{{ __('Tên sản phẩm') }}</th>
+                            <th>{{ __('Kích cỡ') }}</th>
+                            <th>{{ __('Số lượng') }}</th>
+                            <th>{{ __('Giá') }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         @php
-                            $total = 0;
+                        $total = 0;
                         @endphp
                         @foreach ($order_detail as $stt => $item)
-{{--                            @dd($item);--}}
+                        {{-- @dd($item);--}}
 
-                            @php
-                                $product = \App\Models\Product::find($item['product_id']);
+                        @php
+                        $product = \App\Models\Product::find($item['product_id']);
 
-                                $total += $item->total;
+                        $total += $item->total;
 
-                            @endphp
-                            <tr>
-                                <td>{{ ++$stt }} </td>
-                                <td>{{ $product->name }} </td>
-                                <td>{{ $item->size }} </td>
-                                <td>{{ $item->qty }} </td>
-                                <td>{{ number_format($item->total, 0, '.', '.') }} VND </td>
-                            </tr>
+                        @endphp
+                        <tr>
+                            <td>{{ ++$stt }} </td>
+                            <td>{{ $product->name }} </td>
+                            <td>{{ $item->size }} </td>
+                            <td>{{ $item->qty }} </td>
+                            <td>{{ number_format($item->total, 0, '.', '.') }} VND </td>
+                        </tr>
                         @endforeach
                         <tr>
-                            <td colspan="6">Tổng: {{ number_format($total, 0, '.', '.') }} VND </td>
+                            <td colspan="6">{{ __('Tổng') }}: {{ number_format($total, 0, '.', '.') }} VND </td>
                         </tr>
                     </tbody>
                 </table>
                 @if ($order->status == 'order has been cancelled')
-                    <button class="btn btn-danger" disabled>Đơn hàng đã hủy</button>
+                <button class="btn btn-danger" disabled>{{ __('Đơn hàng đã hủy') }}</button>
                 @elseif($order->status == 'new')
-                    <div class="">
-                        <form method="POST" action="{{ route('order.cancel.user') }}" class="form-horizontal">
-                            @method('PUT')
-                            @csrf
-                            <input type="hidden" name="id" value="{{ $order->id }}">
-                            <button class="btn btn-danger cancel" type="button">Hủy đơn hàng</button>
-                        </form>
-                    </div>
+                <div class="">
+                    <form method="POST" action="{{ route('order.cancel.user') }}" class="form-horizontal">
+                        @method('PUT')
+                        @csrf
+                        <input type="hidden" name="id" value="{{ $order->id }}">
+                        <button class="btn btn-danger cancel" type="button">{{ __('Hủy đơn hàng') }}</button>
+                    </form>
+                </div>
                 @elseif($order->status == 'delivered')
-                <button class="btn btn-primary" disabled>Đơn hàng của bạn đã được giao</button>
+                <button class="btn btn-primary" disabled>{{ __('Đơn hàng của bạn đã được giao') }}</button>
                 @else
-                    <button class="btn btn-primary" disabled>Đơn hàng của bạn đang được giao</button>
+                <button class="btn btn-primary" disabled>{{ __('Đơn hàng của bạn đang được giao') }}</button>
                 @endif
             </div>
         </div>
@@ -194,24 +194,24 @@
 </div>
 <!-- /.box-body -->
 @section('js')
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        $('.cancel').on('click', function(ev) {
-            ev.preventDefault()
-            var self = $(this)
-            Swal.fire({
-                title: 'Thông báo',
-                text: "Bạn có chắc muốn hủy đơn hàng này hay không?",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Đồng ý'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $(this).closest('form').submit()
-                }
-            })
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    $('.cancel').on('click', function(ev) {
+        ev.preventDefault()
+        var self = $(this)
+        Swal.fire({
+            title: '{{ __("Thông báo") }}',
+            text: '{{ __("Bạn có chắc muốn hủy đơn hàng này hay không?") }}',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: '{{ __("Đồng ý") }}'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $(this).closest('form').submit()
+            }
         })
-    </script>
+    })
+</script>
 @endsection
 
 @endsection

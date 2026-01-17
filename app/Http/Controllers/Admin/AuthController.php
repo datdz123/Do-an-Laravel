@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helpers\websiteInformationHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ForgotPasswordRequest;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\ResetPasswordRequest;
 use App\Models\Admin;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -17,54 +20,37 @@ class AuthController extends Controller
     {
         return view('back.auth.login');
     }
-    function post_login(Request $request)
+
+    function post_login(LoginRequest $request)
     {
         $email = $request->input('email');
         $password = $request->input('password');
-
-        $this->validate($request, [
-            'email'     => 'required | email:filter',
-            'password'  => 'required | min:4 | max:30',
-
-        ], [
-            'email.required'    => 'Không được bỏ trống email',
-            'email.email'       => 'Email không đúng định dạng',
-            'password.required' => 'Không được bỏ trống mật khẩu',
-            'password.max'      => 'Mật khẩu không quá 30 kí tự',
-            'password.min'      => 'Mật khẩu không dưới 5 kí tự',
-        ]);
 
         if (Auth::guard('admin')->attempt([
             'email' => $email,
             'password' => $password,
         ], $request->input('remember'))) {
-            // $admin = Admin::where('email', $email)->first();
-            // Auth::login($admin);
-             return redirect('admin');
+            return redirect('admin');
         }
 
-
-
-        Session::flash('error','Đăng nhập thất bại, email hoặc mật khẩu không chính xác!');
+        Session::flash('error', 'Đăng nhập thất bại, email hoặc mật khẩu không chính xác!');
         return back();
     }
-    function log_out(){
+
+    function log_out()
+    {
         Auth::logout();
         return redirect()->route('login');
     }
+
     public function forgot_password()
     {
         return view('back.auth.forgot-password');
     }
-    public function post_forgot_password(Request $request)
+
+    public function post_forgot_password(ForgotPasswordRequest $request)
     {
-
-        $this->validate($request, [
-            'email' => 'required | email',
-        ]);
-
         $email = $request->email;
-
         $checkAdmin = Admin::where('email', $email)->first();
 
         if (!$checkAdmin) {
@@ -81,6 +67,7 @@ class AuthController extends Controller
 
         return back()->with('success', 'Link lấy lại mật khẩu đã gửi vào email của bạn!');
     }
+
     public function reset_password(Request $request)
     {
         $email = $request->email;
@@ -91,12 +78,9 @@ class AuthController extends Controller
         }
         return view('back.auth.reset-password', compact('email', 'code'));
     }
-    public function post_reset_password(Request $request)
+
+    public function post_reset_password(ResetPasswordRequest $request)
     {
-        $this->validate($request, [
-            'password' => 'required|confirmed|min:6',
-            'password_confirmation' => 'required | min:6',
-        ]);
         $email = $request->email;
         $code = $request->code;
         $checkAdmin = Admin::where(['email' => $email, 'code' => $code])->first();
@@ -105,7 +89,7 @@ class AuthController extends Controller
         }
 
         $minutes = Carbon::now()->subMinutes(10);
-        if($checkAdmin->time_code <= $minutes){
+        if ($checkAdmin->time_code <= $minutes) {
             return redirect()->route('forgot-password')->with('error', 'Code đã hết hạn, vui lòng thử lại sau!');
         }
         $checkAdmin->password = bcrypt($request->password);
@@ -120,7 +104,7 @@ class AuthController extends Controller
         $email_from = config('mail')['mailers']['smtp']['username'];
         $email_to   = $user->email;
         $email_name = $user->name;
-        Mail::send('back.send-email.reset-password', compact('email_to', 'email_name', 'name_shop', 'redirect_uri'), function ($message) use ($email_to, $email_name, $name_shop,$email_from) {
+        Mail::send('back.send-email.reset-password', compact('email_to', 'email_name', 'name_shop', 'redirect_uri'), function ($message) use ($email_to, $email_name, $name_shop, $email_from) {
             $message->from($email_from, $name_shop);
             $message->to($email_to, $email_name);
             $message->subject('Đặt lại mật khẩu');

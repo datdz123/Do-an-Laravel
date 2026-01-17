@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductCategoryRequest;
 use App\Models\Product;
 use App\Models\ProductCategory;
-use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class Product_categoriesController extends Controller
@@ -22,16 +22,9 @@ class Product_categoriesController extends Controller
         return view('back/product_categories/add', compact('product_categories'));
     }
 
-    function post_add(Request $request)
+    function post_add(ProductCategoryRequest $request)
     {
-
-        $this->validate($request, [
-            'name'  => 'required',
-
-        ], [
-            'name.required'    => 'Không được bỏ trống tên!',
-        ]);
-        $data=$request->all();
+        $data = $request->all();
         ProductCategory::create($data);
         toast('Thêm mới thành công!', 'success');
         return redirect()->route('product_categories')->with('success', 'Thêm mới thành công.');
@@ -50,18 +43,10 @@ class Product_categoriesController extends Controller
     {
         $product_categories = ProductCategory::where(['parent_id' => '0'])->get();
         $category = ProductCategory::find($id);
-        return view('back/product_categories/update', compact('product_categories','category'));
+        return view('back/product_categories/update', compact('product_categories', 'category'));
     }
-    function post_update(Request $request, $id)
+    function post_update(ProductCategoryRequest $request, $id)
     {
-
-        $this->validate($request, [
-            'name'  => 'required',
-
-        ], [
-            'name.required'    => 'Không được bỏ trống tên!',
-        ]);
-
         ProductCategory::find($id)->update([
             'name' => $request->name,
             'slug' => $request->slug,

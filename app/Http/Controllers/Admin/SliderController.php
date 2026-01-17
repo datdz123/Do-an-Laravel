@@ -4,37 +4,32 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Slider;
+use App\Http\Requests\SliderRequest;
 use Illuminate\Http\Request;
 
 class SliderController extends Controller
 {
-    function index(){
-        $slider=Slider::get();
+    function index()
+    {
+        $slider = Slider::get();
         return view('back/slider/index', compact('slider'));
     }
-    function add(){
+    function add()
+    {
         return view('back/slider/add');
     }
-    function post_add(Request $request)
+    function post_add(SliderRequest $request)
     {
-        $this->validate($request, [
-            'title' => 'nullable|string|max:255',
-            'images' => 'nullable|string',
-            'description' => 'nullable|string',
-        ]);
-        $data=$request->all();
-        $data['title'] = $data['title'] ?? '';
-        $data['description'] = $data['description'] ?? '';
-        Slider::create($data);
+        Slider::create($request->all());
         toast('Thêm mới thành công!', 'success');
-        return redirect()->route('slider')->with('success','Thêm mới thành công.');
+        return redirect()->route('slider')->with('success', 'Thêm mới thành công.');
     }
     function delete($id)
     {
         if (Slider::find($id)->delete()) {
 
             toast('Xóa thành công!', 'warning');
-            return back()->with('success','Đã xóa thành công.');
+            return back()->with('success', 'Đã xóa thành công.');
         };
     }
     function update($id)
@@ -42,19 +37,10 @@ class SliderController extends Controller
         $slider = Slider::find($id);
         return view('back/slider/update', compact('slider'));
     }
-    function post_update(Request $request, $id)
+    function post_update(SliderRequest $request, $id)
     {
-
-        $this->validate($request, [
-            'title' => 'nullable|string|max:255',
-            'images' => 'nullable|string',
-            'description' => 'nullable|string',
-        ]);
-        $data=$request->all();
-        $data['title'] = $data['title'] ?? '';
-        $data['description'] = $data['description'] ?? '';
-        Slider::find($id)->update($data);
+        Slider::find($id)->update($request->all());
         toast('Cập nhật thành công!', 'success');
-        return redirect()->route('slider')->with('success','Cập nhật thành công.');
+        return redirect()->route('slider')->with('success', 'Cập nhật thành công.');
     }
 }

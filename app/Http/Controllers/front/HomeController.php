@@ -19,7 +19,7 @@ class HomeController extends Controller
     public function index()
     {
         $rootCategories = ProductCategory::where('parent_id', 0)
-            ->whereIn('slug', ['thoi-trang-nam', 'thoi-trang-nu','do-tre-em'])
+            ->whereIn('slug', ['thoi-trang-nam', 'thoi-trang-nu', 'do-tre-em'])
             ->with('allChildren')
             ->get();
         $categoriesWithProducts = $rootCategories->map(function ($rootCategory) {
@@ -37,9 +37,9 @@ class HomeController extends Controller
             ];
         });
 
-        $slider = Slider::orderBy('created_at','DESC')->get();
-        $banner = Banner::orderBy('created_at','DESC')->where('status','active' )->get();
-        return view('front/index', compact('categoriesWithProducts','slider','banner'));
+        $slider = Slider::orderBy('created_at', 'DESC')->get();
+        $banner = Banner::orderBy('created_at', 'DESC')->where('status', 'active')->get();
+        return view('front/index', compact('categoriesWithProducts', 'slider', 'banner'));
     }
 
     /**
@@ -106,5 +106,11 @@ class HomeController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function changeLanguage($language)
+    {
+        \Illuminate\Support\Facades\Session::put('locale', $language);
+        return redirect()->back();
     }
 }

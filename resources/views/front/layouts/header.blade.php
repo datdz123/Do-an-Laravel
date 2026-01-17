@@ -16,138 +16,153 @@
     <link href="{{ asset('front/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('front/css/rating.css') }}">
     <link href="{{ asset('front/css/style.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet"></head>
-<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+</head>
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 
 
 <body>
     <!-- Topbar Start -->
-{{--    <div class="container-fluid">--}}
+    {{-- <div class="container-fluid">--}}
 
-{{--        <div class="row align-items-center py-3 px-xl-5">--}}
-{{--            <div class="col-lg-3 d-none d-lg-block">--}}
+    {{-- <div class="row align-items-center py-3 px-xl-5">--}}
+    {{-- <div class="col-lg-3 d-none d-lg-block">--}}
 
-{{--            </div>--}}
-{{--            <div class="col-lg-6 col-6 text-left">--}}
-{{--                <form action="{{ route('shop') }}" method="GET">--}}
-{{--                    <div class="input-group">--}}
-{{--                        <input type="text" id="search" name="search_header" class="form-control" placeholder="Tìm kiếm sản phẩm" value="{{ request('search') }}">--}}
-{{--                        <div class="input-group-append">--}}
-{{--                            <button type="submit" class="input-group-text bg-transparent text-primary">--}}
-{{--                                <i class="fa fa-search"></i>--}}
-{{--                            </button>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <div id="productList"></div>--}}
-{{--                </form>--}}
-{{--            </div>--}}
-{{--            <div class="col-lg-3 col-6 text-right d-flex justify-content-center">--}}
-{{--                --}}{{-- <a href="" class="btn border">--}}
-{{--                    <i class="fas fa-heart text-primary"></i>--}}
-{{--                    <span class="badge">0</span>--}}
-{{--                </a> --}}
+    {{-- </div>--}}
+    {{-- <div class="col-lg-6 col-6 text-left">--}}
+    {{-- <form action="{{ route('shop') }}" method="GET">--}}
+    {{-- <div class="input-group">--}}
+    {{-- <input type="text" id="search" name="search_header" class="form-control" placeholder="Tìm kiếm sản phẩm" value="{{ request('search') }}">--}}
+    {{-- <div class="input-group-append">--}}
+    {{-- <button type="submit" class="input-group-text bg-transparent text-primary">--}}
+    {{-- <i class="fa fa-search"></i>--}}
+    {{-- </button>--}}
+    {{-- </div>--}}
+    {{-- </div>--}}
+    {{-- <div id="productList"></div>--}}
+    {{-- </form>--}}
+    {{-- </div>--}}
+    {{-- <div class="col-lg-3 col-6 text-right d-flex justify-content-center">--}}
+    {{-- --}}{{-- <a href="" class="btn border">--}}
+    {{-- <i class="fas fa-heart text-primary"></i>--}}
+    {{-- <span class="badge">0</span>--}}
+    {{-- </a> --}}
 
-{{--                <div class="form-group d-flex mr-3">--}}
-{{--                    @if(App::getLocale() === 'vi')--}}
+    {{-- <div class="form-group d-flex mr-3">--}}
+    {{-- @if(App::getLocale() === 'vi')--}}
 
-{{--                    <div class="nav-item language">--}}
-{{--                        <a class="nav-link d-flex active" href="{{ route('home', ['locale' => 'vi']) }}">                            <img class="custom-svg" src="{{asset('svgIcon/viActive.svg')}}" alt="VI">--}}
-{{--                        </a>--}}
-{{--                    </div>--}}
-{{--                        <div class="nav-item language ">--}}
-{{--                            <a class="nav-link d-flex " href="{{ route('home', ['locale' => 'en']) }}">--}}
-{{--                                <img class="custom-svg" src="{{ asset('svgIcon/en.svg') }}" alt="Eng">--}}
-{{--                            </a>--}}
-{{--                        </div>--}}
-{{--                     @else--}}
-{{--                        <div class="nav-item language">--}}
-{{--                            <a class="nav-link d-flex " href="{{ route('home', ['locale' => 'vi']) }}">--}}
-{{--                                <img class="custom-svg" src="{{asset('svgIcon/vi.svg')}}" alt="VI">--}}
-{{--                            </a>--}}
-{{--                        </div>--}}
-{{--                    <div class="nav-item language ">--}}
-{{--                        <a class="nav-link d-flex " href="{{ route('home', ['locale' => 'en']) }}">--}}
-{{--                            <img class="custom-svg" src="{{ asset('svgIcon/enActive.svg') }}" alt="Eng">--}}
-{{--                        </a>--}}
-{{--                    </div>--}}
-{{--                    @endif--}}
-{{--                </div>--}}
+    {{-- <div class="nav-item language">--}}
+    {{-- <a class="nav-link d-flex active" href="{{ route('home', ['locale' => 'vi']) }}"> <img class="custom-svg" src="{{asset('svgIcon/viActive.svg')}}" alt="VI">--}}
+    {{-- </a>--}}
+    {{-- </div>--}}
+    {{-- <div class="nav-item language ">--}}
+    {{-- <a class="nav-link d-flex " href="{{ route('home', ['locale' => 'en']) }}">--}}
+    {{-- <img class="custom-svg" src="{{ asset('svgIcon/en.svg') }}" alt="Eng">--}}
+    {{-- </a>--}}
+    {{-- </div>--}}
+    {{-- @else--}}
+    {{-- <div class="nav-item language">--}}
+    {{-- <a class="nav-link d-flex " href="{{ route('home', ['locale' => 'vi']) }}">--}}
+    {{-- <img class="custom-svg" src="{{asset('svgIcon/vi.svg')}}" alt="VI">--}}
+    {{-- </a>--}}
+    {{-- </div>--}}
+    {{-- <div class="nav-item language ">--}}
+    {{-- <a class="nav-link d-flex " href="{{ route('home', ['locale' => 'en']) }}">--}}
+    {{-- <img class="custom-svg" src="{{ asset('svgIcon/enActive.svg') }}" alt="Eng">--}}
+    {{-- </a>--}}
+    {{-- </div>--}}
+    {{-- @endif--}}
+    {{-- </div>--}}
 
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
+    {{-- </div>--}}
+    {{-- </div>--}}
+    {{-- </div>--}}
     <!-- Topbar End -->
 
     <!-- Navbar Start -->
     <div class="w-100 max-w-100 sticky-custom sticky-top bg-light ">
-    <div class="container-fluid  ">
-        <div class="row border-top ">
-            <div class="col-lg-12 px-0 ">
-                <nav class="navbar navbar-expand-lg  navbar-light py-3 py-lg-0 px-xl-5 ">
-                 <div class="logo">
-                    <a href="{{ route('home') }}" class="text-decoration-none">
-                        <h1 class="m-0 display-5 font-weight-semi-bold">
-                            <img src="{{asset("/front/img/Logo.png")}}" alt="Logo" class="custom-logo">
-                        </h1>
-                    </a>
-                 </div>
-                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                        <div class="navbar-nav mx-auto py-0">
-                            <a href="{{ route('shop') }}"
-                                class="nav-item nav-link {{ request()->is('shop') ? 'active' : '' }}">{{__('Shop')}}</a>
-                          
-                            @php
+        <div class="container-fluid  ">
+            <div class="row border-top ">
+                <div class="col-lg-12 px-0 ">
+                    <nav class="navbar navbar-expand-lg  navbar-light py-3 py-lg-0 px-xl-5 ">
+                        <div class="logo">
+                            <a href="{{ route('home') }}" class="text-decoration-none">
+                                <h1 class="m-0 display-5 font-weight-semi-bold">
+                                    <img src="{{asset("/front/img/Logo.png")}}" alt="Logo" class="custom-logo">
+                                </h1>
+                            </a>
+                        </div>
+                        <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                            <div class="navbar-nav mx-auto py-0">
+                                <a href="{{ route('shop') }}"
+                                    class="nav-item nav-link {{ request()->is('shop') ? 'active' : '' }}">{{__('Shop')}}</a>
+
+                                @php
                                 $categories = App\Models\ProductCategory::where('parent_id', 0)->get();
-                            @endphp
-                            @foreach ($categories as $item)
+                                @endphp
+                                @foreach ($categories as $item)
                                 <div class="nav-item dropdown">
                                     <a href="#"
                                         class="nav-link dropdown-toggle {{ request()->is('shop/' . $item->id . '-' . $item->slug . '') ? 'active' : '' }}"
-                                        data-toggle="dropdown">{{ $item->name }}</a>
+                                        data-toggle="dropdown">{{ __($item->name) }}</a>
                                     <div class="dropdown-menu rounded-0 m-0">
                                         @foreach ($item->children as $child)
-                                            <a href="{{ route('shop/category', ['id' => $child->id, 'slug' => $child->slug]) }} "
-                                                class="dropdown-item">{{ $child->name }}</a>
+                                        <a href="{{ route('shop/category', ['id' => $child->id, 'slug' => $child->slug]) }} "
+                                            class="dropdown-item">{{ __($child->name) }}</a>
                                         @endforeach
                                     </div>
                                 </div>
-                            @endforeach
-                            <a href="{{ route('blog') }}"
-                            class="nav-item nav-link {{ request()->is('blog') ? 'active' : '' }}">Blog</a>
+                                @endforeach
+                                <a href="{{ route('blog') }}"
+                                    class="nav-item nav-link {{ request()->is('blog') ? 'active' : '' }}">{{ __('Blog') }}</a>
 
-                            @if (Auth::check())
-                            @else
+                                @if (Auth::check())
+                                @else
                                 <a href="{{ route('check.order') }}"
-                                    class="nav-item nav-link w-100  {{ request()->is('check-order') ? 'active' : '' }}">Đơn
-                                    hàng</a>
-                            @endif
-                        </div>
-                        <div class="navbar-nav ml-auto py-0">
-                            <div class="d-inline-flex align-items-center justify-content-center">
-                                <div>
-                                    <input type="checkbox" class="checkbox" id="checkbox">
-                                    <label for="checkbox" class="checkbox-label">
-                                        <i class="fas fa-moon"></i>
-                                        <i class="fas fa-sun"></i>
-                                        <span class="ball"></span>
-                                    </label>
-                                </div>
+                                    class="nav-item nav-link w-100  {{ request()->is('check-order') ? 'active' : '' }}">{{ __('Đơn hàng') }}</a>
+                                @endif
                             </div>
-                            @if (Auth::check())
+                            <div class="navbar-nav ml-auto py-0">
+                                <div class="nav-item dropdown mr-2">
+                                    <a href="#" class="nav-link dropdown-toggle d-flex align-items-center" data-toggle="dropdown">
+                                        @if(App::getLocale() == 'vi')
+                                        <img class="custom-svg" src="{{ asset('svgIcon/viActive.svg') }}" alt="VN" style="width: 25px;">
+                                        @else
+                                        <img class="custom-svg" src="{{ asset('svgIcon/enActive.svg') }}" alt="EN" style="width: 25px;">
+                                        @endif
+                                    </a>
+                                    <div class="dropdown-menu rounded-0 m-0" style="min-width: 100px;">
+                                        <a href="{{ route('change-language', ['locale' => 'vi']) }}" class="dropdown-item d-flex align-items-center {{ App::getLocale() == 'vi' ? 'active' : '' }}">
+                                            <img src="{{ asset(App::getLocale() == 'vi' ? 'svgIcon/viActive.svg' : 'svgIcon/vi.svg') }}" alt="VN" style="width: 20px; margin-right: 8px;"> VN
+                                        </a>
+                                        <a href="{{ route('change-language', ['locale' => 'en']) }}" class="dropdown-item d-flex align-items-center {{ App::getLocale() == 'en' ? 'active' : '' }}">
+                                            <img src="{{ asset(App::getLocale() == 'en' ? 'svgIcon/enActive.svg' : 'svgIcon/en.svg') }}" alt="EN" style="width: 20px; margin-right: 8px;"> EN
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="d-inline-flex align-items-center justify-content-center">
+                                    <div>
+                                        <input type="checkbox" class="checkbox" id="checkbox">
+                                        <label for="checkbox" class="checkbox-label">
+                                            <i class="fas fa-moon"></i>
+                                            <i class="fas fa-sun"></i>
+                                            <span class="ball"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                @if (Auth::check())
                                 <div class="nav-item dropdown">
                                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Hi:
                                         {{ Auth::user()->name }}</a>
                                     <div class="dropdown-menu rounded-0 m-0">
-                                        <a href="{{ route('user.information') }}" class="dropdown-item">Thông tin cá
-                                            nhân</a>
-                                        <a href="{{ route('user.change-password') }}" class="dropdown-item">Đổi mật
-                                            khẩu</a>
+                                        <a href="{{ route('user.information') }}" class="dropdown-item">{{ __('Thông tin cá nhân') }}</a>
+                                        <a href="{{ route('user.change-password') }}" class="dropdown-item">{{ __('Đổi mật khẩu') }}</a>
                                         <a href="{{ route('order.user', ['id' => Auth::user()->id]) }}"
-                                            class="dropdown-item">Đơn hàng của tôi</a>
+                                            class="dropdown-item">{{ __('Đơn hàng của tôi') }}</a>
                                         <a href="{{ route('logoutUser') }}" class="dropdown-item">{{ __('Đăng xuất') }}</a>
                                     </div>
                                 </div>
-                            @else
+                                @else
                                 <div class="li_log">
                                     <a href="{{ route('loginUser') }}?redirect_uri={{ url()->full() }}">
                                         <svg width="35" height="36" viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -164,47 +179,47 @@
                                         </svg>
                                     </a>
                                 </div>
-                            @endif
-                                        <a id="search-icon" href="javascript:void(0)" class="search">
-                                            <svg width="35" height="36" viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <circle cx="17.5" cy="18" r="17.5" fill="#EEEEEE"></circle>
-                                                <g clip-path="url(#clip0_281_10108)">
-                                                    <rect width="22" height="22" transform="translate(7 7)" fill="white" fill-opacity="0.01"></rect>
-                                                    <path d="M27.7626 26.4126L21.3861 20.036C22.3756 18.7568 22.9109 17.1927 22.9109 15.5476C22.9109 13.5784 22.1423 11.732 20.7526 10.3398C19.3629 8.94764 17.5115 8.18156 15.5448 8.18156C13.578 8.18156 11.7267 8.95009 10.337 10.3398C8.94478 11.7296 8.17871 13.5784 8.17871 15.5476C8.17871 17.5144 8.94724 19.3657 10.337 20.7554C11.7267 22.1476 13.5756 22.9137 15.5448 22.9137C17.1899 22.9137 18.7515 22.3784 20.0307 21.3914L26.4073 27.7655C26.426 27.7842 26.4482 27.799 26.4726 27.8092C26.4971 27.8193 26.5232 27.8245 26.5497 27.8245C26.5761 27.8245 26.6023 27.8193 26.6268 27.8092C26.6512 27.799 26.6734 27.7842 26.6921 27.7655L27.7626 26.6974C27.7813 26.6787 27.7962 26.6565 27.8063 26.6321C27.8164 26.6076 27.8217 26.5815 27.8217 26.555C27.8217 26.5286 27.8164 26.5024 27.8063 26.4779C27.7962 26.4535 27.7813 26.4313 27.7626 26.4126ZM19.4341 19.4369C18.393 20.4755 17.0131 21.0476 15.5448 21.0476C14.0765 21.0476 12.6966 20.4755 11.6555 19.4369C10.6169 18.3959 10.0448 17.0159 10.0448 15.5476C10.0448 14.0793 10.6169 12.697 11.6555 11.6584C12.6966 10.6197 14.0765 10.0476 15.5448 10.0476C17.0131 10.0476 18.3955 10.6173 19.4341 11.6584C20.4727 12.6994 21.0448 14.0793 21.0448 15.5476C21.0448 17.0159 20.4727 18.3983 19.4341 19.4369Z" fill="#010506"></path>
-                                                </g>
-                                                <defs>
-                                                    <clipPath id="clip0_281_10108">
-                                                        <rect width="22" height="22" fill="white" transform="translate(7 7)"></rect>
-                                                    </clipPath>
-                                                </defs>
-                                            </svg>
-                                        </a>
+                                @endif
+                                <a id="search-icon" href="javascript:void(0)" class="search">
+                                    <svg width="35" height="36" viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="17.5" cy="18" r="17.5" fill="#EEEEEE"></circle>
+                                        <g clip-path="url(#clip0_281_10108)">
+                                            <rect width="22" height="22" transform="translate(7 7)" fill="white" fill-opacity="0.01"></rect>
+                                            <path d="M27.7626 26.4126L21.3861 20.036C22.3756 18.7568 22.9109 17.1927 22.9109 15.5476C22.9109 13.5784 22.1423 11.732 20.7526 10.3398C19.3629 8.94764 17.5115 8.18156 15.5448 8.18156C13.578 8.18156 11.7267 8.95009 10.337 10.3398C8.94478 11.7296 8.17871 13.5784 8.17871 15.5476C8.17871 17.5144 8.94724 19.3657 10.337 20.7554C11.7267 22.1476 13.5756 22.9137 15.5448 22.9137C17.1899 22.9137 18.7515 22.3784 20.0307 21.3914L26.4073 27.7655C26.426 27.7842 26.4482 27.799 26.4726 27.8092C26.4971 27.8193 26.5232 27.8245 26.5497 27.8245C26.5761 27.8245 26.6023 27.8193 26.6268 27.8092C26.6512 27.799 26.6734 27.7842 26.6921 27.7655L27.7626 26.6974C27.7813 26.6787 27.7962 26.6565 27.8063 26.6321C27.8164 26.6076 27.8217 26.5815 27.8217 26.555C27.8217 26.5286 27.8164 26.5024 27.8063 26.4779C27.7962 26.4535 27.7813 26.4313 27.7626 26.4126ZM19.4341 19.4369C18.393 20.4755 17.0131 21.0476 15.5448 21.0476C14.0765 21.0476 12.6966 20.4755 11.6555 19.4369C10.6169 18.3959 10.0448 17.0159 10.0448 15.5476C10.0448 14.0793 10.6169 12.697 11.6555 11.6584C12.6966 10.6197 14.0765 10.0476 15.5448 10.0476C17.0131 10.0476 18.3955 10.6173 19.4341 11.6584C20.4727 12.6994 21.0448 14.0793 21.0448 15.5476C21.0448 17.0159 20.4727 18.3983 19.4341 19.4369Z" fill="#010506"></path>
+                                        </g>
+                                        <defs>
+                                            <clipPath id="clip0_281_10108">
+                                                <rect width="22" height="22" fill="white" transform="translate(7 7)"></rect>
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
+                                </a>
 
-                                        <a  href="{{ route('cart') }}">
-                                            <svg width="35" height="36" viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <circle cx="17.5" cy="18" r="17.5" fill="#EEEEEE"></circle>
-                                                <g clip-path="url(#clip0_99_1743)">
-                                                    <rect width="22" height="22" transform="translate(7 7)" fill="white" fill-opacity="0.01"></rect>
-                                                    <path d="M12.0417 27.1667C11.6751 27.1667 11.3542 27.0292 11.0792 26.7542C10.8042 26.4792 10.6667 26.1583 10.6667 25.7917V13.875C10.6667 13.5083 10.8042 13.1875 11.0792 12.9125C11.3542 12.6375 11.6751 12.5 12.0417 12.5H14.5626V12.2708C14.5626 11.3083 14.8949 10.4948 15.5595 9.83021C16.224 9.16563 17.0376 8.83334 18.0001 8.83334C18.9626 8.83334 19.7761 9.16563 20.4407 9.83021C21.1053 10.4948 21.4376 11.3083 21.4376 12.2708V12.5H23.9584C24.3251 12.5 24.6459 12.6375 24.9209 12.9125C25.1959 13.1875 25.3334 13.5083 25.3334 13.875V25.7917C25.3334 26.1583 25.1959 26.4792 24.9209 26.7542C24.6459 27.0292 24.3251 27.1667 23.9584 27.1667H12.0417ZM12.0417 25.7917H23.9584V13.875H21.4376V15.9375C21.4376 16.1323 21.3713 16.2956 21.2388 16.4273C21.1062 16.5591 20.942 16.625 20.7461 16.625C20.5501 16.625 20.3872 16.5591 20.2574 16.4273C20.1275 16.2956 20.0626 16.1323 20.0626 15.9375V13.875H15.9376V15.9375C15.9376 16.1323 15.8713 16.2956 15.7388 16.4273C15.6062 16.5591 15.442 16.625 15.2461 16.625C15.0501 16.625 14.8872 16.5591 14.7574 16.4273C14.6275 16.2956 14.5626 16.1323 14.5626 15.9375V13.875H12.0417V25.7917ZM15.9376 12.5H20.0626V12.2708C20.0626 11.6903 19.864 11.2014 19.4667 10.8042C19.0695 10.4069 18.5806 10.2083 18.0001 10.2083C17.4195 10.2083 16.9306 10.4069 16.5334 10.8042C16.1362 11.2014 15.9376 11.6903 15.9376 12.2708V12.5Z" fill="#010506"></path>
-                                                </g>
-                                                <defs>
-                                                    <clipPath id="clip0_99_1743">
-                                                        <rect width="22" height="22" fill="white" transform="translate(7 7)"></rect>
-                                                    </clipPath>
-                                                </defs>
-                                            </svg>
-                                            <p class="p-cart count-products">
-                                                {{ session('cart') ? count(session('cart')) : 0 }}
-                                            </p>
-                                        </a>
+                                <a href="{{ route('cart') }}">
+                                    <svg width="35" height="36" viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="17.5" cy="18" r="17.5" fill="#EEEEEE"></circle>
+                                        <g clip-path="url(#clip0_99_1743)">
+                                            <rect width="22" height="22" transform="translate(7 7)" fill="white" fill-opacity="0.01"></rect>
+                                            <path d="M12.0417 27.1667C11.6751 27.1667 11.3542 27.0292 11.0792 26.7542C10.8042 26.4792 10.6667 26.1583 10.6667 25.7917V13.875C10.6667 13.5083 10.8042 13.1875 11.0792 12.9125C11.3542 12.6375 11.6751 12.5 12.0417 12.5H14.5626V12.2708C14.5626 11.3083 14.8949 10.4948 15.5595 9.83021C16.224 9.16563 17.0376 8.83334 18.0001 8.83334C18.9626 8.83334 19.7761 9.16563 20.4407 9.83021C21.1053 10.4948 21.4376 11.3083 21.4376 12.2708V12.5H23.9584C24.3251 12.5 24.6459 12.6375 24.9209 12.9125C25.1959 13.1875 25.3334 13.5083 25.3334 13.875V25.7917C25.3334 26.1583 25.1959 26.4792 24.9209 26.7542C24.6459 27.0292 24.3251 27.1667 23.9584 27.1667H12.0417ZM12.0417 25.7917H23.9584V13.875H21.4376V15.9375C21.4376 16.1323 21.3713 16.2956 21.2388 16.4273C21.1062 16.5591 20.942 16.625 20.7461 16.625C20.5501 16.625 20.3872 16.5591 20.2574 16.4273C20.1275 16.2956 20.0626 16.1323 20.0626 15.9375V13.875H15.9376V15.9375C15.9376 16.1323 15.8713 16.2956 15.7388 16.4273C15.6062 16.5591 15.442 16.625 15.2461 16.625C15.0501 16.625 14.8872 16.5591 14.7574 16.4273C14.6275 16.2956 14.5626 16.1323 14.5626 15.9375V13.875H12.0417V25.7917ZM15.9376 12.5H20.0626V12.2708C20.0626 11.6903 19.864 11.2014 19.4667 10.8042C19.0695 10.4069 18.5806 10.2083 18.0001 10.2083C17.4195 10.2083 16.9306 10.4069 16.5334 10.8042C16.1362 11.2014 15.9376 11.6903 15.9376 12.2708V12.5Z" fill="#010506"></path>
+                                        </g>
+                                        <defs>
+                                            <clipPath id="clip0_99_1743">
+                                                <rect width="22" height="22" fill="white" transform="translate(7 7)"></rect>
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
+                                    <p class="p-cart count-products">
+                                        {{ session('cart') ? count(session('cart')) : 0 }}
+                                    </p>
+                                </a>
 
-                                    </div>
-                    </div>
-                </nav>
+                            </div>
+                        </div>
+                    </nav>
 
+                </div>
             </div>
         </div>
-    </div>
     </div>
 
     <!-- Modal Search -->
@@ -219,8 +234,8 @@
                 <div class="modal-body">
                     <form action="{{ route('shop') }}" method="GET" id="searchForm">
                         <div class="input-group">
-                            <input type="text" id="searchInput" name="search" class="form-control form-control-lg" 
-                                   placeholder="Tìm kiếm sản phẩm..." autocomplete="off">
+                            <input type="text" id="searchInput" name="search" class="form-control form-control-lg"
+                                placeholder="Tìm kiếm sản phẩm..." autocomplete="off">
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fa fa-search"></i>
@@ -238,25 +253,27 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function(){
+        $(document).ready(function() {
             // Mở modal khi click vào icon search
-            $('#search-icon').click(function(){
+            $('#search-icon').click(function() {
                 $('#searchModal').modal('show');
             });
 
             // Xử lý search realtime
             let searchTimeout;
-            $('#searchInput').on('keyup', function(){
+            $('#searchInput').on('keyup', function() {
                 clearTimeout(searchTimeout);
                 const query = $(this).val();
-                
+
                 // Đợi người dùng ngừng gõ 300ms mới search
                 searchTimeout = setTimeout(function() {
-                    if(query.length > 0) {
+                    if (query.length > 0) {
                         $.ajax({
                             url: "{{ route('shop.search') }}",
                             type: "GET",
-                            data: {'search': query},
+                            data: {
+                                'search': query
+                            },
                             success: function(data) {
                                 $('#searchResults .list-group').html(data);
                                 $('#searchResults').show();
