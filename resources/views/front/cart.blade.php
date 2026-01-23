@@ -231,24 +231,56 @@
         });
     });
 
-    // Quantity controls
-    $('.btn-minus').click(function() {
-        var input = $(this).closest('.quantity-control').find('input');
-        var value = parseInt(input.val());
+    // Quantity controls - Fixed to prevent duplicate submissions
+    var isSubmitting = false;
+
+    $(document).on('click', '.btn-minus', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (isSubmitting) return;
+
+        var $control = $(this).closest('.quantity-control');
+        var $input = $control.find('input');
+        var value = parseInt($input.val()) || 1;
+
         if (value > 1) {
-            input.val(value - 1).trigger('change');
+            $input.val(value - 1);
+            submitForm($input);
         }
     });
 
-    $('.btn-plus').click(function() {
-        var input = $(this).closest('.quantity-control').find('input');
-        var value = parseInt(input.val());
-        input.val(value + 1).trigger('change');
+    $(document).on('click', '.btn-plus', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (isSubmitting) return;
+
+        var $control = $(this).closest('.quantity-control');
+        var $input = $control.find('input');
+        var value = parseInt($input.val()) || 1;
+
+        $input.val(value + 1);
+        submitForm($input);
     });
 
-    $('.qty-input').change(function() {
-        $(this).closest('form').submit();
+    // Manual input change - only submit when user manually changes value
+    $(document).on('blur', '.qty-input', function() {
+        var value = parseInt($(this).val()) || 1;
+        if (value < 1) {
+            $(this).val(1);
+            value = 1;
+        }
+        submitForm($(this));
     });
+
+    function submitForm($input) {
+        if (isSubmitting) return;
+        isSubmitting = true;
+
+        var $form = $input.closest('form');
+        $form.submit();
+    }
 </script>
 @endsection
 
