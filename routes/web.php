@@ -220,6 +220,4 @@ Route::group(['prefix' => 'admin'], function () {
         });
     });
 });
-Route::group(['prefix' => 'laravel-filemanager'], function () {
-    \UniSharp\LaravelFilemanager\Lfm::routes();
-});
+// Laravel Filemanager routes are automatically registered via package config (use_package_routes => true)
