@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Laravel\Socialite\Facades\Socialite;
 
 class AuthUserController extends Controller
 {
@@ -140,5 +141,55 @@ class AuthUserController extends Controller
             $message->to($email_to, $email_name);
             $message->subject('Đặt lại mật khẩu');
         });
+    }
+
+    /**
+     * Redirect to Google OAuth
+     */
+    public function redirectToGoogle()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    /**
+     * Handle Google OAuth callback
+     */
+    public function handleGoogleCallback()
+    {
+        try {
+            $googleUser = Socialite::driver('google')->user();
+
+            // Tìm user theo google_id hoặc email
+            $user = User::where('google_id', $googleUser->id)
+                ->orWhere('email', $googleUser->email)
+                ->first();
+
+            if ($user) {
+                // Cập nhật google_id nếu user đã tồn tại nhưng chưa có google_id
+                if (!$user->google_id) {
+                    $user->google_id = $googleUser->id;
+                    $user->avatar = $googleUser->avatar;
+                    $user->save();
+                }
+            } else {
+                // Tạo user mới
+                $user = User::create([
+                    'name' => $googleUser->name,
+                    'email' => $googleUser->email,
+                    'google_id' => $googleUser->id,
+                    'avatar' => $googleUser->avatar,
+                    'password' => null, // Password null vì đăng nhập bằng Google
+                ]);
+            }
+
+            // Đăng nhập user
+            Auth::login($user);
+
+            toast('Đăng nhập bằng Google thành công!', 'success');
+            return redirect()->route('home');
+        } catch (\Exception $e) {
+            alert('Đăng nhập thất bại', 'Có lỗi xảy ra khi đăng nhập bằng Google. Vui lòng thử lại!', 'error');
+            return redirect()->route('loginUser');
+        }
     }
 }

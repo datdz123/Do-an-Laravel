@@ -57,6 +57,11 @@ Route::get('/forgot-password', [AuthUserController::class, 'forgot_password'])->
 Route::post('/forgot-password', [AuthUserController::class, 'post_forgot_password']);
 Route::get('/reset-user-password', [AuthUserController::class, 'reset_password'])->name('reset-user-password');
 Route::post('/reset-user-password', [AuthUserController::class, 'post_reset_password']);
+
+// Google OAuth routes
+Route::get('/auth/google', [AuthUserController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('/auth/google/callback', [AuthUserController::class, 'handleGoogleCallback'])->name('auth.google.callback');
+
 // Đa ngôn ngữ
 Route::get('lang/{locale}', [HomeController::class, 'changeLanguage'])->name('change-language');
 

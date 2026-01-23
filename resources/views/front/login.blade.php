@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="col-md-12 form-group">
                                     <p class="text-center mb-3">{{ __('Hoặc đăng nhập bằng') }}</p>
-                                    <a href="#" class="btn btn-google btn-block mb-2"><i class="fab fa-google"></i> {{ __('ĐĂNG NHẬP BẰNG GOOGLE') }}</a>
+                                    <a href="{{ route('auth.google') }}" class="btn btn-google btn-block mb-2"><i class="fab fa-google"></i> {{ __('ĐĂNG NHẬP BẰNG GOOGLE') }}</a>
                                     <a href="#" class="btn btn-facebook btn-block"><i class="fab fa-facebook-f"></i> {{ __('ĐĂNG NHẬP BẰNG FACEBOOK') }}</a>
                                 </div>
                             </div>
@@ -105,8 +105,8 @@
                                 </div>
                                 <div class="col-md-12 form-group">
                                     <p class="text-center mb-3">{{ __('Hoặc đăng nhập bằng') }}</p>
-                                    <a href="#" class="btn btn-google btn-block mb-2"><i class="fab fa-google"></i> {{ __('ĐĂNG NHẬP BẰNG GOOGLE') }}</a>
-                                    <a href="#" class="btn btn-facebook btn-block"><i class="fab fa-facebook-f"></i> {{ __('ĐĂNG NHẬP BẰNG FACEBOOK') }}</a>
+                                    <a href="{{ route('auth.google') }}" class="btn btn-google btn-block mb-2"><i class="fab fa-google"></i> {{ __('ĐĂNG NHẬP BẰNG GOOGLE') }}</a>
+                                    <!-- <a href="#" class="btn btn-facebook btn-block"><i class="fab fa-facebook-f"></i> {{ __('ĐĂNG NHẬP BẰNG FACEBOOK') }}</a> -->
                                 </div>
 
                             </div>
