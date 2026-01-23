@@ -5,6 +5,8 @@ namespace App\Http\Controllers\front;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductComment;
+use App\Models\UserBehavior;
+use App\Services\RecommendationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -12,9 +14,19 @@ use Illuminate\Support\Facades\Validator;
 
 class Shop_detailsController extends Controller
 {
+    protected $recommendationService;
+
+    public function __construct(RecommendationService $recommendationService)
+    {
+        $this->recommendationService = $recommendationService;
+    }
+
     function index($id)
     {
         $product_detail = Product::findOrFail($id);
+
+        // Track hành vi xem sản phẩm
+        UserBehavior::trackBehavior($id, UserBehavior::ACTION_VIEW);
 
         $productComments = ProductComment::where('product_id', $id)->orderBy('created_at', 'DESC')->get();
 
@@ -26,18 +38,29 @@ class Shop_detailsController extends Controller
             $avgRating = $sumRating / $countRating;
         }
 
-        // dd($avgRating);
-
         //sản phẩm liên quan
         $relatedProducts = Product::where('product_category_id', $product_detail->product_category_id)
             ->whereNotIn('id', [$product_detail->id])
             ->limit(5)
             ->distinct()
             ->get();
-        // dd($relatedProducts->count());
 
-        return view('front/detail', compact('product_detail', 'relatedProducts', 'productComments', 'avgRating'));
+        // AI Recommendations - Gợi ý sản phẩm bằng Collaborative Filtering
+        $recommendations = $this->recommendationService->getRecommendations($id, 8);
+
+        // Người khác cũng mua
+        $alsoBought = $this->recommendationService->getAlsoBoughtProducts($id, 4);
+
+        return view('front/detail', compact(
+            'product_detail',
+            'relatedProducts',
+            'productComments',
+            'avgRating',
+            'recommendations',
+            'alsoBought'
+        ));
     }
+
     function product_comment(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -46,6 +69,14 @@ class Shop_detailsController extends Controller
         ]);
         if ($validator->passes()) {
             ProductComment::create($request->all());
+
+            // Track hành vi đánh giá sản phẩm
+            UserBehavior::trackBehavior(
+                $request->product_id,
+                UserBehavior::ACTION_RATING,
+                $request->rating // Score = rating value
+            );
+
             $comments = ProductComment::where('product_id', $request->product_id)->orderBy('created_at', 'DESC')->get();
 
             $outPut = '';

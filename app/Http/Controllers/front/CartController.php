@@ -5,6 +5,7 @@ namespace App\Http\Controllers\front;
 use App\Helpers\cartHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\UserBehavior;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -26,6 +27,9 @@ class CartController extends Controller
         }
 
         $cart->add($product_id, $size, $qty);
+
+        // Track hành vi thêm vào giỏ hàng
+        UserBehavior::trackBehavior($product_id, UserBehavior::ACTION_CART);
 
         if ($request->pay_now == 'true') {
             return redirect()->route('cart');

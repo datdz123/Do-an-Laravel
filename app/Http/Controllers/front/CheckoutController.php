@@ -11,7 +11,9 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\Province;
 use App\Models\SiteSetting;
+use App\Models\UserBehavior;
 use App\Models\Ward;
+use App\Services\RecommendationService;
 use App\Utilities\VNPay;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -65,15 +67,14 @@ class CheckoutController extends Controller
             'payment_status' => $payment_status,
             'status' => $status,
 
-        ]))
-        {
+        ])) {
 
 
             //9704 0000 0000 0018
             //NGUYEN VAN A
             //03/07
             // OTP
-             (['order_id' => $order->id]);
+            (['order_id' => $order->id]);
             $main_total = 0; // tổng tiền đơn hàng
             $order_id = $order->id;
             foreach ($cart->items as $item) {
@@ -95,7 +96,14 @@ class CheckoutController extends Controller
             ]);
 
             if ($request->payment_method == 'payment on delivery') { // thanh toán trực tiếp
-//                $this->sendEmail($order);
+                //                $this->sendEmail($order);
+                // Track hành vi mua hàng cho từng sản phẩm
+                foreach ($cart->items as $item) {
+                    UserBehavior::trackBehavior($item['product_id'], UserBehavior::ACTION_PURCHASE);
+                }
+                // Clear recommendation cache
+                RecommendationService::clearUserCache(auth()->id());
+
                 session(['cart' => '']);
                 return redirect()->route('checkout.success');
             }
@@ -108,7 +116,6 @@ class CheckoutController extends Controller
             alert('Thất bại', 'Đã có lỗi trong quá trình đặt hàng!', 'error');
             return back();
         }
-
     }
 
     public function getDistricts($province_id)
@@ -122,15 +129,19 @@ class CheckoutController extends Controller
         $wards = Ward::where('district_id', $district_id)->get();
         return response()->json($wards);
     }
-   public function execPostRequest($url, $data)
+    public function execPostRequest($url, $data)
     {
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+        curl_setopt(
+            $ch,
+            CURLOPT_HTTPHEADER,
+            array(
                 'Content-Type: application/json',
-                'Content-Length: ' . strlen($data))
+                'Content-Length: ' . strlen($data)
+            )
         );
         curl_setopt($ch, CURLOPT_TIMEOUT, 5);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
@@ -140,7 +151,7 @@ class CheckoutController extends Controller
         curl_close($ch);
         return $result;
     }
-    public function momo_payment(Request $request,cartHelper $cart)
+    public function momo_payment(Request $request, cartHelper $cart)
     {
         $endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
         $partnerCode = 'MOMOBKUN20180529';
@@ -153,26 +164,28 @@ class CheckoutController extends Controller
         $ipnUrl = "http://127.0.0.1:8000/checkout";
         $extraData = "";
 
-            $requestId = time() . "";
-            $requestType = "payWithATM";
-            //before sign HMAC SHA256 signature
-            $rawHash = "accessKey=" . $accessKey . "&amount=" . $amount . "&extraData=" . $extraData . "&ipnUrl=" . $ipnUrl . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&partnerCode=" . $partnerCode . "&redirectUrl=" . $redirectUrl . "&requestId=" . $requestId . "&requestType=" . $requestType;
-            $signature = hash_hmac("sha256", $rawHash, $secretKey);
+        $requestId = time() . "";
+        $requestType = "payWithATM";
+        //before sign HMAC SHA256 signature
+        $rawHash = "accessKey=" . $accessKey . "&amount=" . $amount . "&extraData=" . $extraData . "&ipnUrl=" . $ipnUrl . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&partnerCode=" . $partnerCode . "&redirectUrl=" . $redirectUrl . "&requestId=" . $requestId . "&requestType=" . $requestType;
+        $signature = hash_hmac("sha256", $rawHash, $secretKey);
 
-            $data = array('partnerCode' => $partnerCode,
-                'partnerName' => "Test",
-                "storeId" => "MomoTestStore",
-                'requestId' => $requestId,
-                'amount' => $amount,
-                'orderId' => $orderId,
-                'orderInfo' => $orderInfo,
-                'redirectUrl' => $redirectUrl,
-                'ipnUrl' => $ipnUrl,
-                'lang' => 'vi',
-                'extraData' => $extraData,
-                'requestType' => $requestType,
-                'signature' => $signature);
-            $result = $this->execPostRequest($endpoint, json_encode($data));
+        $data = array(
+            'partnerCode' => $partnerCode,
+            'partnerName' => "Test",
+            "storeId" => "MomoTestStore",
+            'requestId' => $requestId,
+            'amount' => $amount,
+            'orderId' => $orderId,
+            'orderInfo' => $orderInfo,
+            'redirectUrl' => $redirectUrl,
+            'ipnUrl' => $ipnUrl,
+            'lang' => 'vi',
+            'extraData' => $extraData,
+            'requestType' => $requestType,
+            'signature' => $signature
+        );
+        $result = $this->execPostRequest($endpoint, json_encode($data));
 
         $jsonResult = json_decode($result, true);  // decode json
 
@@ -185,8 +198,7 @@ class CheckoutController extends Controller
             }
             session(['cart' => []]);
         }
-            return redirect($jsonResult['payUrl']);
-
+        return redirect($jsonResult['payUrl']);
     }
 
 
@@ -201,10 +213,19 @@ class CheckoutController extends Controller
         //kiểm tra kết quả giao dịch
         if ($vnp_ResponseCode != null) { //thành công
             if ($vnp_ResponseCode == 00) {
-//                $this->sendEmail($order);
+                //                $this->sendEmail($order);
                 $order->update([
                     'payment_status' => 'paid'
                 ]);
+
+                // Track hành vi mua hàng
+                $orderDetails = OrderDetail::where('order_id', $vnp_TxnRef)->get();
+                foreach ($orderDetails as $detail) {
+                    UserBehavior::trackBehavior($detail->product_id, UserBehavior::ACTION_PURCHASE);
+                }
+                // Clear recommendation cache
+                RecommendationService::clearUserCache(auth()->id());
+
                 session(['cart' => '']);
                 return redirect()->route('checkout.success');
             } else { // thất bại
@@ -220,12 +241,13 @@ class CheckoutController extends Controller
     }
 
     public function sendEmail($order)
-    {   $siteSettings = app('view')->getShared()['siteSettings'];
+    {
+        $siteSettings = app('view')->getShared()['siteSettings'];
         $name_shop = $siteSettings['site_name'];
         $email_from = config('mail')['mailers']['smtp']['username'];
         $email_to   = $order->email;
         $email_name = $order->name;
-        Mail::send('front.email.send-email', compact('order', 'email_name', 'name_shop'), function ($message) use ($email_to, $email_name, $name_shop,$email_from) {
+        Mail::send('front.email.send-email', compact('order', 'email_name', 'name_shop'), function ($message) use ($email_to, $email_name, $name_shop, $email_from) {
             $message->from($email_from, $name_shop);
             $message->to($email_to, $email_name);
             $message->subject('Thông báo đặt hàng thành công');

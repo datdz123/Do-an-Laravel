@@ -243,6 +243,9 @@
     </div>
 </div>
 
+{{-- AI Recommendations Component --}}
+@include('front.components.ai-recommendations', ['recommendations' => $recommendations, 'alsoBought' => $alsoBought])
+
 @section('js')
 <script type="text/javascript">
     function payNow() {
